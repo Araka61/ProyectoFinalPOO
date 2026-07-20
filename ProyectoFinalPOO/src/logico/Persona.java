@@ -14,14 +14,14 @@ public abstract class Persona {
 	protected float salarioMin;
 	protected float salarioMax;
 	protected boolean tieneLicencia;
-	protected String sexo;
+	protected char sexo;
 	protected boolean disMudar;
 	protected String ciudad;
 	protected int annosExperiencia;
 	
 	public Persona(String id, String cedula, String nombre, String telefono, String correo, boolean empleado,
 			ArrayList<Solicitud> solicitudes, String tiempoDisponible, float salarioMin, float salarioMax,
-			boolean tieneLicencia, String sexo, boolean disMudar, String ciudad, int annosExperiencia) {
+			boolean tieneLicencia, char sexo, boolean disMudar, String ciudad, int annosExperiencia) {
 		super();
 		this.id = id;
 		this.cedula = cedula;
@@ -120,11 +120,11 @@ public abstract class Persona {
 		this.tieneLicencia = tieneLicencia;
 	}
 
-	public String getSexo() {
+	public char getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(char sexo) {
 		this.sexo = sexo;
 	}
 

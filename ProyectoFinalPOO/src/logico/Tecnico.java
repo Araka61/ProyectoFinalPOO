@@ -9,7 +9,7 @@ public class Tecnico extends Persona {
 	
 	public Tecnico(String id, String cedula, String nombre, String telefono, String correo, boolean empleado,
 			ArrayList<Solicitud> solicitudes, String tiempoDisponible, float salarioMin, float salarioMax,
-			boolean tieneLicencia, String sexo, boolean disMudar, String ciudad, int annosExperiencia, String instituto,
+			boolean tieneLicencia, char sexo, boolean disMudar, String ciudad, int annosExperiencia, String instituto,
 			String diplomaTecnico, String especialidad) {
 		super(id, cedula, nombre, telefono, correo, empleado, solicitudes, tiempoDisponible, salarioMin, salarioMax,
 				tieneLicencia, sexo, disMudar, ciudad, annosExperiencia);
