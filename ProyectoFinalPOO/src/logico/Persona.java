@@ -1,5 +1,6 @@
 package logico;
 
 public class Persona {
-	//hola
+	protected String id;
+	protected boolean empleado;
 }
