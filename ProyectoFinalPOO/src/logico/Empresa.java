@@ -49,9 +49,25 @@ public class Empresa {
 	public String getTipo() {
 		return tipo;
 	}
-
+	
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	
+	public ArrayList<Oferta> getLasOfertas() {
+		return lasOfertas;
+	}
+
+	public void publicarOferta(Oferta nueva) {
+		lasOfertas.add(nueva);
+	}
+
+	public boolean eliminarOferta(Oferta eliminar) {
+		return lasOfertas.remove(eliminar);
+	}
+
+	public int cantidadOfertas() {
+		return lasOfertas.size();
 	}
 
 }
