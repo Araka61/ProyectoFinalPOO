@@ -9,7 +9,7 @@ public class BolsaEmpleo {
 	private ArrayList<Oferta> lasOfertas;
 	private ArrayList<Solicitud> lasSolicitudes;
  
-	private static Controladora controladora = null;
+	private static BolsaEmpleo controlador= null;
  
 	public static int generadorIdPersona = 1;
 	public static int generadorIdEmpresa = 1;
@@ -23,10 +23,10 @@ public class BolsaEmpleo {
 		lasSolicitudes = new ArrayList<>();
 	}
  
-	public static Controladora getInstancia() {
-		if (controladora == null)
-			controladora = new Controladora();
-		return controladora;
+	public static BolsaEmpleo getInstancia() {
+		if (controlador == null)
+			controlador = new BolsaEmpleo();
+		return controlador;
 	}
  
 	public ArrayList<Persona> getLasPersonas() {
