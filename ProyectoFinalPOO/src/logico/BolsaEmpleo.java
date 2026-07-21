@@ -80,7 +80,7 @@ public class BolsaEmpleo {
 			}
 			return aux;
 		}
-	 
+	
 		public Empresa buscarEmpresa(String id) {
 			
 			Empresa aux = null;
@@ -111,6 +111,36 @@ public class BolsaEmpleo {
 				i++;
 			}
 			return aux;
+		}
+		
+		public ArrayList<Persona> getPersonasDisponibles() {
+			
+			ArrayList<Persona> resultado = new ArrayList<>();
+			int i = 0;
+			while (i < lasPersonas.size()) {
+				if (!lasPersonas.get(i).isEmpleado())
+					resultado.add(lasPersonas.get(i));
+				i++;
+			}
+			
+			return resultado;
+		}
+		
+		public ArrayList<Persona> getPersonasPorNivel(String nivel) {		
+			ArrayList<Persona> resultado = new ArrayList<>();
+			int i = 0;
+			while (i < lasPersonas.size()) {
+				if (nivel.equalsIgnoreCase("Tecnico") && lasPersonas.get(i) instanceof Tecnico))
+					resultado.add(lasPersonas.get(i));	
+				else if (nivel.equalsIgnoreCase("Grado") && lasPersonas.get(i) instanceof Grado) {
+					resultado.add(lasPersonas.get(i));
+				}
+				else if (nivel.equalsIgnoreCase("Trabajador") && lasPersonas.get(i) instanceof Trabajador) {
+					resultado.add(lasPersonas.get(i));
+				}
+				i++;
+			}	
+			return resultado;
 		}
 
 }
