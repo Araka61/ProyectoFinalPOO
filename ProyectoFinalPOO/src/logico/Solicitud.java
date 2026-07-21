@@ -1,13 +1,16 @@
 package logico;
 
+import java.time.LocalDate;
+
 public class Solicitud {
 
 	private String id;
-	private char tipoTrabajo;
+	private String tipoTrabajo;
 	private String titulo;
 	private String tecnico;
 	private String habilidad;
-	private char tiempoTrabajo;
+	private String tiempoTrabajo;
+	private LocalDate horaSolicitud;
 	private float experienciaLaboral;
 	private float rangoMinSalario;
 	private float rangoMaxSalario;
@@ -17,7 +20,7 @@ public class Solicitud {
 	private boolean dispuestoAMudarse;
 	private boolean activo;
 	
-	public Solicitud(String id, char tipoTrabajo, String titulo, String tecnico, String habilidad, char tiempoTrabajo,
+	public Solicitud(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad, String tiempoTrabajo,
 			float experienciaLaboral, float rangoMinSalario, float rangoMaxSalario, char sexo, String residencia,
 			boolean licenciaDeConducir, boolean dispuestoAMudarse, boolean activo) {
 		super();
@@ -27,6 +30,7 @@ public class Solicitud {
 		this.tecnico = tecnico;
 		this.habilidad = habilidad;
 		this.tiempoTrabajo = tiempoTrabajo;
+		this.horaSolicitud = LocalDate.now();
 		this.experienciaLaboral = experienciaLaboral;
 		this.rangoMinSalario = rangoMinSalario;
 		this.rangoMaxSalario = rangoMaxSalario;
@@ -37,11 +41,11 @@ public class Solicitud {
 		this.activo = activo;
 	}
 
-	public char getTipoTrabajo() {
+	public String getTipoTrabajo() {
 		return tipoTrabajo;
 	}
 
-	public void setTipoTrabajo(char tipoTrabajo) {
+	public void setTipoTrabajo(String tipoTrabajo) {
 		this.tipoTrabajo = tipoTrabajo;
 	}
 
@@ -69,11 +73,11 @@ public class Solicitud {
 		this.habilidad = habilidad;
 	}
 
-	public char getTiempoTrabajo() {
+	public String getTiempoTrabajo() {
 		return tiempoTrabajo;
 	}
 
-	public void setTiempoTrabajo(char tiempoTrabajo) {
+	public void setTiempoTrabajo(String tiempoTrabajo) {
 		this.tiempoTrabajo = tiempoTrabajo;
 	}
 
@@ -143,6 +147,14 @@ public class Solicitud {
 
 	public String getId() {
 		return id;
+	}
+
+	public LocalDate getHoraSolicitud() {
+		return horaSolicitud;
+	}
+
+	public void setHoraSolicitud(LocalDate horaSolicitud) {
+		this.horaSolicitud = horaSolicitud;
 	}
 	
 	//Commit de prueba

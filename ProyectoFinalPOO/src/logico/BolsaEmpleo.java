@@ -3,7 +3,6 @@ package logico;
 import java.util.ArrayList;
 
 public class BolsaEmpleo {
-	
 	private ArrayList<Persona> lasPersonas;
 	private ArrayList<Empresa> lasEmpresas;
 	private ArrayList<Oferta> lasOfertas;
@@ -146,7 +145,7 @@ public class BolsaEmpleo {
 			ArrayList<Persona> resultado = new ArrayList<>();
 			int i = 0;
 			while (i < lasPersonas.size()) {
-				if (nivel.equalsIgnoreCase("Tecnico") && lasPersonas.get(i) instanceof Tecnico))
+				if (nivel.equalsIgnoreCase("Tecnico") && lasPersonas.get(i) instanceof Tecnico)
 					resultado.add(lasPersonas.get(i));	
 				else if (nivel.equalsIgnoreCase("Grado") && lasPersonas.get(i) instanceof Grado) {
 					resultado.add(lasPersonas.get(i));
@@ -207,7 +206,7 @@ public class BolsaEmpleo {
 	 
 		private int compararDatosPersonales(Solicitud candidato, Solicitud solicitudEmpresa) {
 			int puntos = 0;
-			if (candidato.getSexo().equalsIgnoreCase(solicitudEmpresa.getSexo()))
+			if (candidato.getSexo() == solicitudEmpresa.getSexo())
 				puntos += 10;
 			if (candidato.isLicenciaDeConducir() == solicitudEmpresa.isLicenciaDeConducir())
 				puntos += 10;
@@ -222,6 +221,5 @@ public class BolsaEmpleo {
 				puntos += 10;
 			return puntos;
 		}
-// test nuevo equipo
 		
 }
