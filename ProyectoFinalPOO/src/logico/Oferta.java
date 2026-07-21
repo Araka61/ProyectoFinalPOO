@@ -18,12 +18,13 @@ public class Oferta {
 	private boolean dispuestoAMudarse;
 	private float coincidencia;
 	private int cantPuesto;
+	private int minCoincidencia;
 	private boolean activo;
 	
 	public Oferta(String id, char tipoTrabajo, String titulo, String tecnico, String habilidad,
 			String descripcionTrabajo, char tiempoTrabajo, float experienciaLaboral, float rangoMinSalario,
 			float rangoMaxSalario, char sexo, String provincia, boolean licenciaDeConducir, boolean dispuestoAMudarse,
-			float coincidencia, int cantPuesto, boolean activo) {
+			float coincidencia, int cantPuesto, int minCoincidencia, boolean activo) {
 		super();
 		this.id = id;
 		this.tipoTrabajo = tipoTrabajo;
@@ -41,6 +42,7 @@ public class Oferta {
 		this.dispuestoAMudarse = dispuestoAMudarse;
 		this.coincidencia = coincidencia;
 		this.cantPuesto = cantPuesto;
+		this.minCoincidencia = minCoincidencia;
 		this.activo = activo;
 	}
 
