@@ -51,7 +51,6 @@ public class BolsaEmpleo {
 			lasPersonas.add(nueva);
 			generadorIdPersona++;
 		}
-	 
 		public void registrarEmpresa(Empresa nueva) {
 			lasEmpresas.add(nueva);
 			generadorIdEmpresa++;
@@ -62,7 +61,10 @@ public class BolsaEmpleo {
 			lasOfertas.add(nueva);
 			generadorIdOferta++;
 		}
-	 
+		public void registrarSolicitud(Solicitud nueva) {
+			lasSolicitudes.add(nueva);
+			generadorIdSolicitud++;
+		}
 		//               Busqueda
 	 
 		public Persona buscarPersona(String id) {
@@ -90,6 +92,20 @@ public class BolsaEmpleo {
 			while (!encontrado && i < lasEmpresas.size()) {
 				if (lasEmpresas.get(i).getId().equalsIgnoreCase(id)) {
 					aux = lasEmpresas.get(i);
+					encontrado = true;
+				}
+				i++;
+			}
+			return aux;
+		}
+		
+		public Solicitud buscarSolicitud(String id) {
+			Solicitud aux = null;
+			boolean encontrado = false;
+			int i = 0;
+			while (!encontrado && i < lasSolicitudes.size()) {
+				if (lasSolicitudes.get(i).getId().equalsIgnoreCase(id)) {
+					aux = lasSolicitudes.get(i);
 					encontrado = true;
 				}
 				i++;
@@ -142,5 +158,6 @@ public class BolsaEmpleo {
 			}	
 			return resultado;
 		}
+		//         Algoritmo de macheo
 
 }
