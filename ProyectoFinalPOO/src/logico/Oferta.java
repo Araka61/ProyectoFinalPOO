@@ -42,7 +42,7 @@ public class Oferta {
 		this.dispuestoAMudarse = dispuestoAMudarse;
 		this.coincidencia = coincidencia;
 		this.cantPuesto = cantPuesto;
-		this.minCoincidencia = minCoincidencia;
+		this.setMinCoincidencia(minCoincidencia);
 		this.activo = activo;
 	}
 
@@ -176,6 +176,14 @@ public class Oferta {
 
 	public String getId() {
 		return id;
+	}
+
+	public int getMinCoincidencia() {
+		return minCoincidencia;
+	}
+
+	public void setMinCoincidencia(int minCoincidencia) {
+		this.minCoincidencia = minCoincidencia;
 	}
 	
 	
