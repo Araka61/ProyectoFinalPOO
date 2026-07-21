@@ -44,5 +44,73 @@ public class BolsaEmpleo {
 	public ArrayList<Solicitud> getLasSolicitudes() {
 		return lasSolicitudes;
 	}
+	
+	//            Registro  
+	 
+		public void registrarPersona(Persona nueva) {
+			lasPersonas.add(nueva);
+			generadorIdPersona++;
+		}
+	 
+		public void registrarEmpresa(Empresa nueva) {
+			lasEmpresas.add(nueva);
+			generadorIdEmpresa++;
+		}
+	 
+		public void registrarOferta(Empresa empresa, Oferta nueva) {
+			empresa.publicarOferta(nueva);
+			lasOfertas.add(nueva);
+			generadorIdOferta++;
+		}
+	 
+		//               Busqueda
+	 
+		public Persona buscarPersona(String id) {
+			
+			Persona aux = null;
+			boolean encontrado = false;
+			int i = 0;
+			
+			while (!encontrado && i < lasPersonas.size()) {
+				if (lasPersonas.get(i).getId().equalsIgnoreCase(id)) {
+					aux = lasPersonas.get(i);
+					encontrado = true;
+				}
+				i++;
+			}
+			return aux;
+		}
+	 
+		public Empresa buscarEmpresa(String id) {
+			
+			Empresa aux = null;
+			boolean encontrado = false;
+			int i = 0;
+			
+			while (!encontrado && i < lasEmpresas.size()) {
+				if (lasEmpresas.get(i).getId().equalsIgnoreCase(id)) {
+					aux = lasEmpresas.get(i);
+					encontrado = true;
+				}
+				i++;
+			}
+			return aux;
+		}
+	 
+		public Oferta buscarOferta(String id) { 
+			
+			Oferta aux = null;
+			boolean encontrado = false;
+			int i = 0;
+			
+			while (!encontrado && i < lasOfertas.size()) {
+				if (lasOfertas.get(i).getId().equalsIgnoreCase(id)) {
+					aux = lasOfertas.get(i);
+					encontrado = true;
+				}
+				i++;
+			}
+			return aux;
+		}
 
 }
