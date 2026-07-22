@@ -3,54 +3,55 @@ DOCUMENTACION
 ================================================================================
 
 RESUMEN GENERAL
-La clase `BolsaEmpleo` es el "cerebro" de la aplicaciÃ³n. Centraliza toda la 
-informaciÃ³n y la lÃ³gica de negocio. Utiliza el patrÃ³n de diseÃ±o "Singleton" 
-(a travÃ©s del mÃ©todo getInstancia) para garantizar que toda la aplicaciÃ³n trabaje 
-con las mismas listas de datos en la memoria.
+La clase `BolsaEmpleo` es el "cerebro" de la aplicación. Centraliza toda la 
+información y la lógica de negocio. Utiliza el patrón de diseño "Singleton" 
+(a través del método getInstancia) para garantizar que toda la aplicación trabaje 
+con las mismas listas de datos en la memoria(lo que explico Alonso pero mas bonito).
 
 ESTRUCTURA DE DATOS
 * Colecciones: Utiliza `ArrayList` para almacenar todas las entidades del 
   sistema (Persona, Empresa, Oferta, Solicitud y Usuario).
-* Generadores de ID: Maneja variables estÃ¡ticas enteras (ej. `generadorIdPersona`) 
-  que actÃºan como contadores autoincrementables al registrar nuevas entidades.
+* Generadores de ID: Maneja variables estáticas enteras (ej. `generadorIdPersona`) 
+  que actúan como contadores autoincrementables al registrar nuevas entidades.
 * Despues cuando se implementen ficheros se deve de cargar desde el fichero los generadores de ID 
   para evitar duplicar IDs
 
-MÃ“DULOS Y FUNCIONALIDADES
+MÓDULOS Y FUNCIONALIDADES
 
 1. REGISTRO (Altas)
-* registrarPersona / registrarEmpresa / registrarSolicitud: AÃ±aden el objeto a 
+* registrarPersona / registrarEmpresa / registrarSolicitud: Añaden el objeto a 
   su lista correspondiente y aumentan el generador de ID en 1.
-* registrarOferta: AdemÃ¡s de guardarla en la lista general, se encarga de 
+* registrarOferta: Además de guardarla en la lista general, se encarga de 
   vincular la oferta directamente a la empresa que la publica.
 *registrarPersona tambien registra un usurio, toda persona en el sistema deve de 
  ser dependiente de un usuario de forma de que puedan compartir ID y estar relacionados
  sin que uno contenga al otro
 
-2. BÃšSQUEDA Y FILTRADO
-* BÃºsquedas por ID: MÃ©todos clÃ¡sicos (`buscarPersona`, `buscarEmpresa`, etc.) 
+2. BÚSQUEDA Y FILTRADO
+* Búsquedas por ID: Métodos clásicos (`buscarPersona`, `buscarEmpresa`, etc.) 
   que recorren las listas usando un ciclo `while` y devuelven el objeto si el ID 
-  coincide (ignorando mayÃºsculas/minÃºsculas).
-* Filtros especÃ­ficos: 
-  - `getPersonasDisponibles`: Devuelve solo a las personas que no estÃ¡n empleadas.
+  coincide (ignorando mayúsculas/minúsculas)(sacados desde LaGiraldilla, nada nuevo o del otro mundo).
+
+* Filtros específicos: 
+  - `getPersonasDisponibles`: Devuelve solo a las personas que no están empleadas.
   - `getPersonasPorNivel`: Filtra a las personas usando `instanceof` para saber 
-    si son de tipo TÃ©cnico, Grado o Trabajador.
-  - `getUsuarioPorUserName`: Busca un usuario especÃ­fico por su nombre de usuario.
+    si son de tipo Técnico, Grado o Trabajador.
+  - `getUsuarioPorUserName`: Busca un usuario específico por su nombre de usuario.
 
 3. ALGORITMO DE MATCHING
 * `PorcentajeCoincidencia`: Toma una oferta de la empresa y la compara contra 
-  todas las solicitudes activas de personas que actualmente no estÃ¡n empleadas. 
-  Si los puntos de coincidencia superan el mÃ­nimo exigido por la oferta, guarda 
+  todas las solicitudes activas de personas que actualmente no están empleadas. 
+  Si los puntos de coincidencia superan el mínimo exigido por la oferta, guarda 
   el ID del candidato.
 * El puntaje se calcula en bloques de 10 puntos evaluando:
   - Disponibilidad y tipo de jornada.
   - Experiencia requerida vs. Rango salarial esperado.
   - Preferencias personales (sexo, licencia de conducir, disponibilidad para mudarse).
-  - UbicaciÃ³n/Residencia.
+  - Ubicación/Residencia.
 
 4. VALIDACIONES Y COMPROBACIONES
 * `login`: Valida las credenciales. Busca al usuario y, si existe, verifica que 
-  la contraseÃ±a coincida exactamente.
+  la contraseña coincida exactamente.
 * `aptitudSolicitud`: Metodo por el momento incompleto, el objetivo es determinar el nivel necesario
   para el puesto aplicado 
 * `existeUsuario`: en el futuro tendremos que tener un registro al usuario estar vinculado a una contrasena
@@ -59,15 +60,19 @@ MÃ“DULOS Y FUNCIONALIDADES
 
 5.Comentarios personales (Luis)
 
-aunque declare la clase login falta ver si Alonso nos asigna un formato en especÃ­fico 
+aunque declare la clase login falta ver si Alonso nos asigna un formato en específico 
 por el momento el passwordFiel devuelve un char[] no String por cuestiones de seguridad
-segÃºn lo que investigue String en memoria se guarda en texto plano por lo que un atacante 
-puede interceptar la contraseÃ±a en memoria supuestamente esto no pasa con char[] no se 
+según lo que investigue String en memoria se guarda en texto plano por lo que un atacante 
+puede interceptar la contraseña en memoria supuestamente esto no pasa con char[] no se 
 si tenemos que mantener la seguridad en memoria del sistema, por el momento la clase de login
 que cree trabaja con UN STRING por lo que puede cambiar en el futuro 
 
-Por otro lado Necesitamos determinar cÃ³mo manejaremos la necesidad de un tÃ­tulo o tÃ©cnico
-mi preocupaciÃ³n es que por motivos obvios lo primero es si cuenta o no con alguno de estos 
-en caso de que cumpla con lo mÃ­nimo deberÃ­amos de trabajar el Ã¡rea, no tiene sentido que si 
-el trabajo es de informÃ¡tica muestre un mÃ©dico, por lo que tenemos que crear un lÃ­mite de categorÃ­as
-o parecido
+Por otro lado Necesitamos determinar cómo manejaremos la necesidad de un título o técnico
+mi preocupación es que por motivos obvios lo primero es si cuenta o no con alguno de estos 
+en caso de que cumpla con lo mínimo deberíamos de trabajar el área, no tiene sentido que si 
+el trabajo es de informática muestre un médico, por lo que tenemos que crear un límite de categorías
+o parecido, por el momento mi idea es crear un método que lo filtre y en caso de que no cumpla estos requisitos 
+los puntos sean -1, con la lógica de que el %mínimo de coincidencia debe de ser 0 por lo que nunca puntos >= min
+así no parecerían entre los candidatos.
+
+Todo lo demas es basicamente lo que hablamos en whats.
