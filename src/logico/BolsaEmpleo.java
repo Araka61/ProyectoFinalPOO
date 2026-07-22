@@ -159,6 +159,7 @@ public class BolsaEmpleo {
 			}	
 			return resultado;
 		}
+		
 		//         Algoritmo de macheo
 		
 		public ArrayList<String> PorcentajeCoincidencia(Oferta ofertaEmpresa) {
@@ -213,8 +214,9 @@ public class BolsaEmpleo {
 				puntos +=10;
 			else if (solicitudCandidato.isLicenciaDeConducir())
 				puntos+=10;
-			
-			if (solicitudCandidato.isDispuestoAMudarse() == ofertaEmpresa.isDispuestoAMudarse())
+			if (!ofertaEmpresa.isDispuestoAMudarse())
+				puntos += 10;
+			else if (solicitudCandidato.isDispuestoAMudarse())
 				puntos += 10;
 			return puntos;
 		}
