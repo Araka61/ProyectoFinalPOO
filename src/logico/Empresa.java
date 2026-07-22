@@ -9,9 +9,11 @@ public class Empresa {
 	private String representante;
 	private String tipo;
 	private ArrayList<Oferta> lasOfertas;
+	private ArrayList<Usuario> reprecentantes;
 
 	public Empresa() {
 		lasOfertas = new ArrayList<>();
+		reprecentantes = new ArrayList<>();
 	}
 
 	public Empresa(String id, String rnc, String representante, String tipo) {
@@ -68,6 +70,10 @@ public class Empresa {
 
 	public int cantidadOfertas() {
 		return lasOfertas.size();
+	}
+
+	public ArrayList<Usuario> getReprecentantes() {
+		return reprecentantes;
 	}
 
 }
