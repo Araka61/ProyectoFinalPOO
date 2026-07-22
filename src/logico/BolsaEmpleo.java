@@ -47,6 +47,10 @@ public class BolsaEmpleo {
 		return lasSolicitudes;
 	}
 	
+	public ArrayList<Usuario> getLosUsuarios() {
+		return losUsuarios;
+	}
+	
 	//            Registro  
 	 
 		public void registrarPersona(Persona nueva, Usuario user) {
