@@ -212,7 +212,7 @@ public class BolsaEmpleo {
 			if (solicitudCandidato.getTiempoTrabajo().equalsIgnoreCase(ofertaEmpresa.getTiempoTrabajo()))
 				puntos += 10;
 			if (solicitudCandidato.getTipoTrabajo().equalsIgnoreCase(String.valueOf(ofertaEmpresa.getTipoTrabajo())))
-				puntos += 10;
+				puntos += 20;
 			return puntos;
 		}
 
@@ -235,9 +235,9 @@ public class BolsaEmpleo {
 			else if (solicitudCandidato.isLicenciaDeConducir())
 				puntos+=10;
 			if (!ofertaEmpresa.isDispuestoAMudarse())
-				puntos += 10;
+				puntos += 20;
 			else if (solicitudCandidato.isDispuestoAMudarse())
-				puntos += 10;
+				puntos += 20;
 			return puntos;
 		}
 

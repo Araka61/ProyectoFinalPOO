@@ -35,6 +35,7 @@ public class Login extends JDialog {
 	 * Create the dialog.
 	 */
 	public Login() {
+		setTitle("Login");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -73,6 +74,10 @@ public class Login extends JDialog {
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
+			
+			JButton btnNuevoUsuario = new JButton("Nuevo usuario");
+			btnNuevoUsuario.setActionCommand("OK");
+			buttonPane.add(btnNuevoUsuario);
 			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.setActionCommand("Cancel");
