@@ -13,18 +13,13 @@ public abstract class Persona implements Serializable{
 	protected String correo;
 	protected boolean empleado;
 	protected ArrayList<Solicitud> solicitudes;
-	protected String tiempoDisponible;
-	protected float salarioMin;
-	protected float salarioMax;
 	protected boolean tieneLicencia;
 	protected char sexo;
-	protected boolean disMudar;
 	protected String ciudad;
-	protected int annosExperiencia;
 	
 	public Persona(String id, String cedula, String nombre, String telefono, String correo, boolean empleado,
-			ArrayList<Solicitud> solicitudes, String tiempoDisponible, float salarioMin, float salarioMax,
-			boolean tieneLicencia, char sexo, boolean disMudar, String ciudad, int annosExperiencia) {
+			ArrayList<Solicitud> solicitudes, String tiempoDisponible,
+			boolean tieneLicencia, char sexo, String ciudad) {
 		super();
 		this.id = id;
 		this.cedula = cedula;
@@ -33,14 +28,9 @@ public abstract class Persona implements Serializable{
 		this.correo = correo;
 		this.empleado = empleado;
 		this.solicitudes = solicitudes;
-		this.tiempoDisponible = tiempoDisponible;
-		this.salarioMin = salarioMin;
-		this.salarioMax = salarioMax;
 		this.tieneLicencia = tieneLicencia;
 		this.sexo = sexo;
-		this.disMudar = disMudar;
 		this.ciudad = ciudad;
-		this.annosExperiencia = annosExperiencia;
 	}
 
 	public String getCedula() {
@@ -91,30 +81,6 @@ public abstract class Persona implements Serializable{
 		this.solicitudes = solicitudes;
 	}
 
-	public String getTiempoDisponible() {
-		return tiempoDisponible;
-	}
-
-	public void setTiempoDisponible(String tiempoDisponible) {
-		this.tiempoDisponible = tiempoDisponible;
-	}
-
-	public float getSalarioMin() {
-		return salarioMin;
-	}
-
-	public void setSalarioMin(float salarioMin) {
-		this.salarioMin = salarioMin;
-	}
-
-	public float getSalarioMax() {
-		return salarioMax;
-	}
-
-	public void setSalarioMax(float salarioMax) {
-		this.salarioMax = salarioMax;
-	}
-
 	public boolean isTieneLicencia() {
 		return tieneLicencia;
 	}
@@ -130,29 +96,13 @@ public abstract class Persona implements Serializable{
 	public void setSexo(char sexo) {
 		this.sexo = sexo;
 	}
-
-	public boolean isDisMudar() {
-		return disMudar;
-	}
-
-	public void setDisMudar(boolean disMudar) {
-		this.disMudar = disMudar;
-	}
-
+	
 	public String getCiudad() {
 		return ciudad;
 	}
 
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
-	}
-
-	public int getAnnosExperiencia() {
-		return annosExperiencia;
-	}
-
-	public void setAnnosExperiencia(int annosExperiencia) {
-		this.annosExperiencia = annosExperiencia;
 	}
 
 	public String getId() {

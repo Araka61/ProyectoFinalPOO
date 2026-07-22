@@ -178,6 +178,13 @@ public class BolsaEmpleo {
 			return resultado;
 		}
 		
+		public Persona getPersonaSolicitud (Solicitud buscar){
+			
+			Persona aux = null;
+			return aux;
+		}
+		
+		
 		//         Algoritmo de macheo
 		
 		public ArrayList<String> PorcentajeCoincidencia(Oferta ofertaEmpresa) {
