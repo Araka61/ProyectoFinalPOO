@@ -83,3 +83,9 @@ retorne -1 de coincidencia de una vez
 
 
 Todo lo demas es basicamente lo que hablamos en whats.
+
+
+(Luis)
+NO serializar: Clases controladoras,
+ventanas (JFrame, JDialog),
+ni clases que manejan la base de datos o los ficheros.
