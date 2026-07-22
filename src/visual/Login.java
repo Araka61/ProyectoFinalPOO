@@ -42,7 +42,7 @@ public class Login extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Usuario:");
-		lblNewLabel.setBounds(38, 37, 46, 14);
+		lblNewLabel.setBounds(38, 37, 89, 14);
 		contentPanel.add(lblNewLabel);
 		
 		txtUsuario = new JTextField();
@@ -67,7 +67,8 @@ public class Login extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("Login");
+				okButton.setEnabled(false);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

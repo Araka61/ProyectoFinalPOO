@@ -38,7 +38,7 @@ public class BolsaEmpleo {
 	public ArrayList<Empresa> getLasEmpresas() {
 		return lasEmpresas;
 	}
- 
+
 	public ArrayList<Oferta> getLasOfertas() {
 		return lasOfertas;
 	}
