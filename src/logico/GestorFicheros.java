@@ -36,7 +36,7 @@ public class GestorFicheros {
 		BolsaEmpleo.generadorIdPersona = ois.readInt();
 		BolsaEmpleo.generadorIdEmpresa = ois.readInt();
 		BolsaEmpleo.generadorIdOferta = ois.readInt();
-		BolsaEmpleo.generadorIdSolicitud = ois.readInt();
+		BolsaEmpleo.generadorIdSolicitud = ois.readInt();//
 
 		ois.close();
 	}

@@ -47,7 +47,7 @@ public class BolsaEmpleo {
 		return lasSolicitudes;
 	}
 	
-	public ArrayList<Usuario> getLosUsuarios() {
+	public ArrayList<Usuario> getLosUsuarios() {//
 		return losUsuarios;
 	}
 	
