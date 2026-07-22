@@ -24,12 +24,13 @@ public class Oferta implements Serializable{
 	private float coincidencia;
 	private int cantPuesto;
 	private int minCoincidencia;
+	private boolean soloespecif;
 	private boolean activo;
 	
 	public Oferta(String id, char tipoTrabajo, String titulo, String tecnico, String habilidad,
 			String descripcionTrabajo, String tiempoTrabajo, float experienciaLaboral, float rangoMinSalario,
 			float rangoMaxSalario, char sexo, String provincia, boolean licenciaDeConducir, boolean dispuestoAMudarse,
-			float coincidencia, int cantPuesto, int minCoincidencia, boolean activo) {
+			float coincidencia, int cantPuesto, int minCoincidencia,boolean soloespecif, boolean activo) {
 		super();
 		this.id = id;
 		this.tipoTrabajo = tipoTrabajo;

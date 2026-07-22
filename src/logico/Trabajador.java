@@ -7,6 +7,7 @@ public class Trabajador extends Persona {
 private static final long serialVersionUID = 1L;
 	
 	private String oficio;
+
 	
 	public Trabajador(String id, String cedula, String nombre, String telefono, String correo, boolean empleado,
 			ArrayList<Solicitud> solicitudes, String tiempoDisponible, boolean tieneLicencia, char sexo, String ciudad,

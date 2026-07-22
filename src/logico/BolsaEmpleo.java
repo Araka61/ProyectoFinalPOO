@@ -255,7 +255,22 @@ public class BolsaEmpleo {
 			return puntos;
 		}
 		
+		private boolean aptitudSolicitud (Solicitud solicitudCandidato,Oferta ofertaEmpresa){
+			boolean comp = true;
+			if (!ofertaEmpresa.getTitulo().equalsIgnoreCase("n/a")) {
+				
+			}
+			return comp;
+			
+		}
 		
+		private boolean areaRelacionadaTitulo (String titulo) {
+			boolean comp = true;
+			
+			
+			return comp;
+			
+		}
 		
 		//      Comprobaciones
 		
@@ -270,12 +285,6 @@ public class BolsaEmpleo {
 			return resp;
 		}
 		
-		private boolean aptitudSolicitud (Solicitud solicitudCandidato,Oferta ofertaEmpresa){
-			boolean comp = false;
-				
-			return comp;
-			
-		}
 		public boolean existeUsuario (String username) {
 			boolean comp = false;
 			if (getUsuarioPorUserName(username) != null)

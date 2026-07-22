@@ -7,6 +7,7 @@ public class Solicitud implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
+	private String idUsuario;
 	private String tipoTrabajo;
 	private String titulo;
 	private String tecnico;
@@ -22,7 +23,7 @@ public class Solicitud implements Serializable{
 	private boolean dispuestoAMudarse;
 	private boolean activo;
 	
-	public Solicitud(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad, String tiempoTrabajo,
+	public Solicitud(String id,String idUsuario ,String tipoTrabajo, String titulo, String tecnico, String habilidad, String tiempoTrabajo,
 			float experienciaLaboral, float rangoMinSalario, float rangoMaxSalario, char sexo, String residencia,
 			boolean licenciaDeConducir, boolean dispuestoAMudarse, boolean activo) {
 		super();
@@ -41,6 +42,7 @@ public class Solicitud implements Serializable{
 		this.licenciaDeConducir = licenciaDeConducir;
 		this.dispuestoAMudarse = dispuestoAMudarse;
 		this.activo = activo;
+		this.idUsuario = idUsuario;
 	}
 
 	public String getTipoTrabajo() {
@@ -157,6 +159,14 @@ public class Solicitud implements Serializable{
 
 	public void setHoraSolicitud(LocalDate horaSolicitud) {
 		this.horaSolicitud = horaSolicitud;
+	}
+
+	public String getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(String idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	
 	//Commit de prueba 2
