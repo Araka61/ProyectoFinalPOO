@@ -2,9 +2,6 @@ package logico;
 
 import java.util.ArrayList;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.IconifyAction;
-
-import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
 
 public class BolsaEmpleo {
 	private ArrayList<Persona> lasPersonas;
@@ -52,8 +49,9 @@ public class BolsaEmpleo {
 	
 	//            Registro  
 	 
-		public void registrarPersona(Persona nueva) {
+		public void registrarPersona(Persona nueva, Usuario user) {
 			lasPersonas.add(nueva);
+			losUsuarios.add(user);
 			generadorIdPersona++;
 		}
 		public void registrarEmpresa(Empresa nueva) {
@@ -70,6 +68,7 @@ public class BolsaEmpleo {
 			lasSolicitudes.add(nueva);
 			generadorIdSolicitud++;
 		}
+		
 		//               Busqueda
 	 
 		public Persona buscarPersona(String id) {
@@ -193,12 +192,14 @@ public class BolsaEmpleo {
 			return candidatosIdeales;
 		}
 
-		private int calcularPuntosCoincidencia(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
+		public int calcularPuntosCoincidencia(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
 			int puntos = 0;
 			puntos += compararDisponibilidadYTipo(solicitudCandidato, ofertaEmpresa);
 			puntos += compararExperienciaYSalario(solicitudCandidato, ofertaEmpresa);
 			puntos += compararDatosPersonales(solicitudCandidato, ofertaEmpresa);
 			puntos += compararResidencia(solicitudCandidato, ofertaEmpresa);
+			if (!aptitudSolicitud(solicitudCandidato, ofertaEmpresa))
+				puntos = -1;
 			return puntos;
 		}
 
@@ -242,9 +243,12 @@ public class BolsaEmpleo {
 				puntos += 10;
 			return puntos;
 		}
-		//      Comprovaciones
 		
-		private boolean login (String username,String password){
+		
+		
+		//      Comprobaciones
+		
+		public boolean login (String username,String password){
 			boolean resp = false;
 			Usuario aux = getUsuarioPorUserName(username);
 		    if (aux != null)
@@ -253,5 +257,18 @@ public class BolsaEmpleo {
 		    		resp = true;
 		    }	
 			return resp;
+		}
+		
+		private boolean aptitudSolicitud (Solicitud solicitudCandidato,Oferta ofertaEmpresa){
+			boolean comp = false;
+				
+			return comp;
+			
+		}
+		public boolean existeUsuario (String username) {
+			boolean comp = false;
+			if (getUsuarioPorUserName(username) != null)
+				comp = true;
+			return comp;
 		}
 }
