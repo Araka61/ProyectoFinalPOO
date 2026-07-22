@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.IconifyAction;
 
+import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
+
 public class BolsaEmpleo {
 	private ArrayList<Persona> lasPersonas;
 	private ArrayList<Empresa> lasEmpresas;
 	private ArrayList<Oferta> lasOfertas;
 	private ArrayList<Solicitud> lasSolicitudes;
+	private ArrayList<Usuario> losUsuarios;
  
 	private static BolsaEmpleo controlador= null;
  
@@ -22,6 +25,7 @@ public class BolsaEmpleo {
 		lasEmpresas = new ArrayList<>();
 		lasOfertas = new ArrayList<>();
 		lasSolicitudes = new ArrayList<>();
+		losUsuarios = new ArrayList<>();
 	}
  
 	public static BolsaEmpleo getInstancia() {
@@ -138,8 +142,7 @@ public class BolsaEmpleo {
 				if (!lasPersonas.get(i).isEmpleado())
 					resultado.add(lasPersonas.get(i));
 				i++;
-			}
-			
+			}		
 			return resultado;
 		}
 		
@@ -157,6 +160,18 @@ public class BolsaEmpleo {
 				}
 				i++;
 			}	
+			return resultado;
+		}
+		
+		public Usuario getUsuarioPorUserName (String username){
+			
+		Usuario resultado = null;
+		int i = 0;
+		while (i < losUsuarios.size()){
+			if (username.equals(losUsuarios.get(i).getUserName()))
+				resultado = losUsuarios.get(i);
+			i++;
+		}
 			return resultado;
 		}
 		
@@ -226,5 +241,17 @@ public class BolsaEmpleo {
 			if (solicitudCandidato.getResidencia().equalsIgnoreCase(ofertaEmpresa.getProvincia()))
 				puntos += 10;
 			return puntos;
+		}
+		//      Comprovaciones
+		
+		private boolean login (String username,String password){
+			boolean resp = false;
+			Usuario aux = getUsuarioPorUserName(username);
+		    if (aux != null)
+		    {
+		    	if(aux.getPassword().equals (password))
+		    		resp = true;
+		    }	
+			return resp;
 		}
 }
