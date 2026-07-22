@@ -75,4 +75,11 @@ o parecido, por el momento mi idea es crear un método que lo filtre y en caso de
 los puntos sean -1, con la lógica de que el %mínimo de coincidencia debe de ser 0 por lo que nunca puntos >= min
 así no parecerían entre los candidatos.
 
+(Araque)
+
+realmente creo que eso seria una buena solucion, que en el metodo donde se calcule la coincidenci
+si detecta que el area del solicitante es diferente a la de la oferta o no tiene el nivel necesario
+retorne -1 de coincidencia de una vez
+
+
 Todo lo demas es basicamente lo que hablamos en whats.
