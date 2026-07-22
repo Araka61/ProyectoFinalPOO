@@ -157,6 +157,6 @@ public class Solicitud {
 		this.horaSolicitud = horaSolicitud;
 	}
 	
-	//Commit de prueba
+	//Commit de prueba 2
 	
 }
