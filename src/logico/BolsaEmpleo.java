@@ -225,5 +225,4 @@ public class BolsaEmpleo {
 				puntos += 10;
 			return puntos;
 		}
-		
 }

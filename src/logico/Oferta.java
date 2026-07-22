@@ -3,7 +3,7 @@ package logico;
 public class Oferta {
 	
 	private String id;
-	private String tipoTrabajo;
+	private char tipoTrabajo;
 	private String titulo;
 	private String tecnico;
 	private String habilidad;
@@ -18,12 +18,13 @@ public class Oferta {
 	private boolean dispuestoAMudarse;
 	private float coincidencia;
 	private int cantPuesto;
+	private int minCoincidencia;
 	private boolean activo;
 	
-	public Oferta(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad,
+	public Oferta(String id, char tipoTrabajo, String titulo, String tecnico, String habilidad,
 			String descripcionTrabajo, String tiempoTrabajo, float experienciaLaboral, float rangoMinSalario,
 			float rangoMaxSalario, char sexo, String provincia, boolean licenciaDeConducir, boolean dispuestoAMudarse,
-			float coincidencia, int cantPuesto, boolean activo) {
+			float coincidencia, int cantPuesto, int minCoincidencia, boolean activo) {
 		super();
 		this.id = id;
 		this.tipoTrabajo = tipoTrabajo;
@@ -41,14 +42,15 @@ public class Oferta {
 		this.dispuestoAMudarse = dispuestoAMudarse;
 		this.coincidencia = coincidencia;
 		this.cantPuesto = cantPuesto;
+		this.setMinCoincidencia(minCoincidencia);
 		this.activo = activo;
 	}
 
-	public String getTipoTrabajo() {
+	public char getTipoTrabajo() {
 		return tipoTrabajo;
 	}
 
-	public void setTipoTrabajo(String tipoTrabajo) {
+	public void setTipoTrabajo(char tipoTrabajo) {
 		this.tipoTrabajo = tipoTrabajo;
 	}
 
@@ -175,4 +177,14 @@ public class Oferta {
 	public String getId() {
 		return id;
 	}
+
+	public int getMinCoincidencia() {
+		return minCoincidencia;
+	}
+
+	public void setMinCoincidencia(int minCoincidencia) {
+		this.minCoincidencia = minCoincidencia;
+	}
+	
+	
 }
