@@ -3,6 +3,8 @@ package logico;
 import java.util.ArrayList;
 
 public class Trabajador extends Persona {
+	private static final long serialVersionUID = 1L;
+	
 	private String oficio;
 
 	public Trabajador(String id, String cedula, String nombre, String telefono, String correo, boolean empleado,

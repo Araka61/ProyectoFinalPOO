@@ -3,6 +3,8 @@ package logico;
 import java.util.ArrayList;
 
 public class Tecnico extends Persona {
+	private static final long serialVersionUID = 1L;
+	
 	private String instituto;
 	private String diplomaTecnico;
 	private String especialidad;
