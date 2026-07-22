@@ -1,5 +1,7 @@
 package logico;
 
+import java.time.LocalDate;
+
 public class Oferta {
 	
 	private String id;
@@ -9,6 +11,7 @@ public class Oferta {
 	private String habilidad;
 	private String descripcionTrabajo;
 	private String tiempoTrabajo;
+	private LocalDate horaOferta;
 	private float experienciaLaboral;
 	private float rangoMinSalario;
 	private float rangoMaxSalario;
@@ -33,6 +36,7 @@ public class Oferta {
 		this.habilidad = habilidad;
 		this.descripcionTrabajo = descripcionTrabajo;
 		this.tiempoTrabajo = tiempoTrabajo;
+		this.horaOferta = LocalDate.now();
 		this.experienciaLaboral = experienciaLaboral;
 		this.rangoMinSalario = rangoMinSalario;
 		this.rangoMaxSalario = rangoMaxSalario;
