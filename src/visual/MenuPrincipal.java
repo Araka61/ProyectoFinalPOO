@@ -7,30 +7,51 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import logico.BolsaEmpleo;
+import logico.GestorFicheros;
+import logico.Usuario;
+
 public class MenuPrincipal extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+		
 				try {
+					cargarDatosDesdeFicheros();
+
 					MenuPrincipal frame = new MenuPrincipal();
-					frame.setVisible(true);
+
+					Usuario cookie = BolsaEmpleo.getInstancia().getCookieUsuario();
+					if (cookie != null) {
+						frame.setVisible(true);
+					} else {
+						Login login = new Login();
+						login.setModal(true);
+						login.setVisible(true);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});
+	
+
+	private static void cargarDatosDesdeFicheros() {
+		try {
+			GestorFicheros.cargarDatosID();
+			GestorFicheros.cargarDatosUsuarios();
+			GestorFicheros.cargarDatosPersonas();
+			GestorFicheros.cargarDatosEmpresa();
+			GestorFicheros.cargarDatosOfertas();
+			GestorFicheros.cargarDatosSolicitudes();
+			GestorFicheros.cargarCookies();
+		} catch (Exception e) {
+			System.out.println("[INFO] No hay ficheros previos, el sistema arranca vacío.");
+		}
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public MenuPrincipal() {
+		setVisible(false);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 599, 448);

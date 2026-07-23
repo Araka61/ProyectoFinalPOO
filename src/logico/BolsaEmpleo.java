@@ -295,8 +295,7 @@ public class BolsaEmpleo {
 		    		resp = true;
 		    		cookieUsuario = aux;
 		    	}
-		    }	
-		    
+		    }	 
 			return resp;
 		}
 		
@@ -306,6 +305,5 @@ public class BolsaEmpleo {
 				comp = true;
 			return comp;
 		}
-
 
 }

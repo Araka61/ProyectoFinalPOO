@@ -15,7 +15,7 @@ public class GestorFicheros {
 	private static String empresasFile = "Empresa.dat";
 	private static String ofertasFile = "Ofertas.dat";
 	private static String solicitudesFile = "Solicitudes.dat";
-	private static String cookieFile = "Cokie.dat"; 
+	private static String cookieFile = "Cookie.dat"; 
 
 
 	public static boolean guardarDatosID() throws IOException {
