@@ -16,12 +16,13 @@ public class MenuPrincipal extends JFrame {
 	private JPanel contentPane;
 
 	public static void main(String[] args) {
-		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
 				try {
 					cargarDatosDesdeFicheros();
-
+ 
 					MenuPrincipal frame = new MenuPrincipal();
-
+ 
 					Usuario cookie = BolsaEmpleo.getInstancia().getCookieUsuario();
 					if (cookie != null) {
 						frame.setVisible(true);
@@ -34,7 +35,11 @@ public class MenuPrincipal extends JFrame {
 					e.printStackTrace();
 				}
 			}
-	
+		});
+	}
+	// Se corto el codigo cuando lo pase de mi laptop a mi PC principal Sorry
+	// No quise subir el commit desde la laptop para que no pase lo que paso con 
+	// Manuelle y los 3 commits
 
 	private static void cargarDatosDesdeFicheros() {
 		try {
