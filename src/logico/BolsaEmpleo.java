@@ -1,6 +1,7 @@
 package logico;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class BolsaEmpleo {
@@ -9,6 +10,7 @@ public class BolsaEmpleo {
 	private ArrayList<Oferta> lasOfertas;
 	private ArrayList<Solicitud> lasSolicitudes;
 	private ArrayList<Usuario> losUsuarios;
+	public  Usuario cookieUsuario;
  
 	private static BolsaEmpleo controlador= null;
  
@@ -16,6 +18,7 @@ public class BolsaEmpleo {
 	public static int generadorIdEmpresa = 1;
 	public static int generadorIdOferta = 1;
 	public static int generadorIdSolicitud = 1;
+	
  
 	private BolsaEmpleo() {
 		lasPersonas = new ArrayList<>();
@@ -23,6 +26,7 @@ public class BolsaEmpleo {
 		lasOfertas = new ArrayList<>();
 		lasSolicitudes = new ArrayList<>();
 		losUsuarios = new ArrayList<>();
+		cookieUsuario = null;
 	}
  
 	public static BolsaEmpleo getInstancia() {
@@ -71,6 +75,14 @@ public class BolsaEmpleo {
 		public void registrarSolicitud(Solicitud nueva) {
 			lasSolicitudes.add(nueva);
 			generadorIdSolicitud++;
+		}
+		
+		public Usuario getCookieUsuario() {
+			return cookieUsuario;
+		}
+
+		public void setCookieUsuario(Usuario cookieUsuario) {
+			this.cookieUsuario = cookieUsuario;
 		}
 		
 		//               Busqueda
@@ -226,7 +238,7 @@ public class BolsaEmpleo {
 		private int compararExperienciaYSalario(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
 			int puntos = 0;
 			if (solicitudCandidato.getExperienciaLaboral() >= ofertaEmpresa.getExperienciaLaboral())
-				puntos += 10;
+				puntos += 15;
 			if (solicitudCandidato.getRangoMinSalario() <= ofertaEmpresa.getRangoMaxSalario()
 					&& solicitudCandidato.getRangoMaxSalario() >= ofertaEmpresa.getRangoMinSalario())
 				puntos += 10;
@@ -236,7 +248,7 @@ public class BolsaEmpleo {
 		private int compararDatosPersonales(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
 			int puntos = 0;
 			if (solicitudCandidato.getSexo() == ofertaEmpresa.getSexo())
-				puntos += 10;
+				puntos += 5;
 			if (!ofertaEmpresa.isLicenciaDeConducir())
 				puntos +=10;
 			else if (solicitudCandidato.isLicenciaDeConducir())
@@ -251,7 +263,7 @@ public class BolsaEmpleo {
 		private int compararResidencia(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
 			int puntos = 0;
 			if (solicitudCandidato.getResidencia().equalsIgnoreCase(ofertaEmpresa.getProvincia()))
-				puntos += 10;
+				puntos += 20;
 			return puntos;
 		}
 		
@@ -279,9 +291,12 @@ public class BolsaEmpleo {
 			Usuario aux = getUsuarioPorUserName(username);
 		    if (aux != null)
 		    {
-		    	if(aux.getPassword().equals (password))
+		    	if(aux.getPassword().equals (password)) {
 		    		resp = true;
+		    		cookieUsuario = aux;
+		    	}
 		    }	
+		    
 			return resp;
 		}
 		
@@ -291,4 +306,6 @@ public class BolsaEmpleo {
 				comp = true;
 			return comp;
 		}
+
+
 }

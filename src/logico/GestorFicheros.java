@@ -15,6 +15,7 @@ public class GestorFicheros {
 	private static String empresasFile = "Empresa.dat";
 	private static String ofertasFile = "Ofertas.dat";
 	private static String solicitudesFile = "Solicitudes.dat";
+	private static String cookieFile = "Cokie.dat"; 
 
 
 	public static boolean guardarDatosID() throws IOException {
@@ -225,6 +226,34 @@ public class GestorFicheros {
 			
 			return true;
 		}catch (IOException e) {
+			return false;
+		}
+	}
+	
+	public static boolean guardarCookies() {
+		try (FileOutputStream f = new FileOutputStream(cookieFile);
+			 ObjectOutputStream oos = new ObjectOutputStream(f)) {
+
+			BolsaEmpleo bolsa = BolsaEmpleo.getInstancia();
+			Usuario usuarioActivo = bolsa.getCookieUsuario(); 
+			oos.writeObject(usuarioActivo);
+			
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
+	}
+	
+	public static boolean cargarCookies() {
+		try (FileInputStream f = new FileInputStream(cookieFile);
+			 ObjectInputStream ois = new ObjectInputStream(f)) {
+			
+			BolsaEmpleo bolsa = BolsaEmpleo.getInstancia();
+			Usuario c = (Usuario) ois.readObject();
+			bolsa.setCookieUsuario(c);
+			
+			return true;
+		} catch (Exception e) {
 			return false;
 		}
 	}

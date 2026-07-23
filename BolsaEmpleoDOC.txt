@@ -2,6 +2,10 @@
 DOCUMENTACION 
 ================================================================================
 
+--------------------------------------------------------------------------------
+BOLSA EMPLEO
+--------------------------------------------------------------------------------
+
 RESUMEN GENERAL
 La clase `BolsaEmpleo` es el "cerebro" de la aplicación. Centraliza toda la 
 información y la lógica de negocio. Utiliza el patrón de diseño "Singleton" 
