@@ -11,12 +11,16 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.util.PrimitiveIterator.OfDouble;
+import java.awt.event.ActionEvent;
 
 public class Login extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtUsuario;
-	private JPasswordField passwordField;
+	private JPasswordField pfContrasena;
+	private static boolean esVisible = false;
 
 	/**
 	 * Launch the application.
@@ -56,11 +60,24 @@ public class Login extends JDialog {
 			contentPanel.add(lblContrasea);
 		}
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(38, 113, 225, 20);
-		contentPanel.add(passwordField);
+		pfContrasena = new JPasswordField();
+		pfContrasena.setEchoChar('*');
+		pfContrasena.setBounds(38, 113, 225, 20);
+		contentPanel.add(pfContrasena);
 		
 		JRadioButton rdbtnMostrar = new JRadioButton("Mostrar contrase\u00F1a");
+		rdbtnMostrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!esVisible) {
+					pfContrasena.setEchoChar((char)0);
+					esVisible = true;
+					}
+				else {
+					pfContrasena.setEchoChar('*');
+					esVisible = false;
+					}
+			}
+		});
 		rdbtnMostrar.setBounds(269, 112, 143, 23);
 		contentPanel.add(rdbtnMostrar);
 		{
@@ -68,11 +85,11 @@ public class Login extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Login");
-				okButton.setEnabled(false);
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				JButton btnLogin = new JButton("Login");
+				btnLogin.setEnabled(false);
+				btnLogin.setActionCommand("OK");
+				buttonPane.add(btnLogin);
+				getRootPane().setDefaultButton(btnLogin);
 			}
 			
 			JButton btnNuevoUsuario = new JButton("Nuevo usuario");
