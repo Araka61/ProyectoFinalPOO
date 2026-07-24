@@ -93,3 +93,59 @@ Todo lo demas es basicamente lo que hablamos en whats.
 NO serializar: Clases controladoras,
 ventanas (JFrame, JDialog),
 ni clases que manejan la base de datos o los ficheros.
+
+--------------------------------------------------------------------------------
+LOGIN (hasta ahora)
+--------------------------------------------------------------------------------
+
+RESUMEN GENERAL
+
+Las clases Login y MenuPrincipal manejan el arranque y la seguridad inicial
+de la aplicación. MenuPrincipal es el marco principal (JFrame) y Login actúa
+como una ventana (JDialog {Como deve de ser}) que bloquea el sistema hasta que el usuario se
+autentique (método login de la clase controladora). Trabajan directamente con BolsaEmpleo para validar datos y con
+GestorFicheros para el tema de los datos guardados.
+
+ESTRUCTURA DE DATOS
+
+Componentes: Usa JTextField, JPasswordField, JButton y JRadioButton
+para la interacción del usuario.
+
+Eventos: Utiliza keyReleased para validar cosas en tiempo real
+mientras se escribe (basicamente detectar cuando se escribe y cuando se pulsa un boton).
+
+No guarda listas propias, solo interactúa con el Singleton y manda a llamar métodos
+de las clases lógicas.
+
+MÓDULOS Y FUNCIONALIDADES
+
+ARRANQUE (Main y MenuPrincipal)
+
+Cargar Datos: El main arranca llamando a GestorFicheros.cargarDatosDesdeFicheros()
+para tener toda la info lista antes de hacer cualquier cosa.
+
+Control de Sesión (Cookies): Revisa si hay un usuario guardado (getCookieUsuario()).
+Si lo hay, abre el menú de una; si no, lanza el Login.
+
+AUTENTICACIÓN (Login)
+
+btnLogin: Empiesa desactivado hasta que se llena usuario y password, llama a BolsaEmpleo.getInstancia().login(...).
+Si entra, guarda las cookies, muestra el menú y se cierra. Si falla, tira un JOptionPane de advertencia.
+
+Mostrar contraseña: Un radio button que cambia el EchoChar a (char)0 para que
+se vea el texto y lo vuelve a poner en '*' si se desmarca.
+
+VALIDACIONES
+
+validarCampos: Verifica cada vez que sueltas una tecla (keyReleased) si los
+campos de usuario y contraseña tienen algo. Si están llenos, habilita el botón y
+lo pone verde. Si falta uno, lo bloquea y lo pone rojo.
+
+EXTRAS Y NAVEGACIÓN
+
+btnNuevoUsuario: Llama a RegistrarNuevoUsuario como modal para crear cuentas.
+(hay que hacerlo todavia no esta el RegistrarNuevoUsuario)
+
+cancelButton: Antes de salir, hace un guardarDatosFicheros() por seguridad.
+(Me falta manejar el caso de que se cierre por la x de arriba, no me recuerdo bien como hacerlo
+si alguno sabe por favor hágalo)
