@@ -257,4 +257,32 @@ public class GestorFicheros {
 			return false;
 		}
 	}
+	
+	public static void cargarDatosDesdeFicheros() {
+		try {
+			cargarDatosID();
+			cargarDatosUsuarios();
+			cargarDatosPersonas();
+			cargarDatosEmpresa();
+			cargarDatosOfertas();
+			cargarDatosSolicitudes();
+			cargarCookies();
+		} catch (Exception e) {
+			
+		}
+	}
+	
+	public static void guardarDatosFicheros() {
+		try {
+			guardarCookies();
+			guardarDatosEmpresas();
+			guardarDatosID();
+			guardarDatosOfertas();
+			guardarDatosPersonas();
+			guardarDatosSolicitudes();
+			guardarDatosUsuarios();		
+		} catch (Exception e) {
+			
+		}
+	}
 }

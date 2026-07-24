@@ -1,6 +1,7 @@
 package visual;
 
 import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -18,6 +19,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
 
+import logico.BolsaEmpleo;
+import logico.GestorFicheros;
 public class Login extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -25,11 +28,14 @@ public class Login extends JDialog {
 	private JPasswordField pfContrasena;
 	private boolean esVisible = false;
 	private JButton btnLogin;
+	private final MenuPrincipal frame;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	
+	/*
+	 * public static void main(String[] args) {
 		try {
 			Login dialog = new Login();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -38,11 +44,13 @@ public class Login extends JDialog {
 			e.printStackTrace();
 		}
 	}
+	*/
 
 	/**
 	 * Create the dialog.
 	 */
-	public Login() {
+	public Login(MenuPrincipal frame) {
+		this.frame = frame;
 		setTitle("Login");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -106,6 +114,15 @@ public class Login extends JDialog {
 				btnLogin = new JButton("Login");
 				btnLogin.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						String contra = new String(pfContrasena.getPassword());
+						if (BolsaEmpleo.getInstancia().login(txtUsuario.getText(), contra))
+						{
+							GestorFicheros.guardarCookies();
+							frame.setVisible(true);
+							dispose();
+						} else {
+							JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "Advertencia de inicio de sesión", JOptionPane.WARNING_MESSAGE);
+						}
 						
 					}
 				});
@@ -132,6 +149,11 @@ public class Login extends JDialog {
 			buttonPane.add(btnNuevoUsuario);
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						GestorFicheros.guardarDatosFicheros();
+					}
+				});
 				cancelButton.setForeground(new Color(255, 255, 255));
 				cancelButton.setBackground(new Color(128, 0, 0));
 				cancelButton.setActionCommand("Cancel");
@@ -147,5 +169,10 @@ public class Login extends JDialog {
 	    btnLogin.setEnabled(usuarioLleno && passwordLleno);
 	    btnLogin.setBackground(new Color(0,128, 0));
 	    System.out.println("usuario=" + usuarioLleno + " password=" + passwordLleno);
+	    if (!usuarioLleno || !passwordLleno){
+	    	btnLogin.setEnabled(false);
+	    	btnLogin.setBackground(new Color(128,0,0));
+	    }
 	}
+	
 }

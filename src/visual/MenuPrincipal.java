@@ -19,7 +19,7 @@ public class MenuPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					cargarDatosDesdeFicheros();
+					GestorFicheros.cargarDatosDesdeFicheros();
  
 					MenuPrincipal frame = new MenuPrincipal();
  
@@ -27,7 +27,7 @@ public class MenuPrincipal extends JFrame {
 					if (cookie != null) {
 						frame.setVisible(true);
 					} else {
-						Login login = new Login();
+						Login login = new Login(frame);
 						login.setModal(true);
 						login.setVisible(true);
 					}
@@ -41,19 +41,7 @@ public class MenuPrincipal extends JFrame {
 	// No quise subir el commit desde la laptop para que no pase lo que paso con 
 	// Manuelle y los 3 commits
 
-	private static void cargarDatosDesdeFicheros() {
-		try {
-			GestorFicheros.cargarDatosID();
-			GestorFicheros.cargarDatosUsuarios();
-			GestorFicheros.cargarDatosPersonas();
-			GestorFicheros.cargarDatosEmpresa();
-			GestorFicheros.cargarDatosOfertas();
-			GestorFicheros.cargarDatosSolicitudes();
-			GestorFicheros.cargarCookies();
-		} catch (Exception e) {
-			System.out.println("[INFO] No hay ficheros previos, el sistema arranca vacío.");
-		}
-	}
+	
 
 	public MenuPrincipal() {
 		setVisible(false);
