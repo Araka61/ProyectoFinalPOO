@@ -14,13 +14,17 @@ import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.util.PrimitiveIterator.OfDouble;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.Color;
 
 public class Login extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtUsuario;
 	private JPasswordField pfContrasena;
-	private static boolean esVisible = false;
+	private boolean esVisible = false;
+	private JButton btnLogin;
 
 	/**
 	 * Launch the application.
@@ -51,6 +55,13 @@ public class Login extends JDialog {
 		contentPanel.add(lblNewLabel);
 		
 		txtUsuario = new JTextField();
+		txtUsuario.addKeyListener(new KeyAdapter() {	
+			@Override
+			public void keyReleased(KeyEvent e) {
+				validarCampos();
+				 btnLogin.setBackground(new Color(128,0, 0));
+			}
+		});
 		txtUsuario.setBounds(38, 57, 261, 20);
 		contentPanel.add(txtUsuario);
 		txtUsuario.setColumns(10);
@@ -61,6 +72,13 @@ public class Login extends JDialog {
 		}
 		
 		pfContrasena = new JPasswordField();
+		pfContrasena.addKeyListener(new KeyAdapter() {
+		
+			@Override
+			public void keyReleased(KeyEvent e) {
+				validarCampos();
+			}
+		});
 		pfContrasena.setEchoChar('*');
 		pfContrasena.setBounds(38, 113, 225, 20);
 		contentPanel.add(pfContrasena);
@@ -85,7 +103,14 @@ public class Login extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnLogin = new JButton("Login");
+				btnLogin = new JButton("Login");
+				btnLogin.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					}
+				});
+				btnLogin.setForeground(new Color(255, 255, 255));
+				btnLogin.setBackground(new Color(128, 0, 0));
 				btnLogin.setEnabled(false);
 				btnLogin.setActionCommand("OK");
 				buttonPane.add(btnLogin);
@@ -93,13 +118,34 @@ public class Login extends JDialog {
 			}
 			
 			JButton btnNuevoUsuario = new JButton("Nuevo usuario");
+			btnNuevoUsuario.setForeground(new Color(255, 255, 255));
+			btnNuevoUsuario.setBackground(new Color(0, 128, 0));
+			btnNuevoUsuario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					 RegistrarNuevoUsuario registro = new RegistrarNuevoUsuario();
+				        registro.setModal(true);
+				        registro.setVisible(true);
+				        
+				}
+			});
 			btnNuevoUsuario.setActionCommand("OK");
 			buttonPane.add(btnNuevoUsuario);
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setForeground(new Color(255, 255, 255));
+				cancelButton.setBackground(new Color(128, 0, 0));
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+			
 		}
+		
+	}
+	private void validarCampos() {
+	    boolean usuarioLleno = !txtUsuario.getText().isEmpty();
+	    boolean passwordLleno = pfContrasena.getPassword().length > 0;
+	    btnLogin.setEnabled(usuarioLleno && passwordLleno);
+	    btnLogin.setBackground(new Color(0,128, 0));
+	    System.out.println("usuario=" + usuarioLleno + " password=" + passwordLleno);
 	}
 }
