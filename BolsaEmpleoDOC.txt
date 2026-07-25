@@ -149,3 +149,5 @@ btnNuevoUsuario: Llama a RegistrarNuevoUsuario como modal para crear cuentas.
 cancelButton: Antes de salir, hace un guardarDatosFicheros() por seguridad.
 (Me falta manejar el caso de que se cierre por la x de arriba, no me recuerdo bien como hacerlo
 si alguno sabe por favor hágalo)
+
+Ya lo hice 

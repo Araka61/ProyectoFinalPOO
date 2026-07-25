@@ -21,6 +21,8 @@ import java.awt.Color;
 
 import logico.BolsaEmpleo;
 import logico.GestorFicheros;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 public class Login extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -50,6 +52,13 @@ public class Login extends JDialog {
 	 * Create the dialog.
 	 */
 	public Login(MenuPrincipal frame) {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				GestorFicheros.guardarDatosFicheros();
+				frame.dispose();
+			}
+		});
 		this.frame = frame;
 		setTitle("Login");
 		setBounds(100, 100, 450, 300);
@@ -152,6 +161,8 @@ public class Login extends JDialog {
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						GestorFicheros.guardarDatosFicheros();
+						frame.dispose();
+						dispose();
 					}
 				});
 				cancelButton.setForeground(new Color(255, 255, 255));

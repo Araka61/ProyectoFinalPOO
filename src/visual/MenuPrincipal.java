@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import logico.BolsaEmpleo;
 import logico.GestorFicheros;
 import logico.Usuario;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MenuPrincipal extends JFrame {
 
@@ -44,6 +46,13 @@ public class MenuPrincipal extends JFrame {
 	
 
 	public MenuPrincipal() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				GestorFicheros.guardarDatosFicheros();
+			}
+		});
+		setAlwaysOnTop(true);
 		setVisible(false);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
