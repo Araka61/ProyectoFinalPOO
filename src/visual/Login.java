@@ -83,7 +83,7 @@ public class Login extends JDialog {
 		contentPanel.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		{
-			JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
+			JLabel lblContrasea = new JLabel("Contraseña:");
 			lblContrasea.setBounds(38, 88, 89, 14);
 			contentPanel.add(lblContrasea);
 		}
@@ -100,7 +100,7 @@ public class Login extends JDialog {
 		pfContrasena.setBounds(38, 113, 225, 20);
 		contentPanel.add(pfContrasena);
 		
-		JRadioButton rdbtnMostrar = new JRadioButton("Mostrar contrase\u00F1a");
+		JRadioButton rdbtnMostrar = new JRadioButton("Mostrar contraseña");
 		rdbtnMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!esVisible) {
@@ -126,6 +126,7 @@ public class Login extends JDialog {
 						String contra = new String(pfContrasena.getPassword());
 						if (BolsaEmpleo.getInstancia().login(txtUsuario.getText(), contra))
 						{
+							BolsaEmpleo.getInstancia().setCookieUsuario(BolsaEmpleo.getInstancia().getUsuarioPorUserName(txtUsuario.getText()));
 							GestorFicheros.guardarCookies();
 							frame.setVisible(true);
 							dispose();
@@ -170,20 +171,18 @@ public class Login extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
-			
-		}
-		
+		}	
 	}
 	private void validarCampos() {
 	    boolean usuarioLleno = !txtUsuario.getText().isEmpty();
 	    boolean passwordLleno = pfContrasena.getPassword().length > 0;
 	    btnLogin.setEnabled(usuarioLleno && passwordLleno);
 	    btnLogin.setBackground(new Color(0,128, 0));
-	    System.out.println("usuario=" + usuarioLleno + " password=" + passwordLleno);
+	    //System.out.println("usuario=" + usuarioLleno + " password=" + passwordLleno);
+	    // Si quieren revisar
 	    if (!usuarioLleno || !passwordLleno){
 	    	btnLogin.setEnabled(false);
 	    	btnLogin.setBackground(new Color(128,0,0));
 	    }
-	}
-	
+	}	
 }

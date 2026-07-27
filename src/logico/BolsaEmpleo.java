@@ -196,6 +196,16 @@ public class BolsaEmpleo {
 			return aux;
 		}
 		
+		public Usuario getUsuarioPorCorreo(String Correo) {
+			Usuario aux = null;
+			for (int i=0; i<losUsuarios.size();i++)
+			{
+				if (losUsuarios.get(i).getEmail().equals(Correo))
+					aux = losUsuarios.get(i);
+			}
+			return aux;
+			
+		}
 		
 		//         Algoritmo de macheo
 		
@@ -305,5 +315,6 @@ public class BolsaEmpleo {
 				comp = true;
 			return comp;
 		}
+	
 
 }

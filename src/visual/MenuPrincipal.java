@@ -26,9 +26,11 @@ public class MenuPrincipal extends JFrame {
 					MenuPrincipal frame = new MenuPrincipal();
  
 					Usuario cookie = BolsaEmpleo.getInstancia().getCookieUsuario();
-					if (cookie != null) {
+					if (cookie != null && BolsaEmpleo.getInstancia().getUsuarioPorUserName(BolsaEmpleo.getInstancia().getCookieUsuario().getUserName()) != null) {
 						frame.setVisible(true);
 					} else {
+						//if (!(BolsaEmpleo.getInstancia().getUsuarioPorUserName(BolsaEmpleo.getInstancia().getCookieUsuario().getUserName()) != null))
+							//System.out.print("El problema es este");
 						Login login = new Login(frame);
 						login.setModal(true);
 						login.setVisible(true);
