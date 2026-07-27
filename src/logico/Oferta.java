@@ -7,7 +7,7 @@ public class Oferta implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
-	private char tipoTrabajo;
+	private String tipoTrabajo;
 	private String titulo;
 	private String tecnico;
 	private String habilidad;
@@ -27,7 +27,7 @@ public class Oferta implements Serializable{
 	private boolean soloespecif;
 	private boolean activo;
 	
-	public Oferta(String id, char tipoTrabajo, String titulo, String tecnico, String habilidad,
+	public Oferta(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad,
 			String descripcionTrabajo, String tiempoTrabajo, float experienciaLaboral, float rangoMinSalario,
 			float rangoMaxSalario, char sexo, String provincia, boolean licenciaDeConducir, boolean dispuestoAMudarse,
 			float coincidencia, int cantPuesto, int minCoincidencia,boolean soloespecif, boolean activo) {
@@ -53,11 +53,11 @@ public class Oferta implements Serializable{
 		this.activo = activo;
 	}
 
-	public char getTipoTrabajo() {
+	public String getTipoTrabajo() {
 		return tipoTrabajo;
 	}
 
-	public void setTipoTrabajo(char tipoTrabajo) {
+	public void setTipoTrabajo(String tipoTrabajo) {
 		this.tipoTrabajo = tipoTrabajo;
 	}
 

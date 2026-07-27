@@ -215,7 +215,7 @@ public class BolsaEmpleo {
 			ArrayList<String> candidatosIdeales = new ArrayList<>();			
 			while (i < lasSolicitudes.size()) {
 				Solicitud solicitudCandidato = lasSolicitudes.get(i);			
-				if (solicitudCandidato.isActivo() && !(buscarPersona(solicitudCandidato.getId()).isEmpleado())) {
+				if (solicitudCandidato.isActivo() && !(buscarPersona(solicitudCandidato.getIdUsuario()).isEmpleado())) {
 					puntos = calcularPuntosCoincidencia(solicitudCandidato, ofertaEmpresa);
 					if (puntos >= ofertaEmpresa.getCoincidencia())
 						candidatosIdeales.add(solicitudCandidato.getId());
