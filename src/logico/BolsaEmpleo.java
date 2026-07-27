@@ -1,6 +1,8 @@
 package logico;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class BolsaEmpleo {
 	private ArrayList<Persona> lasPersonas;
@@ -186,12 +188,6 @@ public class BolsaEmpleo {
 			i++;
 		}
 			return resultado;
-		}
-		
-		public Persona getPersonaSolicitud (Solicitud buscar){
-			
-			Persona aux = null;
-			return aux;
 		}
 		
 		public Usuario getUsuarioPorCorreo(String Correo) {
