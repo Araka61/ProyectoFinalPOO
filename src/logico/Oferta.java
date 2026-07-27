@@ -1,88 +1,27 @@
 package logico;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-
-public class Oferta implements Serializable{
+public class Oferta extends Empleo{
 	private static final long serialVersionUID = 1L;
 	
-	private String id;
-	private String tipoTrabajo;
-	private String titulo;
-	private String tecnico;
-	private String habilidad;
 	private String descripcionTrabajo;
-	private String tiempoTrabajo;
-	private LocalDate horaOferta;
 	private float experienciaLaboral;
-	private float rangoMinSalario;
-	private float rangoMaxSalario;
-	private char sexo;
-	private String provincia;
-	private boolean licenciaDeConducir;
-	private boolean dispuestoAMudarse;
+	private float salario;
 	private float coincidencia;
 	private int cantPuesto;
-	private int minCoincidencia;
 	private boolean soloespecif;
-	private boolean activo;
-	
-	public Oferta(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad,
-			String descripcionTrabajo, String tiempoTrabajo, float experienciaLaboral, float rangoMinSalario,
-			float rangoMaxSalario, char sexo, String provincia, boolean licenciaDeConducir, boolean dispuestoAMudarse,
-			float coincidencia, int cantPuesto, int minCoincidencia,boolean soloespecif, boolean activo) {
-		super();
-		this.id = id;
-		this.tipoTrabajo = tipoTrabajo;
-		this.titulo = titulo;
-		this.tecnico = tecnico;
-		this.habilidad = habilidad;
+
+	public Oferta(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad, String tiempoTrabajo,
+			float experienciaLaboral, char sexo, String provincia, boolean licenciaDeConducir,
+			boolean dispuestoAMudarse, boolean activo, String descripcionTrabajo, float experienciaLaboral2,
+			float salario, float coincidencia, int cantPuesto, boolean soloespecif) {
+		super(id, tipoTrabajo, titulo, tecnico, habilidad, tiempoTrabajo, experienciaLaboral, sexo, provincia,
+				licenciaDeConducir, dispuestoAMudarse, activo);
 		this.descripcionTrabajo = descripcionTrabajo;
-		this.tiempoTrabajo = tiempoTrabajo;
-		this.horaOferta = LocalDate.now();
-		this.experienciaLaboral = experienciaLaboral;
-		this.rangoMinSalario = rangoMinSalario;
-		this.rangoMaxSalario = rangoMaxSalario;
-		this.sexo = sexo;
-		this.provincia = provincia;
-		this.licenciaDeConducir = licenciaDeConducir;
-		this.dispuestoAMudarse = dispuestoAMudarse;
+		experienciaLaboral = experienciaLaboral2;
+		this.salario = salario;
 		this.coincidencia = coincidencia;
 		this.cantPuesto = cantPuesto;
-		this.setMinCoincidencia(minCoincidencia);
-		this.activo = activo;
-	}
-
-	public String getTipoTrabajo() {
-		return tipoTrabajo;
-	}
-
-	public void setTipoTrabajo(String tipoTrabajo) {
-		this.tipoTrabajo = tipoTrabajo;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public String getTecnico() {
-		return tecnico;
-	}
-
-	public void setTecnico(String tecnico) {
-		this.tecnico = tecnico;
-	}
-
-	public String getHabilidad() {
-		return habilidad;
-	}
-
-	public void setHabilidad(String habilidad) {
-		this.habilidad = habilidad;
+		this.soloespecif = soloespecif;
 	}
 
 	public String getDescripcionTrabajo() {
@@ -93,14 +32,6 @@ public class Oferta implements Serializable{
 		this.descripcionTrabajo = descripcionTrabajo;
 	}
 
-	public String getTiempoTrabajo() {
-		return tiempoTrabajo;
-	}
-
-	public void setTiempoTrabajo(String tiempoTrabajo) {
-		this.tiempoTrabajo = tiempoTrabajo;
-	}
-
 	public float getExperienciaLaboral() {
 		return experienciaLaboral;
 	}
@@ -109,52 +40,12 @@ public class Oferta implements Serializable{
 		this.experienciaLaboral = experienciaLaboral;
 	}
 
-	public float getRangoMinSalario() {
-		return rangoMinSalario;
+	public float getSalario() {
+		return salario;
 	}
 
-	public void setRangoMinSalario(float rangoMinSalario) {
-		this.rangoMinSalario = rangoMinSalario;
-	}
-
-	public float getRangoMaxSalario() {
-		return rangoMaxSalario;
-	}
-
-	public void setRangoMaxSalario(float rangoMaxSalario) {
-		this.rangoMaxSalario = rangoMaxSalario;
-	}
-
-	public char getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(char sexo) {
-		this.sexo = sexo;
-	}
-
-	public String getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-
-	public boolean isLicenciaDeConducir() {
-		return licenciaDeConducir;
-	}
-
-	public void setLicenciaDeConducir(boolean licenciaDeConducir) {
-		this.licenciaDeConducir = licenciaDeConducir;
-	}
-
-	public boolean isDispuestoAMudarse() {
-		return dispuestoAMudarse;
-	}
-
-	public void setDispuestoAMudarse(boolean dispuestoAMudarse) {
-		this.dispuestoAMudarse = dispuestoAMudarse;
+	public void setSalario(float salario) {
+		this.salario = salario;
 	}
 
 	public float getCoincidencia() {
@@ -173,25 +64,15 @@ public class Oferta implements Serializable{
 		this.cantPuesto = cantPuesto;
 	}
 
-	public boolean isActivo() {
-		return activo;
+	public boolean isSoloespecif() {
+		return soloespecif;
 	}
 
-	public void setDisponible(boolean activo) {
-		this.activo = activo;
+	public void setSoloespecif(boolean soloespecif) {
+		this.soloespecif = soloespecif;
 	}
 
-	public String getId() {
-		return id;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
-
-	public int getMinCoincidencia() {
-		return minCoincidencia;
-	}
-
-	public void setMinCoincidencia(int minCoincidencia) {
-		this.minCoincidencia = minCoincidencia;
-	}
-	
-	
 }

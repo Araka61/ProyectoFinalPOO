@@ -1,8 +1,6 @@
 package logico;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
 
 public class BolsaEmpleo {
 	private ArrayList<Persona> lasPersonas;
@@ -249,8 +247,8 @@ public class BolsaEmpleo {
 			int puntos = 0;
 			if (solicitudCandidato.getExperienciaLaboral() >= ofertaEmpresa.getExperienciaLaboral())
 				puntos += 15;
-			if (solicitudCandidato.getRangoMinSalario() <= ofertaEmpresa.getRangoMaxSalario()
-					&& solicitudCandidato.getRangoMaxSalario() >= ofertaEmpresa.getRangoMinSalario())
+			if (solicitudCandidato.getRangoMinSalario() <= ofertaEmpresa.getSalario()
+					&& solicitudCandidato.getRangoMaxSalario() >= ofertaEmpresa.getSalario())
 				puntos += 10;
 			return puntos;
 		}
@@ -272,7 +270,7 @@ public class BolsaEmpleo {
 
 		private int compararResidencia(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
 			int puntos = 0;
-			if (solicitudCandidato.getResidencia().equalsIgnoreCase(ofertaEmpresa.getProvincia()))
+			if (solicitudCandidato.getProvincia().equalsIgnoreCase(ofertaEmpresa.getProvincia()))
 				puntos += 20;
 			return puntos;
 		}
