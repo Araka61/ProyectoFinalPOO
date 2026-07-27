@@ -151,3 +151,27 @@ cancelButton: Antes de salir, hace un guardarDatosFicheros() por seguridad.
 si alguno sabe por favor hágalo)
 
 Ya lo hice 
+
+
+Bueno faltan algunas cosas por hacer si puede revisar lo que e hecho para  ver que este bien 
+
+tambien por que por lo menos en mi caso lo tengo que buscar a cada rato esto es una tabla de 
+Unicode (Para la ñ y tildes)
+
+á (\u00E1)
+é (\u00E9)
+í (\u00ED)
+ó (\u00F3)
+ú (\u00FA)
+ñ (\u00F1)
+ü (\u00FC)
+Á (\u00C1)
+É (\u00C9)
+Í (\u00CD)
+Ó (\u00D3)
+Ú (\u00DA)
+Ñ (\u00D1)
+Ü (\u00DC)
+
+Yo ya cambie los \u00F1 por ñ que tenia para que sea mas vicible pero bueno no se como poner tildes a si que si ven algo como \u00E1
+sepan que es Unicode
