@@ -13,12 +13,14 @@ public abstract class Persona implements Serializable{
 	protected String correo;
 	protected boolean empleado;
 	protected ArrayList<Solicitud> solicitudes;
+	protected String tiempoDisponible;
 	protected boolean tieneLicencia;
 	protected char sexo;
 	protected String ciudad;
 	
 	public Persona(String id, String cedula, String nombre, String telefono, String correo, boolean empleado,
-			ArrayList<Solicitud> solicitudes, boolean tieneLicencia, char sexo, String ciudad) {
+			ArrayList<Solicitud> solicitudes, String tiempoDisponible,
+			boolean tieneLicencia, char sexo, String ciudad) {
 		super();
 		this.id = id;
 		this.cedula = cedula;
@@ -27,6 +29,7 @@ public abstract class Persona implements Serializable{
 		this.correo = correo;
 		this.empleado = empleado;
 		this.solicitudes = solicitudes;
+		this.tiempoDisponible = tiempoDisponible;
 		this.tieneLicencia = tieneLicencia;
 		this.sexo = sexo;
 		this.ciudad = ciudad;
@@ -80,6 +83,14 @@ public abstract class Persona implements Serializable{
 		this.solicitudes = solicitudes;
 	}
 
+	public String getTiempoDisponible() {
+		return tiempoDisponible;
+	}
+	
+	public void setTiempoDisponible(String tiempoDisponible) {
+		this.tiempoDisponible = tiempoDisponible;
+	}
+	
 	public boolean isTieneLicencia() {
 		return tieneLicencia;
 	}

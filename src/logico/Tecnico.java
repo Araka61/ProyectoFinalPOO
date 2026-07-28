@@ -11,9 +11,9 @@ public class Tecnico extends Persona {
 	private String especialidad;
 	
 	public Tecnico(String id, String cedula, String nombre, String telefono, String correo, boolean empleado,
-			ArrayList<Solicitud> solicitudes, boolean tieneLicencia, char sexo, String ciudad,
+			ArrayList<Solicitud> solicitudes, String tiempoDisponible, boolean tieneLicencia, char sexo, String ciudad,
 			String instituto, String diplomaTecnico, String especialidad) {
-		super(id, cedula, nombre, telefono, correo, empleado, solicitudes, tieneLicencia, sexo,
+		super(id, cedula, nombre, telefono, correo, empleado, solicitudes, tiempoDisponible, tieneLicencia, sexo,
 				ciudad);
 		this.instituto = instituto;
 		this.diplomaTecnico = diplomaTecnico;
