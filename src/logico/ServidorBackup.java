@@ -7,13 +7,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ServidorBackup extends Thread {
 
 	private static String respaldos = "Respaldos" + File.separator;
 	
 	public static void main (String args[]) {
+		
+		DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
 		
 		File carpeta = new File(respaldos);
 		if(carpeta.exists() == false) {
@@ -43,16 +46,16 @@ public class ServidorBackup extends Thread {
 								try {
 									String nombreArchivo = entrada.readUTF();
 									long sizeArchivo = entrada.readLong();
-									File archivoSalida = new File(respaldos+"Respaldo_"+LocalDate.now()+"_"+nombreArchivo);
+									
+									String fecha = LocalDateTime.now().format(formatoFecha);
+									File archivoSalida = new File(respaldos+"Respaldo_"+fecha+"_"+nombreArchivo);
 									
 									try (FileOutputStream salida = new FileOutputStream(archivoSalida)){
-					                	int unByte = entrada.read();
+					                	int unByte;
 					                	long sizeActual = 0;
-					                	while(sizeActual < sizeArchivo && unByte != -1) {
+					                	while(sizeActual < sizeArchivo && (unByte = entrada.read()) != -1) {
 					                		salida.write(unByte);
 					                		sizeActual++;
-					                		unByte = entrada.read();
-					                		
 					                	}
 					                	System.out.println("Respaldo guardado: "+archivoSalida.getName());
 					                }

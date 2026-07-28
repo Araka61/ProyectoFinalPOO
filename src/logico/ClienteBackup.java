@@ -24,12 +24,11 @@ public class ClienteBackup {
 			            
 			            long sizeArchivo = archivo.length();
 			            long sizeActual = 0;
-			            int unByte = entradaArchivo.read();
+			            int unByte;
 			            
-			            while(sizeActual < sizeArchivo && unByte != -1) {
+			            while(sizeActual < sizeArchivo && (unByte = entradaArchivo.read()) != -1) {
 			            	salida.write(unByte);
 			            	sizeActual++;
-			            	unByte = entradaArchivo.read();
 			            }
 			            salida.flush();
 			            System.out.println("Respaldo: "+archivo.getName()+" ha sido guardado");
