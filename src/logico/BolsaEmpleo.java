@@ -227,43 +227,46 @@ public class BolsaEmpleo {
 			puntos += compararResidencia(solicitudCandidato, ofertaEmpresa);
 			if (!aptitudSolicitud(solicitudCandidato, ofertaEmpresa) || solicitudCandidato.isActivo())
 				puntos = -1;
+			else {
+				puntos += 40;
+			}
 			return puntos;
 		}
 
 		private int compararDisponibilidadYTipo(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
 			int puntos = 0;
 			if (solicitudCandidato.getTiempoTrabajo().equalsIgnoreCase(ofertaEmpresa.getTiempoTrabajo()))
-				puntos += 10;
+				puntos += 5;
 			if (solicitudCandidato.getTipoTrabajo().equalsIgnoreCase(String.valueOf(ofertaEmpresa.getTipoTrabajo())))
-				puntos += 20;
+				puntos += 5;
 			return puntos;
 		}
 
 		private int compararExperienciaYSalario(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
 			int puntos = 0;
 			if (solicitudCandidato.getExperienciaLaboral() >= ofertaEmpresa.getExperienciaLaboral())
-				puntos += 15;
+				puntos += 8;
 			if (solicitudCandidato.getRangoMinSalario() <= ofertaEmpresa.getSalario()
 					&& solicitudCandidato.getRangoMaxSalario() >= ofertaEmpresa.getSalario())
-				puntos += 10;
+				puntos += 5;
 			return puntos;
 		}
 
 		private int compararDatosPersonales(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
 			int puntos = 0;
 			if (solicitudCandidato.getSexo() == ofertaEmpresa.getSexo())
-				puntos += 5;
+				puntos += 2;
 			if (!ofertaEmpresa.isLicenciaDeConducir() || solicitudCandidato.isLicenciaDeConducir())
-				puntos +=10;
+				puntos += 10;
 			if (!ofertaEmpresa.isDispuestoAMudarse() || solicitudCandidato.isDispuestoAMudarse())
-				puntos += 20;
+				puntos += 15;
 			return puntos;
 		}
 
 		private int compararResidencia(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
 			int puntos = 0;
 			if (solicitudCandidato.getProvincia().equalsIgnoreCase(ofertaEmpresa.getProvincia()))
-				puntos += 20;
+				puntos += 10;
 			return puntos;
 		}
 		
