@@ -13,6 +13,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.ButtonGroup;
 import javax.swing.GrayFilter;
+import javax.swing.ImageIcon;
 
 import logico.GestorFicheros;
 import logico.BolsaEmpleo;
@@ -30,6 +31,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
+
 
 public class RegistrarNuevoUsuario extends JDialog {
 	private final JPanel contentPanel = new JPanel();
@@ -60,6 +63,15 @@ public class RegistrarNuevoUsuario extends JDialog {
 	private JTextField txtDiplomaTecnico;
 	private JTextField txtEspecialidad;
 	private JTextField txtOficio;
+	private JTextField txtUsuarioLoginEmpresa;
+	private JPasswordField pfContrasenaEmpresa;
+	private JTextField txtCorreoEmpresa;
+	private JRadioButton rdbtnAdmin;
+	private JRadioButton rdbtnReclutador;
+	private JComboBox<String> cmbEmpresas;
+	private JButton btnRegistrarEmpresa;
+	private JPasswordField pfClave;
+
 
 	/**
 	 * Launch the application.
@@ -121,7 +133,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		contentPanel.add(panelContenedor);
 
 		JPanel panelUsuarioCard = crearPanelUsuario();
-		JPanel panelEmpresaCard = new JPanel(); 
+		JPanel panelEmpresaCard = crearPanelEmpresa(); 
 
 		panelContenedor.add(panelUsuarioCard, "USUARIO");
 		panelContenedor.add(panelEmpresaCard, "EMPRESA");
@@ -289,6 +301,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		lblContrasenaPersona.setBounds(280, 130, 80, 20);
 		panel.add(lblContrasenaPersona);
 		pfContrasenaPersona = new JPasswordField();
+		pfContrasenaPersona.setEchoChar('*');
 		pfContrasenaPersona.setForeground(Color.WHITE);
 		pfContrasenaPersona.setBackground(Color.DARK_GRAY);
 		pfContrasenaPersona.setBounds(360, 130, 160, 20);
@@ -331,6 +344,16 @@ public class RegistrarNuevoUsuario extends JDialog {
 		panelNivel.add(crearPanelGrado(), "GRADO");
 		panelNivel.add(crearPanelTecnico(), "TECNICO");
 		panelNivel.add(crearPanelTrabajador(), "TRABAJADOR");
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBackground(Color.BLACK);
+		btnNewButton.setIcon(new ImageIcon(getClass().getResource("/ojo.jpg")));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBounds(530, 129, 100, 81);
+		panel.add(btnNewButton);
 
 		rdbtnGrado.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -353,6 +376,115 @@ public class RegistrarNuevoUsuario extends JDialog {
 
 		return panel;
 	}
+	
+	private JPanel crearPanelEmpresa() {
+		JPanel panel = new JPanel();
+		panel.setForeground(Color.WHITE);
+		panel.setBackground(Color.GRAY);
+		panel.setLayout(null);
+ 
+		JLabel lblUsuarioLoginEmpresa = new JLabel("Usuario:");
+		lblUsuarioLoginEmpresa.setForeground(Color.WHITE);
+		lblUsuarioLoginEmpresa.setBounds(10, 10, 80, 20);
+		panel.add(lblUsuarioLoginEmpresa);
+		txtUsuarioLoginEmpresa = new JTextField();
+		txtUsuarioLoginEmpresa.setForeground(Color.WHITE);
+		txtUsuarioLoginEmpresa.setBackground(Color.DARK_GRAY);
+		txtUsuarioLoginEmpresa.setBounds(100, 10, 160, 20);
+		panel.add(txtUsuarioLoginEmpresa);
+ 
+		JLabel lblContrasenaEmpresa = new JLabel("Contrase\u00F1a:");
+		lblContrasenaEmpresa.setForeground(Color.WHITE);
+		lblContrasenaEmpresa.setBounds(280, 10, 80, 20);
+		panel.add(lblContrasenaEmpresa);
+		pfContrasenaEmpresa = new JPasswordField();
+		pfContrasenaEmpresa.setEchoChar('*');
+		pfContrasenaEmpresa.setForeground(Color.WHITE);
+		pfContrasenaEmpresa.setBackground(Color.DARK_GRAY);
+		pfContrasenaEmpresa.setBounds(360, 10, 160, 20);
+		panel.add(pfContrasenaEmpresa);
+ 
+		JLabel lblCorreoEmpresa = new JLabel("Correo:");
+		lblCorreoEmpresa.setForeground(Color.WHITE);
+		lblCorreoEmpresa.setBounds(10, 40, 80, 20);
+		panel.add(lblCorreoEmpresa);
+		txtCorreoEmpresa = new JTextField();
+		txtCorreoEmpresa.setForeground(Color.WHITE);
+		txtCorreoEmpresa.setBackground(Color.DARK_GRAY);
+		txtCorreoEmpresa.setBounds(100, 40, 160, 20);
+		panel.add(txtCorreoEmpresa);
+ 
+		JLabel lblEmpresas = new JLabel("Empresa:");
+		lblEmpresas.setForeground(Color.WHITE);
+		lblEmpresas.setBounds(10, 70, 80, 20);
+		panel.add(lblEmpresas);
+		cmbEmpresas = new JComboBox<String>();
+		cmbEmpresas.setForeground(Color.WHITE);
+		cmbEmpresas.setBackground(Color.DARK_GRAY);
+		cmbEmpresas.setBounds(100, 70, 200, 20);
+		panel.add(cmbEmpresas);
+ 
+		btnRegistrarEmpresa = new JButton("Registrar Empresa");
+		btnRegistrarEmpresa.setForeground(Color.WHITE);
+		btnRegistrarEmpresa.setBackground(new Color(0, 128, 0));
+		btnRegistrarEmpresa.setBounds(310, 70, 150, 20);
+		btnRegistrarEmpresa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NuevaEmpresa dialogNuevaEmpresa = new NuevaEmpresa();
+				dialogNuevaEmpresa.setVisible(true);
+			}
+		});
+		panel.add(btnRegistrarEmpresa);
+ 
+		JLabel lblRol = new JLabel("Rol:");
+		lblRol.setForeground(Color.WHITE);
+		lblRol.setBounds(10, 165, 80, 20);
+		panel.add(lblRol);
+ 
+		rdbtnAdmin = new JRadioButton("Admin");
+		rdbtnAdmin.setForeground(Color.WHITE);
+		rdbtnAdmin.setBackground(Color.GRAY);
+		rdbtnAdmin.setSelected(true);
+		rdbtnAdmin.setBounds(100, 165, 100, 20);
+		panel.add(rdbtnAdmin);
+ 
+		rdbtnReclutador = new JRadioButton("Reclutador");
+		rdbtnReclutador.setForeground(Color.WHITE);
+		rdbtnReclutador.setBackground(Color.GRAY);
+		rdbtnReclutador.setBounds(202, 165, 120, 20);
+		panel.add(rdbtnReclutador);
+ 
+		ButtonGroup grupoRolEmpresa = new ButtonGroup();
+		grupoRolEmpresa.add(rdbtnAdmin);
+		grupoRolEmpresa.add(rdbtnReclutador);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Mostrar contrase\u00F1a");
+		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pfContrasenaEmpresa.setEchoChar((char) 0);
+			}
+		});
+		rdbtnNewRadioButton.setForeground(Color.WHITE);
+		rdbtnNewRadioButton.setBackground(Color.GRAY);
+		rdbtnNewRadioButton.setBounds(531, 9, 126, 23);
+		panel.add(rdbtnNewRadioButton);
+		
+		pfClave = new JPasswordField();
+		pfClave.setForeground(Color.WHITE);
+		pfClave.setEchoChar('*');
+		pfClave.setBackground(Color.DARK_GRAY);
+		pfClave.setBounds(100, 102, 160, 20);
+		panel.add(pfClave);
+		
+		JLabel lblClave = new JLabel("Clave");
+		lblClave.setForeground(Color.WHITE);
+		lblClave.setBounds(10, 105, 80, 20);
+		panel.add(lblClave);
+ 
+		return panel;
+	}
+ 
+
 
 	private JPanel crearPanelGrado() {
 		JPanel panel = new JPanel();
