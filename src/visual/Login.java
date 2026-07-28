@@ -25,6 +25,8 @@ import logico.Usuario;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 public class Login extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -54,6 +56,7 @@ public class Login extends JDialog {
 	 * Create the dialog.
 	 */
 	public Login(MenuPrincipal frame) {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -65,15 +68,20 @@ public class Login extends JDialog {
 		setTitle("Login");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setForeground(Color.WHITE);
+		contentPanel.setBackground(Color.GRAY);
+		contentPanel.setBorder(null);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Usuario:");
+		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setBounds(38, 37, 89, 14);
 		contentPanel.add(lblNewLabel);
 		
 		txtUsuario = new JTextField();
+		txtUsuario.setBackground(Color.DARK_GRAY);
+		txtUsuario.setForeground(Color.WHITE);
 		txtUsuario.addKeyListener(new KeyAdapter() {	
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -86,11 +94,14 @@ public class Login extends JDialog {
 		txtUsuario.setColumns(10);
 		{
 			JLabel lblContrasea = new JLabel("Contraseña:");
+			lblContrasea.setForeground(Color.WHITE);
 			lblContrasea.setBounds(38, 88, 89, 14);
 			contentPanel.add(lblContrasea);
 		}
 		
 		pfContrasena = new JPasswordField();
+		pfContrasena.setForeground(Color.WHITE);
+		pfContrasena.setBackground(Color.DARK_GRAY);
 		pfContrasena.addKeyListener(new KeyAdapter() {
 		
 			@Override
@@ -103,6 +114,8 @@ public class Login extends JDialog {
 		contentPanel.add(pfContrasena);
 		
 		JRadioButton rdbtnMostrar = new JRadioButton("Mostrar contraseña");
+		rdbtnMostrar.setBackground(Color.GRAY);
+		rdbtnMostrar.setForeground(Color.WHITE);
 		rdbtnMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!esVisible) {
@@ -119,6 +132,7 @@ public class Login extends JDialog {
 		contentPanel.add(rdbtnMostrar);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(Color.GRAY);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
