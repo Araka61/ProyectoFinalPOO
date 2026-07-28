@@ -170,7 +170,12 @@ public class Login extends JDialog {
 					 RegistrarNuevoUsuario registro = new RegistrarNuevoUsuario();
 				        registro.setModal(true);
 				        registro.setVisible(true);
-				        
+				        Usuario cookie = BolsaEmpleo.getInstancia().getCookieUsuario();
+				        if (cookie != null) {
+				            frame.cargarInterfazSegunUsuario(cookie);
+				            frame.setVisible(true);
+				            dispose();
+				        }
 				}
 			});
 			btnNuevoUsuario.setActionCommand("OK");
