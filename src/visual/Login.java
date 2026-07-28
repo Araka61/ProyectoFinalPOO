@@ -21,6 +21,8 @@ import java.awt.Color;
 
 import logico.BolsaEmpleo;
 import logico.GestorFicheros;
+import logico.Usuario;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 public class Login extends JDialog {
@@ -126,8 +128,10 @@ public class Login extends JDialog {
 						String contra = new String(pfContrasena.getPassword());
 						if (BolsaEmpleo.getInstancia().login(txtUsuario.getText(), contra))
 						{
+							Usuario u = BolsaEmpleo.getInstancia().getUsuarioPorUserName(txtUsuario.getText());
 							BolsaEmpleo.getInstancia().setCookieUsuario(BolsaEmpleo.getInstancia().getUsuarioPorUserName(txtUsuario.getText()));
 							GestorFicheros.guardarCookies();
+							frame.cargarInterfazSegunUsuario(u);
 							frame.setVisible(true);
 							dispose();
 						} else {
