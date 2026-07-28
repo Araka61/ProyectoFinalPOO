@@ -79,6 +79,7 @@ public class MenuPrincipal extends JFrame {
 
 		JMenu menuBase = new JMenu("Menú Principal");
 		menuBase.add(new JMenuItem("Cerrar Sesión"));
+		menuBase.add(new JMenuItem("Respaldar En Servidor"));
 		menuBar.add(menuBase);
 
 		contentPane = new JPanel();
@@ -129,6 +130,7 @@ public class MenuPrincipal extends JFrame {
 
 		JMenu menuCuenta = new JMenu("Cuenta");
 		JMenuItem itemCerrarSesion = new JMenuItem("Cerrar Sesión");
+		JMenuItem itemRespaldar = new JMenuItem("Respaldar Servidor");
 		itemCerrarSesion.addActionListener(e -> cerrarSesion());
 		menuCuenta.add(itemCerrarSesion);
 
@@ -150,6 +152,7 @@ public class MenuPrincipal extends JFrame {
 
 		JMenu menuCuenta = new JMenu("Cuenta");
 		JMenuItem itemCerrarSesion = new JMenuItem("Cerrar Sesión");
+		JMenuItem itemRespaldar = new JMenuItem("Respaldar Servidor");
 		itemCerrarSesion.addActionListener(e -> cerrarSesion());
 		menuCuenta.add(itemCerrarSesion);
 

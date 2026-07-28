@@ -41,7 +41,7 @@ public class NuevaEmpresa extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				GestorFicheros.guardarCookies();
+				GestorFicheros.guardarDatosFicheros();
 			}
 		});
 		setForeground(Color.WHITE);
