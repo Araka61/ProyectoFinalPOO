@@ -10,9 +10,9 @@ private static final long serialVersionUID = 1L;
 
 	
 	public Trabajador(String id, String cedula, String nombre, String telefono, String correo, boolean empleado,
-			ArrayList<Solicitud> solicitudes, String tiempoDisponible, boolean tieneLicencia, char sexo, String ciudad,
+			ArrayList<Solicitud> solicitudes, boolean tieneLicencia, char sexo, String ciudad,
 			String oficio) {
-		super(id, cedula, nombre, telefono, correo, empleado, solicitudes, tiempoDisponible, tieneLicencia, sexo,
+		super(id, cedula, nombre, telefono, correo, empleado, solicitudes, tieneLicencia, sexo,
 				ciudad);
 		this.oficio = oficio;
 	}

@@ -4,7 +4,6 @@ public class Oferta extends Empleo{
 	private static final long serialVersionUID = 1L;
 	
 	private String descripcionTrabajo;
-	private float experienciaLaboral;
 	private float salario;
 	private float coincidencia;
 	private int cantPuesto;
@@ -12,12 +11,11 @@ public class Oferta extends Empleo{
 
 	public Oferta(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad, String tiempoTrabajo,
 			float experienciaLaboral, char sexo, String provincia, boolean licenciaDeConducir,
-			boolean dispuestoAMudarse, boolean activo, String descripcionTrabajo, float experienciaLaboral2,
+			boolean dispuestoAMudarse, boolean activo, String descripcionTrabajo,
 			float salario, float coincidencia, int cantPuesto, boolean soloespecif) {
 		super(id, tipoTrabajo, titulo, tecnico, habilidad, tiempoTrabajo, experienciaLaboral, sexo, provincia,
 				licenciaDeConducir, dispuestoAMudarse, activo);
 		this.descripcionTrabajo = descripcionTrabajo;
-		experienciaLaboral = experienciaLaboral2;
 		this.salario = salario;
 		this.coincidencia = coincidencia;
 		this.cantPuesto = cantPuesto;
@@ -30,14 +28,6 @@ public class Oferta extends Empleo{
 
 	public void setDescripcionTrabajo(String descripcionTrabajo) {
 		this.descripcionTrabajo = descripcionTrabajo;
-	}
-
-	public float getExperienciaLaboral() {
-		return experienciaLaboral;
-	}
-
-	public void setExperienciaLaboral(float experienciaLaboral) {
-		this.experienciaLaboral = experienciaLaboral;
 	}
 
 	public float getSalario() {

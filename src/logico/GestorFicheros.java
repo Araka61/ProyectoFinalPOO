@@ -268,7 +268,7 @@ public class GestorFicheros {
 			cargarDatosSolicitudes();
 			cargarCookies();
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -282,7 +282,7 @@ public class GestorFicheros {
 			guardarDatosSolicitudes();
 			guardarDatosUsuarios();		
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 	}
 }

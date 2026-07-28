@@ -3,7 +3,6 @@ package logico;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 public class BolsaEmpleo {
 	private ArrayList<Persona> lasPersonas;
 	private ArrayList<Empresa> lasEmpresas;
@@ -209,7 +208,8 @@ public class BolsaEmpleo {
 			ArrayList<String> candidatosIdeales = new ArrayList<>();			
 			while (i < lasSolicitudes.size()) {
 				Solicitud solicitudCandidato = lasSolicitudes.get(i);			
-				if (solicitudCandidato.isActivo() && !(buscarPersona(solicitudCandidato.getIdUsuario()).isEmpleado())) {
+				Persona p = buscarPersona(solicitudCandidato.getIdUsuario());
+				if (solicitudCandidato.isActivo() && p != null && !p.isEmpleado()) {
 					puntos = calcularPuntosCoincidencia(solicitudCandidato, ofertaEmpresa);
 					if (puntos >= ofertaEmpresa.getCoincidencia())
 						candidatosIdeales.add(solicitudCandidato.getId());
@@ -225,7 +225,7 @@ public class BolsaEmpleo {
 			puntos += compararExperienciaYSalario(solicitudCandidato, ofertaEmpresa);
 			puntos += compararDatosPersonales(solicitudCandidato, ofertaEmpresa);
 			puntos += compararResidencia(solicitudCandidato, ofertaEmpresa);
-			if (!aptitudSolicitud(solicitudCandidato, ofertaEmpresa))
+			if (!aptitudSolicitud(solicitudCandidato, ofertaEmpresa) || solicitudCandidato.isActivo())
 				puntos = -1;
 			return puntos;
 		}
@@ -253,13 +253,9 @@ public class BolsaEmpleo {
 			int puntos = 0;
 			if (solicitudCandidato.getSexo() == ofertaEmpresa.getSexo())
 				puntos += 5;
-			if (!ofertaEmpresa.isLicenciaDeConducir())
+			if (!ofertaEmpresa.isLicenciaDeConducir() || solicitudCandidato.isLicenciaDeConducir())
 				puntos +=10;
-			else if (solicitudCandidato.isLicenciaDeConducir())
-				puntos+=10;
-			if (!ofertaEmpresa.isDispuestoAMudarse())
-				puntos += 20;
-			else if (solicitudCandidato.isDispuestoAMudarse())
+			if (!ofertaEmpresa.isDispuestoAMudarse() || solicitudCandidato.isDispuestoAMudarse())
 				puntos += 20;
 			return puntos;
 		}
@@ -271,21 +267,42 @@ public class BolsaEmpleo {
 			return puntos;
 		}
 		
-		private boolean aptitudSolicitud (Solicitud solicitudCandidato,Oferta ofertaEmpresa){
-			boolean comp = true;
-			if (!ofertaEmpresa.getTitulo().equalsIgnoreCase("n/a")) {
-				
-			}
-			return comp;
-			
+		private boolean aptitudSolicitud(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
+		    boolean comp = true;
+
+		    if (!ofertaEmpresa.getTitulo().equalsIgnoreCase("n/a") && !ofertaEmpresa.getTitulo().trim().isEmpty()) {
+		        if (solicitudCandidato.getTitulo().equalsIgnoreCase("n/a") || 
+		            !areaRelacionadaTitulo(ofertaEmpresa.getTitulo(), solicitudCandidato.getTitulo())) {
+		        	comp = false;
+		        }
+		    }
+		    
+		    if (comp && !ofertaEmpresa.getTecnico().equalsIgnoreCase("n/a") && !ofertaEmpresa.getTecnico().trim().isEmpty()) {
+		        if (solicitudCandidato.getTecnico().equalsIgnoreCase("n/a") || 
+		            !areaRelacionadaTitulo(ofertaEmpresa.getTecnico(), solicitudCandidato.getTecnico())) {
+		        	comp = false;
+		        }
+		    }
+		    
+		    if (comp && !ofertaEmpresa.getHabilidad().equalsIgnoreCase("n/a") && !ofertaEmpresa.getHabilidad().trim().isEmpty()) {
+		        if (solicitudCandidato.getHabilidad().equalsIgnoreCase("n/a") || 
+		            !areaRelacionadaTitulo(ofertaEmpresa.getHabilidad(), solicitudCandidato.getHabilidad())) {
+		        	comp = false;
+		        }
+		    }
+
+		    return comp;
 		}
-		
-		private boolean areaRelacionadaTitulo (String titulo) {
-			boolean comp = true;
-			
-			
-			return comp;
-			
+
+		private boolean areaRelacionadaTitulo(String reqOferta, String areaCandidato) {
+		    if (reqOferta == null || areaCandidato == null) {
+		        return false;
+		    }
+
+		    String req = reqOferta.trim().toLowerCase();
+		    String cand = areaCandidato.trim().toLowerCase();
+
+		    return req.equalsIgnoreCase(cand) || cand.contains(req) || req.contains(cand);
 		}
 		
 		//      Comprobaciones
