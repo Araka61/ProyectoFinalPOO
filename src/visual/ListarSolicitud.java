@@ -26,184 +26,198 @@ import java.awt.event.WindowEvent;
 
 public class ListarSolicitud extends JDialog {
 
-    private final JPanel contentPanel = new JPanel();
-    private JTable tableSolicitudes;
-    private DefaultTableModel modelTabla;
-    private Usuario usuarioActual;
+	private final JPanel contentPanel = new JPanel();
+	private JTable tableSolicitudes;
+	private DefaultTableModel modelTabla;
+	private Usuario usuarioActual;
 
-    public static void main(String[] args) {
-        try {
-            GestorFicheros.cargarDatosDesdeFicheros();
-            ListarSolicitud dialog = new ListarSolicitud();
-            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-            dialog.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	// Colores Paleta 
+	private final Color bgPrincipal = new Color(243, 244, 246); // Gris muy claro
+	private final Color bgInputs = Color.WHITE;                 // Blanco puro
+	private final Color colorTexto = new Color(31, 41, 55);     // Gris carbón oscuro
+	private final Color colorVerde = new Color(16, 185, 129);   // Verde 
+	private final Color colorRojo = new Color(239, 68, 68);     // Rojo
+	private final Color colorAzul = new Color(37, 99, 235);     // Azul estándar
 
-    public ListarSolicitud() {
-    	addWindowListener(new WindowAdapter() {
-    		@Override
-    		public void windowClosing(WindowEvent e) {
-    			GestorFicheros.guardarDatosFicheros();
-    		}
-    	});
-        setTitle("Gestión de Solicitudes de Empleo");
-        setBounds(100, 100, 750, 420);
-        setLocationRelativeTo(null);
-        setModal(true);
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			GestorFicheros.cargarDatosDesdeFicheros();
+			ListarSolicitud dialog = new ListarSolicitud();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-        getContentPane().setLayout(new BorderLayout());
-        contentPanel.setBackground(Color.GRAY);
-        contentPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        contentPanel.setLayout(new BorderLayout(0, 0));
-        getContentPane().add(contentPanel, BorderLayout.CENTER);
+	/**
+	 * Create the dialog.
+	 */
+	public ListarSolicitud() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				GestorFicheros.guardarDatosFicheros();
+			}
+		});
+		setTitle("Gestión de Solicitudes de Empleo");
+		setBounds(100, 100, 750, 420);
+		setLocationRelativeTo(null);
+		setModal(true);
 
-        usuarioActual = BolsaEmpleo.getInstancia().getCookieUsuario();
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(bgPrincipal);
+		contentPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		contentPanel.setLayout(new BorderLayout(0, 0));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
 
-        String[] columnas = {"ID Solicitud", "Tipo Trabajo", "Título / Habilidad", "Provincia", "Rango Salario", "Estado"};
-        modelTabla = new DefaultTableModel(columnas, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
+		usuarioActual = BolsaEmpleo.getInstancia().getCookieUsuario();
 
-        tableSolicitudes = new JTable(modelTabla);
-        tableSolicitudes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tableSolicitudes.setBackground(Color.DARK_GRAY);
-        tableSolicitudes.setForeground(Color.WHITE);
-        tableSolicitudes.getTableHeader().setReorderingAllowed(false);
+		String[] columnas = {"ID Solicitud", "Tipo Trabajo", "Título / Habilidad", "Provincia", "Rango Salario", "Estado"};
+		modelTabla = new DefaultTableModel(columnas, 0) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		tableSolicitudes = new JTable(modelTabla);
+		tableSolicitudes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableSolicitudes.setBackground(bgInputs);
+		tableSolicitudes.setForeground(colorTexto);
+		tableSolicitudes.getTableHeader().setReorderingAllowed(false);
+		tableSolicitudes.getTableHeader().setBackground(bgPrincipal);
+		tableSolicitudes.getTableHeader().setForeground(colorTexto);
+		JScrollPane scrollPane = new JScrollPane(tableSolicitudes);
+		scrollPane.getViewport().setBackground(bgInputs); 
+		contentPanel.add(scrollPane, BorderLayout.CENTER);
+		cargarSolicitudes();
 
-        JScrollPane scrollPane = new JScrollPane(tableSolicitudes);
-        contentPanel.add(scrollPane, BorderLayout.CENTER);
+		JPanel buttonPane = new JPanel();
+		buttonPane.setBackground(bgPrincipal);
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
-        cargarSolicitudes();
+		JButton btnNueva = new JButton("Nueva Solicitud");
+		btnNueva.setBackground(colorVerde);
+		btnNueva.setForeground(Color.WHITE);
+		btnNueva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (usuarioActual == null) {
+					JOptionPane.showMessageDialog(ListarSolicitud.this, "Debe iniciar sesión para crear una solicitud.", "Aviso", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				
+				RegistrarSolicitud dialog = new RegistrarSolicitud(ListarSolicitud.this, null);
+				dialog.setVisible(true);
+				cargarSolicitudes(); 
+			}
+		});
+		buttonPane.add(btnNueva);
 
-        JPanel buttonPane = new JPanel();
-        buttonPane.setBackground(Color.GRAY);
-        buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.setBackground(colorAzul);
+		btnEditar.setForeground(Color.WHITE);
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = tableSolicitudes.getSelectedRow();
+				if (selectedRow == -1) {
+					JOptionPane.showMessageDialog(ListarSolicitud.this, "Por favor, seleccione una solicitud de la lista.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 
-        JButton btnNueva = new JButton("Nueva Solicitud");
-        btnNueva.setBackground(new Color(0, 128, 0));
-        btnNueva.setForeground(Color.WHITE);
-        btnNueva.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (usuarioActual == null) {
-                    JOptionPane.showMessageDialog(ListarSolicitud.this, "Debe iniciar sesión para crear una solicitud.", "Aviso", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                
-                RegistrarSolicitud dialog = new RegistrarSolicitud(ListarSolicitud.this, null);
-                dialog.setVisible(true);
-                cargarSolicitudes(); 
-            }
-        });
-        buttonPane.add(btnNueva);
+				String idSolicitud = (String) modelTabla.getValueAt(selectedRow, 0);
+				
+				RegistrarSolicitud dialog = new RegistrarSolicitud(ListarSolicitud.this, idSolicitud);
+				dialog.setVisible(true);
+				cargarSolicitudes();
+			}
+		});
+		buttonPane.add(btnEditar);
+		
+		JButton btnDesactivar = new JButton("Desactivar");
+		btnDesactivar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int filaSeleccionada = tableSolicitudes.getSelectedRow();
+				
+				if(filaSeleccionada == -1) {
+					JOptionPane.showMessageDialog(ListarSolicitud.this, "Seleccione una solicitud", 
+							"Seleccion Requerida", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				
+				String idSolicitud = (String) modelTabla.getValueAt(filaSeleccionada, 0);
+				
+				int respuesta = JOptionPane.showConfirmDialog(ListarSolicitud.this, "¿Seguro que desea desactivar esta solicitud?", 
+						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				
+				if(respuesta == JOptionPane.YES_OPTION) {
+					Solicitud solicitud = BolsaEmpleo.getInstancia().buscarSolicitud(idSolicitud);
+					if(solicitud != null) {
+						solicitud.setActivo(false);
+						
+						GestorFicheros.guardarDatosFicheros();
+						
+						JOptionPane.showMessageDialog(ListarSolicitud.this,
+								"La Solicitud ha sido desactivada correctamente.", "Exito",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+			}
+		});
+		btnDesactivar.setBackground(colorRojo);
+		btnDesactivar.setForeground(Color.WHITE);
+		buttonPane.add(btnDesactivar);
 
-        JButton btnEditar = new JButton("Editar");
-        btnEditar.setBackground(new Color(218, 165, 32));
-        btnEditar.setForeground(Color.WHITE);
-        btnEditar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int selectedRow = tableSolicitudes.getSelectedRow();
-                if (selectedRow == -1) {
-                    JOptionPane.showMessageDialog(ListarSolicitud.this, "Por favor, seleccione una solicitud de la lista.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                String idSolicitud = (String) modelTabla.getValueAt(selectedRow, 0);
-                
-                RegistrarSolicitud dialog = new RegistrarSolicitud(ListarSolicitud.this, idSolicitud);
-                dialog.setVisible(true);
-                cargarSolicitudes();
-            }
-        });
-        buttonPane.add(btnEditar);
-        
-        JButton btnDesactivar = new JButton("Desactivar");
-        btnDesactivar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		int filaSeleccionada = tableSolicitudes.getSelectedRow();
-        		
-        		if(filaSeleccionada == -1) {
-        			JOptionPane.showMessageDialog(ListarSolicitud.this, "Seleccione una solicitud", 
-        					"Seleccion Requerida", JOptionPane.WARNING_MESSAGE);
-        			return;
-        		}
-        		
-        		String idSolicitud = (String) modelTabla.getValueAt(filaSeleccionada, 0);
-        		
-        		int respuesta = JOptionPane.showConfirmDialog(ListarSolicitud.this, "¿Seguro que desea desactivar esta solicitud?", 
-        				"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        		
-        		if(respuesta == JOptionPane.YES_OPTION) {
-        			Solicitud solicitud = BolsaEmpleo.getInstancia().buscarSolicitud(idSolicitud);
-        			if(solicitud != null) {
-        				solicitud.setActivo(false);
-        				
-        				GestorFicheros.guardarDatosFicheros();
-        				
-        				JOptionPane.showMessageDialog(ListarSolicitud.this,
-        						"La Solicitud ha sido desactivada correctamente.", "Exito",
-        						JOptionPane.INFORMATION_MESSAGE);
-        			}
-        		}
-        	}
-        });
-        btnDesactivar.setBackground(new Color(255, 0, 0));
-        btnDesactivar.setForeground(Color.WHITE);
-        buttonPane.add(btnDesactivar);
-
-        JButton btnCerrar = new JButton("Cerrar");
-        btnCerrar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		GestorFicheros.guardarDatosFicheros();
+		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GestorFicheros.guardarDatosFicheros();
 				dispose();
-        	}
-        });
-        btnCerrar.setBackground(new Color(128, 0, 0));
-        btnCerrar.setForeground(Color.WHITE);
-        buttonPane.add(btnCerrar);
-    }
+			}
+		});
+		btnCerrar.setBackground(colorRojo);
+		btnCerrar.setForeground(Color.WHITE);
+		buttonPane.add(btnCerrar);
+	}
 
-    private void cargarSolicitudes() {
-        modelTabla.setRowCount(0);
+	private void cargarSolicitudes() {
+		modelTabla.setRowCount(0);
 
-        ArrayList<Solicitud> lista = BolsaEmpleo.getInstancia().getLasSolicitudes();
+		ArrayList<Solicitud> lista = BolsaEmpleo.getInstancia().getLasSolicitudes();
 
-        if (lista != null) {
-            for (Solicitud s : lista) {
-                if (usuarioActual != null && "candidato".equalsIgnoreCase(usuarioActual.getRol())) {
-                    if (!s.getIdUsuario().equals(usuarioActual.getId())) {
-                        continue;
-                    }
-                }
+		if (lista != null) {
+			for (Solicitud s : lista) {
+				if (usuarioActual != null && "candidato".equalsIgnoreCase(usuarioActual.getRol())) {
+					if (!s.getIdUsuario().equals(usuarioActual.getId())) {
+						continue;
+					}
+				}
 
-                String tituloOHabilidad = "n/a";
-                if (s.getTitulo() != null && !s.getTitulo().equals("n/a")) {
-                    tituloOHabilidad = s.getTitulo();
-                } else if (s.getTecnico() != null && !s.getTecnico().equals("n/a")) {
-                    tituloOHabilidad = s.getTecnico();
-                } else if (s.getHabilidad() != null && !s.getHabilidad().equals("n/a")) {
-                    tituloOHabilidad = s.getHabilidad();
-                }
+				String tituloOHabilidad = "n/a";
+				if (s.getTitulo() != null && !s.getTitulo().equals("n/a")) {
+					tituloOHabilidad = s.getTitulo();
+				} else if (s.getTecnico() != null && !s.getTecnico().equals("n/a")) {
+					tituloOHabilidad = s.getTecnico();
+				} else if (s.getHabilidad() != null && !s.getHabilidad().equals("n/a")) {
+					tituloOHabilidad = s.getHabilidad();
+				}
 
-                String rangoSalario = "$" + String.format("%.0f", s.getRangoMinSalario()) + " - $" + String.format("%.0f", s.getRangoMaxSalario());
-                String estado = s.isActivo() ? "Activa" : "Inactiva";
+				String rangoSalario = "$" + String.format("%.0f", s.getRangoMinSalario()) + " - $" + String.format("%.0f", s.getRangoMaxSalario());
+				String estado = s.isActivo() ? "Activa" : "Inactiva";
 
-                Object[] fila = {
-                    s.getId(),
-                    s.getTipoTrabajo(),
-                    tituloOHabilidad,
-                    s.getProvincia(),
-                    rangoSalario,
-                    estado
-                };
-                modelTabla.addRow(fila);
-            }
-        }
-    }
+				Object[] fila = {
+					s.getId(),
+					s.getTipoTrabajo(),
+					tituloOHabilidad,
+					s.getProvincia(),
+					rangoSalario,
+					estado
+				};
+				modelTabla.addRow(fila);
+			}
+		}
+	}
 }

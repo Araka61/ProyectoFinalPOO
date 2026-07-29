@@ -45,6 +45,14 @@ public class RegistrarSolicitud extends JDialog {
 	private String titulo = "n/a";
 	private String genero = "n/a";
 
+	// Colores Paleta 
+	private final Color bgPrincipal = new Color(243, 244, 246); // Gris muy claro
+	private final Color bgInputs = Color.WHITE;                 // Blanco puro
+	private final Color colorTexto = new Color(31, 41, 55);     // Gris carbón oscuro
+	private final Color colorVerde = new Color(16, 185, 129);   // Verde 
+	private final Color colorRojo = new Color(239, 68, 68);     // Rojo
+	private final Color colorAzul = new Color(37, 99, 235);     // Azul estándar
+
 	public static void main(String[] args) {
 		try {
 			GestorFicheros.cargarDatosDesdeFicheros();
@@ -57,19 +65,19 @@ public class RegistrarSolicitud extends JDialog {
 	}
 
 	public RegistrarSolicitud(Window parent, String idSolicitud) {
-	    super(parent, ModalityType.APPLICATION_MODAL);
-	    addWindowListener(new WindowAdapter() {
-	    	@Override
-	    	public void windowClosing(WindowEvent e) {
-	    		GestorFicheros.guardarDatosFicheros();
-	    	}
-	    });
-	    setTitle(idSolicitud != null ? "Editar Solicitud" : "Generar Solicitud");
-	    setBounds(100, 100, 550, 320);
-	    setLocationRelativeTo(parent);
-	    setResizable(false);
+		super(parent, ModalityType.APPLICATION_MODAL);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				GestorFicheros.guardarDatosFicheros();
+			}
+		});
+		setTitle(idSolicitud != null ? "Editar Solicitud" : "Generar Solicitud");
+		setBounds(100, 100, 550, 320);
+		setLocationRelativeTo(parent);
+		setResizable(false);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.GRAY);
+		contentPanel.setBackground(bgPrincipal);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
@@ -91,34 +99,34 @@ public class RegistrarSolicitud extends JDialog {
 		}
 
 		JLabel lblTipo = new JLabel("Tipo Trabajo:");
-		lblTipo.setForeground(Color.WHITE);
+		lblTipo.setForeground(colorTexto);
 		lblTipo.setBounds(12, 15, 95, 16);
 		contentPanel.add(lblTipo);
 
 		txtTipoTrabajo = new JTextField();
-		txtTipoTrabajo.setForeground(Color.WHITE);
-		txtTipoTrabajo.setBackground(Color.DARK_GRAY);
+		txtTipoTrabajo.setForeground(colorTexto);
+		txtTipoTrabajo.setBackground(bgInputs);
 		txtTipoTrabajo.setBounds(115, 12, 160, 22);
 		contentPanel.add(txtTipoTrabajo);
 
 		JLabel lblTitulo = new JLabel("Título/Oficio: " + titulo);
-		lblTitulo.setForeground(Color.WHITE);
+		lblTitulo.setForeground(colorTexto);
 		lblTitulo.setBounds(290, 15, 230, 16);
 		contentPanel.add(lblTitulo);
 
 		JLabel lblTiempo = new JLabel("Disponibilidad:");
-		lblTiempo.setForeground(Color.WHITE);
+		lblTiempo.setForeground(colorTexto);
 		lblTiempo.setBounds(12, 48, 95, 16);
 		contentPanel.add(lblTiempo);
 
 		txtTiempoTrabajo = new JTextField();
-		txtTiempoTrabajo.setForeground(Color.WHITE);
-		txtTiempoTrabajo.setBackground(Color.DARK_GRAY);
+		txtTiempoTrabajo.setForeground(colorTexto);
+		txtTiempoTrabajo.setBackground(bgInputs);
 		txtTiempoTrabajo.setBounds(115, 45, 160, 22);
 		contentPanel.add(txtTiempoTrabajo);
 
 		JLabel lblExperiencia = new JLabel("Exp. (Años):");
-		lblExperiencia.setForeground(Color.WHITE);
+		lblExperiencia.setForeground(colorTexto);
 		lblExperiencia.setBounds(290, 48, 85, 16);
 		contentPanel.add(lblExperiencia);
 
@@ -127,12 +135,12 @@ public class RegistrarSolicitud extends JDialog {
 		contentPanel.add(spnExperiencia);
 
 		JLabel lblSexo = new JLabel("Sexo: " + genero);
-		lblSexo.setForeground(Color.WHITE);
+		lblSexo.setForeground(colorTexto);
 		lblSexo.setBounds(12, 81, 260, 16);
 		contentPanel.add(lblSexo);
 
 		JLabel lblProvincia = new JLabel("Provincia:");
-		lblProvincia.setForeground(Color.WHITE);
+		lblProvincia.setForeground(colorTexto);
 		lblProvincia.setBounds(290, 81, 85, 16);
 		contentPanel.add(lblProvincia);
 
@@ -145,7 +153,7 @@ public class RegistrarSolicitud extends JDialog {
 		contentPanel.add(cbxProvincia);
 
 		JLabel lblSalMin = new JLabel("Salario Mín:");
-		lblSalMin.setForeground(Color.WHITE);
+		lblSalMin.setForeground(colorTexto);
 		lblSalMin.setBounds(12, 114, 95, 16);
 		contentPanel.add(lblSalMin);
 
@@ -154,7 +162,7 @@ public class RegistrarSolicitud extends JDialog {
 		contentPanel.add(spnSalarioMin);
 
 		JLabel lblSalMax = new JLabel("Salario Máx:");
-		lblSalMax.setForeground(Color.WHITE);
+		lblSalMax.setForeground(colorTexto);
 		lblSalMax.setBounds(290, 114, 85, 16);
 		contentPanel.add(lblSalMax);
 
@@ -163,8 +171,8 @@ public class RegistrarSolicitud extends JDialog {
 		contentPanel.add(spnSalarioMax);
 
 		chkMudarse = new JCheckBox("Dispuesto a mudarse de provincia");
-		chkMudarse.setForeground(Color.WHITE);
-		chkMudarse.setBackground(Color.GRAY);
+		chkMudarse.setForeground(colorTexto);
+		chkMudarse.setBackground(bgPrincipal);
 		chkMudarse.setBounds(12, 148, 280, 23);
 		contentPanel.add(chkMudarse);
 
@@ -182,12 +190,12 @@ public class RegistrarSolicitud extends JDialog {
 		}
 		
 		JPanel buttonPane = new JPanel();
-		buttonPane.setBackground(Color.GRAY);
+		buttonPane.setBackground(bgPrincipal);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
-
+		
 		JButton okButton = new JButton(idSolicitud != null ? "Modificar" : "Aceptar");
-		okButton.setBackground(new Color(0, 128, 0));
+		okButton.setBackground(colorVerde);
 		okButton.setForeground(Color.WHITE);
 		okButton.setActionCommand("OK");
 		okButton.addActionListener(new ActionListener() {
@@ -196,7 +204,6 @@ public class RegistrarSolicitud extends JDialog {
 					JOptionPane.showMessageDialog(null, "No se encontró un perfil de usuario activo.", "Error de Sesión", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-
 				String tipo = txtTipoTrabajo.getText().trim();
 				String tiempoTrabajo = txtTiempoTrabajo.getText().trim();
 				String provincia = (String) cbxProvincia.getSelectedItem();
@@ -204,29 +211,24 @@ public class RegistrarSolicitud extends JDialog {
 				float minSal = ((Double) spnSalarioMin.getValue()).floatValue();
 				float maxSal = ((Double) spnSalarioMax.getValue()).floatValue();
 				boolean dispuestoAMudarse = chkMudarse.isSelected();
-
 				if (tipo.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Por favor introduzca el tipo de trabajo deseado.", "Campo requerido", JOptionPane.WARNING_MESSAGE);
 					txtTipoTrabajo.requestFocus();
 					return;
 				}
-
 				if (tiempoTrabajo.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Por favor introduzca el tiempo/disponibilidad de trabajo.", "Campo requerido", JOptionPane.WARNING_MESSAGE);
 					txtTiempoTrabajo.requestFocus();
 					return;
 				}
-
 				if (provincia == null || provincia.equals("-- Seleccione --")) {
 					JOptionPane.showMessageDialog(null, "Por favor seleccione una provincia válida.", "Campo requerido", JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-
 				if (maxSal < minSal) {
 					JOptionPane.showMessageDialog(null, "El salario máximo no puede ser menor que el salario mínimo.", "Rango Salarial Inválido", JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-
 				String tituloCarrera = "n/a";
 				String diplomaTecnico = "n/a";
 				String habilidadOficio = "n/a";
@@ -238,7 +240,6 @@ public class RegistrarSolicitud extends JDialog {
 				} else if (persona instanceof Trabajador) {
 					habilidadOficio = ((Trabajador) persona).getOficio();
 				}
-
 				if (idSolicitud != null) {
 					BolsaEmpleo.getInstancia().modificarSolicitud(
 						idSolicitud, tipo, tituloCarrera, diplomaTecnico, habilidadOficio,
@@ -254,7 +255,6 @@ public class RegistrarSolicitud extends JDialog {
 					);
 					JOptionPane.showMessageDialog(null, "Solicitud creada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 				}
-
 				GestorFicheros.guardarDatosFicheros();
 				dispose();
 			}
@@ -269,7 +269,7 @@ public class RegistrarSolicitud extends JDialog {
 				dispose();
 			}
 		});
-		cancelButton.setBackground(new Color(128, 0, 0));
+		cancelButton.setBackground(colorRojo);
 		cancelButton.setForeground(Color.WHITE);
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);

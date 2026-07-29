@@ -7,13 +7,11 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
-import java.util.PrimitiveIterator.OfDouble;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -25,8 +23,7 @@ import logico.Usuario;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
+
 public class Login extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -36,6 +33,14 @@ public class Login extends JDialog {
 	private JButton btnLogin;
 	private final MenuPrincipal frame;
 
+	// Colores Paleta 
+	private final Color bgPrincipal = new Color(243, 244, 246); // Gris muy claro
+	private final Color bgInputs = Color.WHITE;                 // Blanco puro
+	private final Color colorTexto = new Color(31, 41, 55);     // Gris carbón oscuro
+	private final Color colorVerde = new Color(16, 185, 129);   // Verde 
+	private final Color colorRojo = new Color(239, 68, 68);  // Rojo
+	private final Color colorAzul = new Color(37, 99, 235); // Azul estándar
+
 	/**
 	 * Launch the application.
 	 */
@@ -43,7 +48,7 @@ public class Login extends JDialog {
 	/*
 	 * public static void main(String[] args) {
 		try {
-			Login dialog = new Login();
+			Login dialog = new Login(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -68,42 +73,42 @@ public class Login extends JDialog {
 		setTitle("Login");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setForeground(Color.WHITE);
-		contentPanel.setBackground(Color.GRAY);
+		
+		contentPanel.setForeground(colorTexto);
+		contentPanel.setBackground(bgPrincipal);
 		contentPanel.setBorder(null);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Usuario:");
-		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setForeground(colorTexto);
 		lblNewLabel.setBounds(38, 37, 89, 14);
 		contentPanel.add(lblNewLabel);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBackground(Color.DARK_GRAY);
-		txtUsuario.setForeground(Color.WHITE);
+		txtUsuario.setBackground(bgInputs);
+		txtUsuario.setForeground(colorTexto);
 		txtUsuario.addKeyListener(new KeyAdapter() {	
 			@Override
 			public void keyReleased(KeyEvent e) {
 				validarCampos();
-				 btnLogin.setBackground(new Color(128,0, 0));
 			}
 		});
 		txtUsuario.setBounds(38, 57, 261, 20);
 		contentPanel.add(txtUsuario);
 		txtUsuario.setColumns(10);
+		
 		{
 			JLabel lblContrasea = new JLabel("Contraseña:");
-			lblContrasea.setForeground(Color.WHITE);
+			lblContrasea.setForeground(colorTexto);
 			lblContrasea.setBounds(38, 88, 89, 14);
 			contentPanel.add(lblContrasea);
 		}
 		
 		pfContrasena = new JPasswordField();
-		pfContrasena.setForeground(Color.WHITE);
-		pfContrasena.setBackground(Color.DARK_GRAY);
+		pfContrasena.setForeground(colorTexto);
+		pfContrasena.setBackground(bgInputs);
 		pfContrasena.addKeyListener(new KeyAdapter() {
-		
 			@Override
 			public void keyReleased(KeyEvent e) {
 				validarCampos();
@@ -114,34 +119,33 @@ public class Login extends JDialog {
 		contentPanel.add(pfContrasena);
 		
 		JRadioButton rdbtnMostrar = new JRadioButton("Mostrar contraseña");
-		rdbtnMostrar.setBackground(Color.GRAY);
-		rdbtnMostrar.setForeground(Color.WHITE);
+		rdbtnMostrar.setBackground(bgPrincipal);
+		rdbtnMostrar.setForeground(colorTexto);
 		rdbtnMostrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!esVisible) {
 					pfContrasena.setEchoChar((char)0);
 					esVisible = true;
-					}
-				else {
+				} else {
 					pfContrasena.setEchoChar('*');
 					esVisible = false;
-					}
+				}
 			}
 		});
 		rdbtnMostrar.setBounds(269, 112, 143, 23);
 		contentPanel.add(rdbtnMostrar);
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(Color.GRAY);
+			buttonPane.setBackground(bgPrincipal);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			
 			{
 				btnLogin = new JButton("Login");
 				btnLogin.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						String contra = new String(pfContrasena.getPassword());
-						if (BolsaEmpleo.getInstancia().login(txtUsuario.getText(), contra))
-						{
+						if (BolsaEmpleo.getInstancia().login(txtUsuario.getText(), contra)) {
 							Usuario u = BolsaEmpleo.getInstancia().getUsuarioPorUserName(txtUsuario.getText());
 							BolsaEmpleo.getInstancia().setCookieUsuario(BolsaEmpleo.getInstancia().getUsuarioPorUserName(txtUsuario.getText()));
 							GestorFicheros.guardarCookies();
@@ -151,11 +155,10 @@ public class Login extends JDialog {
 						} else {
 							JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.", "Advertencia de inicio de sesión", JOptionPane.WARNING_MESSAGE);
 						}
-						
 					}
 				});
-				btnLogin.setForeground(new Color(255, 255, 255));
-				btnLogin.setBackground(new Color(128, 0, 0));
+				btnLogin.setForeground(Color.WHITE);
+				btnLogin.setBackground(colorRojo);
 				btnLogin.setEnabled(false);
 				btnLogin.setActionCommand("OK");
 				buttonPane.add(btnLogin);
@@ -163,24 +166,25 @@ public class Login extends JDialog {
 			}
 			
 			JButton btnNuevoUsuario = new JButton("Nuevo usuario");
-			btnNuevoUsuario.setForeground(new Color(255, 255, 255));
-			btnNuevoUsuario.setBackground(new Color(0, 128, 0));
+			btnNuevoUsuario.setForeground(Color.WHITE);
+			btnNuevoUsuario.setBackground(colorAzul); 
 			btnNuevoUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setAlwaysOnTop(false);
-					 RegistrarNuevoUsuario registro = new RegistrarNuevoUsuario();
-				        registro.setModal(true);
-				        registro.setVisible(true);
-				        Usuario cookie = BolsaEmpleo.getInstancia().getCookieUsuario();
-				        if (cookie != null) {
-				            frame.cargarInterfazSegunUsuario(cookie);
-				            frame.setVisible(true);
-				            dispose();
-				        }
+					RegistrarNuevoUsuario registro = new RegistrarNuevoUsuario();
+					registro.setModal(true);
+					registro.setVisible(true);
+					Usuario cookie = BolsaEmpleo.getInstancia().getCookieUsuario();
+					if (cookie != null) {
+						frame.cargarInterfazSegunUsuario(cookie);
+						frame.setVisible(true);
+						dispose();
+					}
 				}
 			});
 			btnNuevoUsuario.setActionCommand("OK");
 			buttonPane.add(btnNuevoUsuario);
+			
 			{
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
@@ -190,23 +194,23 @@ public class Login extends JDialog {
 						dispose();
 					}
 				});
-				cancelButton.setForeground(new Color(255, 255, 255));
-				cancelButton.setBackground(new Color(128, 0, 0));
+				cancelButton.setForeground(Color.WHITE);
+				cancelButton.setBackground(colorRojo);
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}	
 	}
 	private void validarCampos() {
-	    boolean usuarioLleno = !txtUsuario.getText().isEmpty();
-	    boolean passwordLleno = pfContrasena.getPassword().length > 0;
-	    btnLogin.setEnabled(usuarioLleno && passwordLleno);
-	    btnLogin.setBackground(new Color(0,128, 0));
-	    //System.out.println("usuario=" + usuarioLleno + " password=" + passwordLleno);
-	    // Si quieren revisar
-	    if (!usuarioLleno || !passwordLleno){
-	    	btnLogin.setEnabled(false);
-	    	btnLogin.setBackground(new Color(128,0,0));
-	    }
+		boolean usuarioLleno = !txtUsuario.getText().isEmpty();
+		boolean passwordLleno = pfContrasena.getPassword().length > 0;
+		
+		if (usuarioLleno && passwordLleno) {
+			btnLogin.setEnabled(true);
+			btnLogin.setBackground(colorVerde); 
+		} else {
+			btnLogin.setEnabled(false);
+			btnLogin.setBackground(colorRojo);
+		}
 	}	
 }

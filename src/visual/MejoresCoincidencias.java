@@ -57,7 +57,7 @@ public class MejoresCoincidencias extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Candidato 1: "+);
+		JLabel lblNewLabel = new JLabel("Candidato 1: "+ "");
 		lblNewLabel.setBounds(10, 11, 83, 14);
 		contentPanel.add(lblNewLabel);
 		{

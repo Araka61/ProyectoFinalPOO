@@ -221,7 +221,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem itemCandidatos = new JMenuItem("Candidatos Ideales");
 		itemCandidatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MejoresCoincidencias best = new MejoresCoincidencias();
+				MejoresCoincidencias best = new MejoresCoincidencias(null);
 				best.setModal(true);
 				best.setVisible(true);
 			}
