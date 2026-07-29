@@ -10,6 +10,7 @@ public class BolsaEmpleo {
 	private ArrayList<Solicitud> lasSolicitudes;
 	private ArrayList<Usuario> losUsuarios;
 	private ArrayList<String> ciudades;
+	private ArrayList<String> tiposEmpresa;
 	public  Usuario cookieUsuario;
 
 	private static BolsaEmpleo controlador= null;
@@ -41,6 +42,12 @@ public class BolsaEmpleo {
         ciudades.add("San Juan de la Maguana");
         ciudades.add("Barahona");
         ciudades.add("Azua");
+        tiposEmpresa = new ArrayList<>();
+        tiposEmpresa.add("Micro");
+        tiposEmpresa.add("Pequña");
+        tiposEmpresa.add("Mediana");
+        tiposEmpresa.add("Grande");
+        
 		cookieUsuario = null;
 	}
 
@@ -71,6 +78,10 @@ public class BolsaEmpleo {
 	}
 	public ArrayList<String> getCiudades() {
 		return ciudades;
+	}
+	
+	public ArrayList<String> getTiposEmpresa() {
+		return tiposEmpresa;
 	}
 
 

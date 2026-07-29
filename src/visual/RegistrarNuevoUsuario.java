@@ -664,7 +664,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 				txtCorreoEmpresa.getText().trim().isEmpty()) {
 			JOptionPane.showMessageDialog(this, "Completa todos los datos.");
 			return false;
-		}else if (comprovarUsuarioYCorreo(txtUsuarioLoginEmpresa.getText(), txtCorreoEmpresa.getText())) 
+		}else if (comprovarUsuarioYCorreo(txtUsuarioLoginEmpresa.getText().trim(), txtCorreoEmpresa.getText().trim())) 
 			return true;
 		JOptionPane.showMessageDialog(this, "Usuario o correo ya registrado");
 		return false;
@@ -835,7 +835,6 @@ public class RegistrarNuevoUsuario extends JDialog {
 	private Empresa obtenerEmpresaSel() {
 		Empresa aux = null;
 		aux = BolsaEmpleo.getInstancia().getEmpresaNombre(cmbEmpresas.getSelectedItem().toString().trim());
-		System.out.print(aux.getClaveDeSeguridad());
 		return aux;
 	}
 	private void llenarCiudades() {

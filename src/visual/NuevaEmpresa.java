@@ -17,20 +17,23 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import logico.GestorFicheros;
 import logico.BolsaEmpleo;
+import logico.Empresa;
+
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
 
 public class NuevaEmpresa extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNombre;
 	private JFormattedTextField ftxtRnc;
 	private JTextField txtRepresentante;
-	private JTextField txtTipo;
 	private JPasswordField pfClaveDeSeguridad;
+	private JComboBox<String> cmbTipo;
 
 	/**
 	 * Launch the application.
@@ -103,17 +106,13 @@ public class NuevaEmpresa extends JDialog {
 		lblTipo.setForeground(Color.WHITE);
 		lblTipo.setBounds(20, 140, 100, 20);
 		contentPanel.add(lblTipo);
-		txtTipo = new JTextField();
-		txtTipo.setForeground(Color.WHITE);
-		txtTipo.setBackground(Color.DARK_GRAY);
-		txtTipo.setBounds(150, 140, 250, 20);
-		contentPanel.add(txtTipo);
 
 		JLabel lblClaveDeSeguridad = new JLabel("Clave de seguridad:");
 		lblClaveDeSeguridad.setForeground(Color.WHITE);
 		lblClaveDeSeguridad.setBounds(20, 180, 130, 20);
 		contentPanel.add(lblClaveDeSeguridad);
 		pfClaveDeSeguridad = new JPasswordField();
+		pfClaveDeSeguridad.setToolTipText("Clave de seguridad necesaria para registrar un usuario asociado a la empresa.");
 		pfClaveDeSeguridad.setEchoChar('*');
 		pfClaveDeSeguridad.setForeground(Color.WHITE);
 		pfClaveDeSeguridad.setBackground(Color.DARK_GRAY);
@@ -133,6 +132,13 @@ public class NuevaEmpresa extends JDialog {
 		rdbtnclave.setBackground(Color.GRAY);
 		rdbtnclave.setBounds(408, 178, 127, 25);
 		contentPanel.add(rdbtnclave);
+		
+		cmbTipo = new JComboBox<String>();
+		cmbTipo.setForeground(Color.WHITE);
+		cmbTipo.setBackground(Color.DARK_GRAY);
+		cmbTipo.setBounds(150, 154, 250, 22);
+		llenarTipos();
+		contentPanel.add(cmbTipo);
 
 		{
 			JPanel buttonPane = new JPanel();
@@ -185,7 +191,7 @@ public class NuevaEmpresa extends JDialog {
 		}
 		String clave = new String(pfClaveDeSeguridad.getPassword());
 		BolsaEmpleo.getInstancia().registrarEmpresa(txtNombre.getText().trim(), ftxtRnc.getText(),
-				txtRepresentante.getText().trim(), txtTipo.getText().trim(),
+				txtRepresentante.getText().trim(), obtenerTipoSel(),
 				clave.trim());
 		GestorFicheros.guardarDatosFicheros();
 		JOptionPane.showMessageDialog(this, "Empresa registrada con exito.");
@@ -194,7 +200,7 @@ public class NuevaEmpresa extends JDialog {
 
 	private boolean validarCampos() {
 		if (txtNombre.getText().trim().isEmpty() || ftxtRnc.getText().contains("_") ||
-				txtRepresentante.getText().trim().isEmpty() || txtTipo.getText().trim().isEmpty() ||
+				txtRepresentante.getText().trim().isEmpty() || cmbTipo.getSelectedIndex() >= 0 ||
 				pfClaveDeSeguridad.getPassword().length == 0) {
 			JOptionPane.showMessageDialog(this, "Completa todos los datos. El RNC debe tener el formato 0-00-00000-0.");
 			return false;
@@ -218,4 +224,15 @@ public class NuevaEmpresa extends JDialog {
 		
 		return true;
 	} 
+	private void llenarTipos(){
+		cmbTipo.removeAllItems();
+		for (String aux : BolsaEmpleo.getInstancia().getTiposEmpresa()) {
+			cmbTipo.addItem(aux);
+		}
+	}
+	private String obtenerTipoSel() {
+		String aux = null;
+		aux = cmbTipo.getSelectedItem().toString().trim();
+		return aux;
+	}
 }
