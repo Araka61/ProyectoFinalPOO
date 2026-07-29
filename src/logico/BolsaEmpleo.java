@@ -506,4 +506,32 @@ public class BolsaEmpleo {
 		return false;	
 	}
 	
+	public Solicitud[] top3Candidatos(ArrayList<String> candidatosValidos, Oferta oferta){
+		Solicitud top3Candidatos[] = new Solicitud[3];
+		int puntosTop3Candidatos[] = new int[3];
+ 		Solicitud candidatoActual = null;
+		int puntosCandidato = 0;
+		for(String idCandidato : candidatosValidos) {
+			candidatoActual = buscarSolicitud(idCandidato);
+			puntosCandidato = calcularPuntosCoincidencia(candidatoActual, oferta);
+			
+			if(puntosCandidato >= puntosTop3Candidatos[0]) {
+				top3Candidatos[2] = top3Candidatos[1];
+				puntosTop3Candidatos[2] = puntosTop3Candidatos[1];
+				top3Candidatos[1] = top3Candidatos[0];
+				puntosTop3Candidatos[1] = puntosTop3Candidatos[0];
+				top3Candidatos[0] = candidatoActual;
+				puntosTop3Candidatos[0] = puntosCandidato;
+			}else if(puntosCandidato >= puntosTop3Candidatos[1]) {
+				top3Candidatos[2] = top3Candidatos[1];
+				puntosTop3Candidatos[2] = puntosTop3Candidatos[1];
+				top3Candidatos[1] = candidatoActual;
+				puntosTop3Candidatos[1] = puntosCandidato;
+			}else if(puntosCandidato >= puntosTop3Candidatos[2]) {
+				top3Candidatos[2] = candidatoActual;
+				puntosTop3Candidatos[2] = puntosCandidato;
+			}
+		}
+		return top3Candidatos;
+	}
 }
