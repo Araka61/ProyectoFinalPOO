@@ -21,6 +21,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import java.awt.Color;
 
 public class MenuPrincipal extends JFrame {
 
@@ -79,14 +80,21 @@ public class MenuPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 
 		menuBar = new JMenuBar();
+		menuBar.setForeground(Color.WHITE);
+		menuBar.setBackground(new Color(128, 128, 128));
 		setJMenuBar(menuBar);
 
 		JMenu menuBase = new JMenu("Menú Principal");
-		menuBase.add(new JMenuItem("Cerrar Sesión"));
-		menuBase.add(new JMenuItem("Respaldar En Servidor"));
+		JMenuItem menuItem = new JMenuItem("Cerrar Sesión");
+		menuItem.setBackground(new Color(192, 192, 192));
+		menuBase.add(menuItem);
+		JMenuItem menuItem_1 = new JMenuItem("Respaldar En Servidor");
+		menuItem_1.setBackground(Color.LIGHT_GRAY);
+		menuBase.add(menuItem_1);
 		menuBar.add(menuBase);
 
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.BLACK);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -96,7 +104,9 @@ public class MenuPrincipal extends JFrame {
 		contentPane.add(panelCuenta, BorderLayout.CENTER);
 
 		panelUsuario = new PanelUsuario();
+		panelUsuario.setBackground(Color.DARK_GRAY);
 		panelEmpresa = new PanelEmpresa();
+		panelEmpresa.setBackground(Color.DARK_GRAY);
 
 		panelCuenta.add(panelUsuario, CARD_USUARIO);
 		panelCuenta.add(panelEmpresa, CARD_EMPRESA);

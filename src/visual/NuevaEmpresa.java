@@ -46,7 +46,6 @@ public class NuevaEmpresa extends JDialog {
 		});
 		setForeground(Color.WHITE);
 		setBackground(Color.GRAY);
-		setAlwaysOnTop(true);
 		setResizable(false);
 		setBounds(100, 100, 642, 398);
 		getContentPane().setLayout(new BorderLayout());

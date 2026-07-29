@@ -59,6 +59,8 @@ public class RegistrarSolicitud extends JDialog {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
+		setTitle("Generar Solicitud");
+		setBounds(100, 100, 549, 260);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.GRAY);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
