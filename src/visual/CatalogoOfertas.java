@@ -7,7 +7,14 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logico.GestorFicheros;
+
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CatalogoOfertas extends JDialog {
 
@@ -30,6 +37,12 @@ public class CatalogoOfertas extends JDialog {
 	 * Create the dialog.
 	 */
 	public CatalogoOfertas() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				GestorFicheros.guardarDatosFicheros();
+			}
+		});
 		setBounds(100, 100, 722, 491);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.GRAY);
@@ -49,6 +62,12 @@ public class CatalogoOfertas extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						GestorFicheros.guardarDatosFicheros();
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

@@ -21,6 +21,8 @@ import logico.BolsaEmpleo;
 import logico.GestorFicheros;
 import logico.Solicitud;
 import logico.Usuario;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ListarSolicitud extends JDialog {
 
@@ -41,6 +43,12 @@ public class ListarSolicitud extends JDialog {
     }
 
     public ListarSolicitud() {
+    	addWindowListener(new WindowAdapter() {
+    		@Override
+    		public void windowClosing(WindowEvent e) {
+    			GestorFicheros.guardarDatosFicheros();
+    		}
+    	});
         setTitle("Gestión de Solicitudes de Empleo");
         setBounds(100, 100, 750, 420);
         setLocationRelativeTo(null);
@@ -116,9 +124,14 @@ public class ListarSolicitud extends JDialog {
         buttonPane.add(btnEditar);
 
         JButton btnCerrar = new JButton("Cerrar");
+        btnCerrar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		GestorFicheros.guardarDatosFicheros();
+				dispose();
+        	}
+        });
         btnCerrar.setBackground(new Color(128, 0, 0));
         btnCerrar.setForeground(Color.WHITE);
-        btnCerrar.addActionListener(e -> dispose());
         buttonPane.add(btnCerrar);
     }
 

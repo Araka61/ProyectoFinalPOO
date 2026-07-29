@@ -26,6 +26,8 @@ import logico.Solicitud;
 import logico.Tecnico;
 import logico.Trabajador;
 import logico.Usuario;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class RegistrarSolicitud extends JDialog {
 
@@ -56,6 +58,12 @@ public class RegistrarSolicitud extends JDialog {
 
 	public RegistrarSolicitud(Window parent, String idSolicitud) {
 	    super(parent, ModalityType.APPLICATION_MODAL);
+	    addWindowListener(new WindowAdapter() {
+	    	@Override
+	    	public void windowClosing(WindowEvent e) {
+	    		GestorFicheros.guardarDatosFicheros();
+	    	}
+	    });
 	    setTitle(idSolicitud != null ? "Editar Solicitud" : "Generar Solicitud");
 	    setBounds(100, 100, 550, 320);
 	    setLocationRelativeTo(parent);
@@ -258,10 +266,15 @@ public class RegistrarSolicitud extends JDialog {
 		getRootPane().setDefaultButton(okButton);
 
 		JButton cancelButton = new JButton("Cancelar");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GestorFicheros.guardarDatosFicheros();
+				dispose();
+			}
+		});
 		cancelButton.setBackground(new Color(128, 0, 0));
 		cancelButton.setForeground(Color.WHITE);
 		cancelButton.setActionCommand("Cancel");
-		cancelButton.addActionListener(e -> dispose());
 		buttonPane.add(cancelButton);
 	}
 }
