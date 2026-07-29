@@ -453,7 +453,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		btnRegistrarEmpresa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setAlwaysOnTop(false);
-				NuevaEmpresa dialogNuevaEmpresa = new NuevaEmpresa();
+				NuevaEmpresa dialogNuevaEmpresa = new NuevaEmpresa(RegistrarNuevoUsuario.this);
 				dialogNuevaEmpresa.setVisible(true);
 				llenarEmpresas();
 			}

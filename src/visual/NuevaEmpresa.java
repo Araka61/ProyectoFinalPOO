@@ -1,6 +1,9 @@
 package visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Window;
+import java.awt.Dialog.ModalityType;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -34,7 +37,7 @@ public class NuevaEmpresa extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			NuevaEmpresa dialog = new NuevaEmpresa();
+			NuevaEmpresa dialog = new NuevaEmpresa(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -45,7 +48,8 @@ public class NuevaEmpresa extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NuevaEmpresa() {
+	public NuevaEmpresa(Window parent) {
+		super(parent, ModalityType.APPLICATION_MODAL);
 		setTitle("Registro Empresa");
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -203,11 +207,14 @@ public class NuevaEmpresa extends JDialog {
 		}
 		return true;
 	}
+	
 	private boolean noExisteRNC() {
+		/*
 		if (BolsaEmpleo.getInstancia().getEmpresaRNC(ftxtRnc.getText().trim() )!= null) {
 			JOptionPane.showMessageDialog(this, "RNC ya registrada en el sistema");
 			return false;
 		}
+		*/
 		return true;
 	} 
 }
