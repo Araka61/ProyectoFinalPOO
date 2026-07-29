@@ -232,9 +232,23 @@ public class BolsaEmpleo {
 		Empresa aux = null;
 		boolean encontrado = false;
 		int i = 0;
-
 		while (!encontrado && i < lasEmpresas.size()) {
 			if (lasEmpresas.get(i).getNombre().equalsIgnoreCase(nombre)) {
+				aux = lasEmpresas.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+		return aux;
+	}
+	
+	public Empresa getEmpresaRNC(String rnc){
+		Empresa aux = null;
+		boolean encontrado = false;
+		int i = 0;
+
+		while (!encontrado && i < lasEmpresas.size()) {
+			if (lasEmpresas.get(i).getRnc().equals(rnc)) {
 				aux = lasEmpresas.get(i);
 				encontrado = true;
 			}
