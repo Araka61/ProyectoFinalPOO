@@ -39,6 +39,14 @@ public class MenuPrincipal extends JFrame {
 	private static final String CARD_USUARIO = "USUARIO";
 	private static final String CARD_EMPRESA = "EMPRESA";
 
+	// Colores Paleta 
+	private final Color bgPrincipal = new Color(243, 244, 246); // Gris muy claro
+	private final Color bgInputs = Color.WHITE;                 // Blanco puro
+	private final Color colorTexto = new Color(31, 41, 55);     // Gris carbón oscuro
+	private final Color colorVerde = new Color(16, 185, 129);   // Verde 
+	private final Color colorRojo = new Color(239, 68, 68);     // Rojo
+	private final Color colorAzul = new Color(37, 99, 235);     // Azul estándar
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -82,21 +90,21 @@ public class MenuPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 
 		menuBar = new JMenuBar();
-		menuBar.setForeground(Color.WHITE);
-		menuBar.setBackground(new Color(128, 128, 128));
+		menuBar.setForeground(colorTexto);
+		menuBar.setBackground(bgInputs);
 		setJMenuBar(menuBar);
 
 		JMenu menuBase = new JMenu("Menú Principal");
 		JMenuItem menuItem = new JMenuItem("Cerrar Sesión");
-		menuItem.setBackground(new Color(192, 192, 192));
+		menuItem.setBackground(bgInputs);
 		menuBase.add(menuItem);
 		JMenuItem menuItem_1 = new JMenuItem("Respaldar En Servidor");
-		menuItem_1.setBackground(Color.LIGHT_GRAY);
+		menuItem_1.setBackground(bgInputs);
 		menuBase.add(menuItem_1);
 		menuBar.add(menuBase);
 
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.BLACK);
+		contentPane.setBackground(bgPrincipal);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -106,9 +114,9 @@ public class MenuPrincipal extends JFrame {
 		contentPane.add(panelCuenta, BorderLayout.CENTER);
 
 		panelUsuario = new PanelUsuario();
-		panelUsuario.setBackground(Color.DARK_GRAY);
+		panelUsuario.setBackground(bgPrincipal);
 		panelEmpresa = new PanelEmpresa();
-		panelEmpresa.setBackground(Color.DARK_GRAY);
+		panelEmpresa.setBackground(bgPrincipal);
 
 		panelCuenta.add(panelUsuario, CARD_USUARIO);
 		panelCuenta.add(panelEmpresa, CARD_EMPRESA);
@@ -176,6 +184,8 @@ public class MenuPrincipal extends JFrame {
 				recomendacion.setModal(true);
 				recomendacion.setVisible(true);
 			}
+			
+			
 		});
 		menuEmpleos.add(itemOfertasRecomendadas);
 
