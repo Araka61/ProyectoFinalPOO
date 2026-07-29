@@ -390,7 +390,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		panel.setBackground(Color.GRAY);
 		panel.setLayout(null);
 
-		llenarEmpresas();
+		
 
 		JLabel lblUsuarioLoginEmpresa = new JLabel("Usuario:");
 		lblUsuarioLoginEmpresa.setForeground(Color.WHITE);
@@ -433,7 +433,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		cmbEmpresas.setBounds(100, 70, 200, 20);
 		panel.add(cmbEmpresas);
 
-
+		llenarEmpresas();
 
 		btnRegistrarEmpresa = new JButton("Registrar Empresa");
 		btnRegistrarEmpresa.setForeground(Color.WHITE);

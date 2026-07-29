@@ -29,6 +29,7 @@ public class ListarSolicitud extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarSolicitud() {
+		setAlwaysOnTop(true);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());

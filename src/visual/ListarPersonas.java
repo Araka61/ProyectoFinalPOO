@@ -29,6 +29,7 @@ public class ListarPersonas extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarPersonas() {
+		setAlwaysOnTop(true);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
