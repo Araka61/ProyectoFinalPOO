@@ -183,9 +183,10 @@ public class NuevaEmpresa extends JDialog {
 		if (!validarCampos()|| !noExisteEmpresa() || !noExisteRNC()) {
 			return;
 		}
+		String clave = new String(pfClaveDeSeguridad.getPassword());
 		BolsaEmpleo.getInstancia().registrarEmpresa(txtNombre.getText().trim(), ftxtRnc.getText(),
 				txtRepresentante.getText().trim(), txtTipo.getText().trim(),
-				new String(pfClaveDeSeguridad.getPassword()));
+				clave.trim());
 		GestorFicheros.guardarDatosFicheros();
 		JOptionPane.showMessageDialog(this, "Empresa registrada con exito.");
 		dispose();
@@ -209,12 +210,12 @@ public class NuevaEmpresa extends JDialog {
 	}
 	
 	private boolean noExisteRNC() {
-		/*
+		
 		if (BolsaEmpleo.getInstancia().getEmpresaRNC(ftxtRnc.getText().trim() )!= null) {
 			JOptionPane.showMessageDialog(this, "RNC ya registrada en el sistema");
 			return false;
 		}
-		*/
+		
 		return true;
 	} 
 }

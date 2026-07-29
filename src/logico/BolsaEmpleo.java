@@ -9,6 +9,7 @@ public class BolsaEmpleo {
 	private ArrayList<Oferta> lasOfertas;
 	private ArrayList<Solicitud> lasSolicitudes;
 	private ArrayList<Usuario> losUsuarios;
+	private ArrayList<String> ciudades;
 	public  Usuario cookieUsuario;
 
 	private static BolsaEmpleo controlador= null;
@@ -24,6 +25,22 @@ public class BolsaEmpleo {
 		lasOfertas = new ArrayList<>();
 		lasSolicitudes = new ArrayList<>();
 		losUsuarios = new ArrayList<>();
+		ciudades = new ArrayList<>();
+		ciudades.add("Santo Domingo");
+        ciudades.add("Santiago de los Caballeros");
+        ciudades.add("San Francisco de Macorís");
+        ciudades.add("La Vega");
+        ciudades.add("Puerto Plata");
+        ciudades.add("San Pedro de Macorís");
+        ciudades.add("La Romana");
+        ciudades.add("San Cristóbal");
+        ciudades.add("Higüey");
+        ciudades.add("Moca");
+        ciudades.add("Bonao");
+        ciudades.add("Baní");
+        ciudades.add("San Juan de la Maguana");
+        ciudades.add("Barahona");
+        ciudades.add("Azua");
 		cookieUsuario = null;
 	}
 
@@ -51,6 +68,9 @@ public class BolsaEmpleo {
 
 	public ArrayList<Usuario> getLosUsuarios() {
 		return losUsuarios;
+	}
+	public ArrayList<String> getCiudades() {
+		return ciudades;
 	}
 
 

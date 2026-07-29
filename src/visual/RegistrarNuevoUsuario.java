@@ -52,7 +52,6 @@ public class RegistrarNuevoUsuario extends JDialog {
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
 	private JTextField txtCorreo;
-	private JTextField txtCiudad;
 	private JRadioButton rdMasculino;
 	private JRadioButton rdFemenino;
 	private JTextField txtTiempoDisponible;
@@ -82,6 +81,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 	private boolean contraUsuario =false;
 	private boolean contraEmpresa =false;
 	private boolean clave =false;
+	private JComboBox<String> cmbCiudades;
 
 
 	/**
@@ -253,11 +253,6 @@ public class RegistrarNuevoUsuario extends JDialog {
 		lblCiudad.setForeground(Color.WHITE);
 		lblCiudad.setBounds(10, 70, 80, 20);
 		panel.add(lblCiudad);
-		txtCiudad = new JTextField();
-		txtCiudad.setForeground(Color.WHITE);
-		txtCiudad.setBackground(Color.DARK_GRAY);
-		txtCiudad.setBounds(100, 70, 160, 20);
-		panel.add(txtCiudad);
 
 		JLabel lblSexo = new JLabel("Sexo:");
 		lblSexo.setForeground(Color.WHITE);
@@ -372,6 +367,13 @@ public class RegistrarNuevoUsuario extends JDialog {
 		rdbtnContraUsuario.setBackground(Color.GRAY);
 		rdbtnContraUsuario.setBounds(543, 128, 147, 25);
 		panel.add(rdbtnContraUsuario);
+		
+		cmbCiudades = new JComboBox<String>();
+		cmbCiudades.setForeground(Color.WHITE);
+		cmbCiudades.setBackground(Color.DARK_GRAY);
+		cmbCiudades.setBounds(100, 70, 160, 20);
+		llenarCiudades();
+		panel.add(cmbCiudades);
 
 		rdbtnGrado.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -538,7 +540,6 @@ public class RegistrarNuevoUsuario extends JDialog {
 	}
 
 
-
 	private JPanel crearPanelGrado() {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
@@ -670,7 +671,8 @@ public class RegistrarNuevoUsuario extends JDialog {
 	}
 	private boolean validarClaveEmpresa () {
 		Empresa aux = obtenerEmpresaSel();
-		if (!BolsaEmpleo.getInstancia().claveCorrecta(new String(pfContrasenaEmpresa.getPassword()),aux)) {
+		String clave = new String(pfContrasenaEmpresa.getPassword());
+		if (!BolsaEmpleo.getInstancia().claveCorrecta(clave.trim(),aux)) {
 			JOptionPane.showMessageDialog(this, "Clave incorrecta");
 			return false;
 		}
@@ -690,7 +692,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 	private boolean validarCamposComunes() {
 		if (txtCedula.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty() ||
 				txtTelefono.getText().trim().isEmpty() || txtCorreo.getText().trim().isEmpty() ||
-				txtCiudad.getText().trim().isEmpty() || txtTiempoDisponible.getText().trim().isEmpty() ||
+				cmbCiudades.getSelectedItem().toString().trim().isEmpty() || txtTiempoDisponible.getText().trim().isEmpty() ||
 				txtUsuarioLogin.getText().trim().isEmpty() || pfContrasenaPersona.getPassword().length == 0) {
 
 			JOptionPane.showMessageDialog(this, "Completa todos los datos.");
@@ -754,7 +756,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 			String tiempo = txtTiempoDisponible.getText().trim();
 			boolean licencia = chkLicencia.isSelected();
 			char sexo = getSexoSeleccionado();
-			String ciudad = txtCiudad.getText().trim();
+			String ciudad = cmbCiudades.getSelectedItem().toString().trim();
 			String user = txtUsuarioLogin.getText().trim();
 
 			if (rdbtnGrado.isSelected()) {
@@ -799,7 +801,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		txtNombre.setText("");
 		txtTelefono.setText("");
 		txtCorreo.setText("");
-		txtCiudad.setText("");
+		cmbCiudades.setSelectedIndex(-1);
 		txtTiempoDisponible.setText("");
 		chkLicencia.setSelected(false);
 		txtUsuarioLogin.setText("");
@@ -820,6 +822,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		pfContrasenaEmpresa.setText("");
 		txtCorreo.setText("");
 		pfClave.setText("");
+		cmbEmpresas.setSelectedIndex(-1);
 	}
 
 	private void llenarEmpresas(){
@@ -834,5 +837,11 @@ public class RegistrarNuevoUsuario extends JDialog {
 		aux = BolsaEmpleo.getInstancia().getEmpresaNombre(cmbEmpresas.getSelectedItem().toString().trim());
 		System.out.print(aux.getClaveDeSeguridad());
 		return aux;
+	}
+	private void llenarCiudades() {
+	    cmbCiudades.removeAllItems();
+	    for (String ciudad : BolsaEmpleo.getInstancia().getCiudades()) {
+	        cmbCiudades.addItem(ciudad);
+	    }
 	}
 }
