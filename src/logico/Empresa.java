@@ -13,15 +13,17 @@ public class Empresa implements Serializable {
 	private String claveDeSeguridad;
 	private ArrayList<Oferta> lasOfertas;
 	private ArrayList<Usuario> reprecentantes;
+	private String nombre;
 
 	public Empresa() {
 		lasOfertas = new ArrayList<>();
 		reprecentantes = new ArrayList<>();
 	}
 
-	public Empresa(String id, String rnc, String representante, String tipo,String claveDeSeguridad) {
+	public Empresa(String id,String nombre, String rnc, String representante, String tipo,String claveDeSeguridad) {
 		this.id = id;
 		this.rnc = rnc;
+		this.nombre = nombre;
 		this.representante = representante;
 		this.tipo = tipo;
 		this.claveDeSeguridad = claveDeSeguridad;
@@ -82,6 +84,14 @@ public class Empresa implements Serializable {
 
 	public String getClaveDeSeguridad() {
 		return claveDeSeguridad;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 }

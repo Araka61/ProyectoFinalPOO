@@ -10,15 +10,14 @@ public class BolsaEmpleo {
 	private ArrayList<Solicitud> lasSolicitudes;
 	private ArrayList<Usuario> losUsuarios;
 	public  Usuario cookieUsuario;
- 
+
 	private static BolsaEmpleo controlador= null;
- 
+
 	public static int generadorIdPersona = 1;
 	public static int generadorIdEmpresa = 1;
 	public static int generadorIdOferta = 1;
 	public static int generadorIdSolicitud = 1;
-	
- 
+
 	private BolsaEmpleo() {
 		lasPersonas = new ArrayList<>();
 		lasEmpresas = new ArrayList<>();
@@ -27,17 +26,17 @@ public class BolsaEmpleo {
 		losUsuarios = new ArrayList<>();
 		cookieUsuario = null;
 	}
- 
+
 	public static BolsaEmpleo getInstancia() {
 		if (controlador == null)
 			controlador = new BolsaEmpleo();
 		return controlador;
 	}
- 
+
 	public ArrayList<Persona> getLasPersonas() {
 		return lasPersonas;
 	}
- 
+
 	public ArrayList<Empresa> getLasEmpresas() {
 		return lasEmpresas;
 	}
@@ -45,140 +44,140 @@ public class BolsaEmpleo {
 	public ArrayList<Oferta> getLasOfertas() {
 		return lasOfertas;
 	}
- 
+
 	public ArrayList<Solicitud> getLasSolicitudes() {
 		return lasSolicitudes;
 	}
-	
+
 	public ArrayList<Usuario> getLosUsuarios() {
 		return losUsuarios;
 	}
-	
-	//            Registro  
-	 
-		public void registrarPersona(Persona nueva, Usuario user) {
-			lasPersonas.add(nueva);
-			losUsuarios.add(user);
-			generadorIdPersona++;
-		}
-		public void registrarEmpresa(Empresa nueva) {
-			lasEmpresas.add(nueva);
-			generadorIdEmpresa++;
-		}
-	 
-		public void registrarOferta(Empresa empresa, Oferta nueva) {
-			empresa.publicarOferta(nueva);
-			lasOfertas.add(nueva);
-			generadorIdOferta++;
-		}
-		public void registrarSolicitud(Solicitud nueva) {
-			lasSolicitudes.add(nueva);
-			generadorIdSolicitud++;
-		}
-		
-		public Usuario getCookieUsuario() {
-			return cookieUsuario;
-		}
 
-		public void setCookieUsuario(Usuario cookieUsuario) {
-			this.cookieUsuario = cookieUsuario;
-		}
-		
-		//               Busqueda
-	 
-		public Persona buscarPersona(String id) {
-			
-			Persona aux = null;
-			boolean encontrado = false;
-			int i = 0;
-			
-			while (!encontrado && i < lasPersonas.size()) {
-				if (lasPersonas.get(i).getId().equalsIgnoreCase(id)) {
-					aux = lasPersonas.get(i);
-					encontrado = true;
-				}
-				i++;
+	//            Registro  
+
+	public void registrarPersona(Persona nueva, Usuario user) {
+		lasPersonas.add(nueva);
+		losUsuarios.add(user);
+		generadorIdPersona++;
+	}
+	public void registrarEmpresa(Empresa nueva) {
+		lasEmpresas.add(nueva);
+		generadorIdEmpresa++;
+	}
+
+	public void registrarOferta(Empresa empresa, Oferta nueva) {
+		empresa.publicarOferta(nueva);
+		lasOfertas.add(nueva);
+		generadorIdOferta++;
+	}
+	public void registrarSolicitud(Solicitud nueva) {
+		lasSolicitudes.add(nueva);
+		generadorIdSolicitud++;
+	}
+
+	public Usuario getCookieUsuario() {
+		return cookieUsuario;
+	}
+
+	public void setCookieUsuario(Usuario cookieUsuario) {
+		this.cookieUsuario = cookieUsuario;
+	}
+
+	//               Busqueda
+
+	public Persona buscarPersona(String id) {
+
+		Persona aux = null;
+		boolean encontrado = false;
+		int i = 0;
+
+		while (!encontrado && i < lasPersonas.size()) {
+			if (lasPersonas.get(i).getId().equalsIgnoreCase(id)) {
+				aux = lasPersonas.get(i);
+				encontrado = true;
 			}
-			return aux;
+			i++;
 		}
-	
-		public Empresa buscarEmpresa(String id) {
-			
-			Empresa aux = null;
-			boolean encontrado = false;
-			int i = 0;
-			
-			while (!encontrado && i < lasEmpresas.size()) {
-				if (lasEmpresas.get(i).getId().equalsIgnoreCase(id)) {
-					aux = lasEmpresas.get(i);
-					encontrado = true;
-				}
-				i++;
+		return aux;
+	}
+
+	public Empresa buscarEmpresa(String id) {
+
+		Empresa aux = null;
+		boolean encontrado = false;
+		int i = 0;
+
+		while (!encontrado && i < lasEmpresas.size()) {
+			if (lasEmpresas.get(i).getId().equalsIgnoreCase(id)) {
+				aux = lasEmpresas.get(i);
+				encontrado = true;
 			}
-			return aux;
+			i++;
 		}
-		
-		public Solicitud buscarSolicitud(String id) {
-			Solicitud aux = null;
-			boolean encontrado = false;
-			int i = 0;
-			while (!encontrado && i < lasSolicitudes.size()) {
-				if (lasSolicitudes.get(i).getId().equalsIgnoreCase(id)) {
-					aux = lasSolicitudes.get(i);
-					encontrado = true;
-				}
-				i++;
+		return aux;
+	}
+
+	public Solicitud buscarSolicitud(String id) {
+		Solicitud aux = null;
+		boolean encontrado = false;
+		int i = 0;
+		while (!encontrado && i < lasSolicitudes.size()) {
+			if (lasSolicitudes.get(i).getId().equalsIgnoreCase(id)) {
+				aux = lasSolicitudes.get(i);
+				encontrado = true;
 			}
-			return aux;
+			i++;
 		}
-	 
-		public Oferta buscarOferta(String id) { 
-			
-			Oferta aux = null;
-			boolean encontrado = false;
-			int i = 0;
-			
-			while (!encontrado && i < lasOfertas.size()) {
-				if (lasOfertas.get(i).getId().equalsIgnoreCase(id)) {
-					aux = lasOfertas.get(i);
-					encontrado = true;
-				}
-				i++;
+		return aux;
+	}
+
+	public Oferta buscarOferta(String id) { 
+
+		Oferta aux = null;
+		boolean encontrado = false;
+		int i = 0;
+
+		while (!encontrado && i < lasOfertas.size()) {
+			if (lasOfertas.get(i).getId().equalsIgnoreCase(id)) {
+				aux = lasOfertas.get(i);
+				encontrado = true;
 			}
-			return aux;
+			i++;
 		}
-		
-		public ArrayList<Persona> getPersonasDisponibles() {
-			
-			ArrayList<Persona> resultado = new ArrayList<>();
-			int i = 0;
-			while (i < lasPersonas.size()) {
-				if (!lasPersonas.get(i).isEmpleado())
-					resultado.add(lasPersonas.get(i));
-				i++;
-			}		
-			return resultado;
-		}
-		
-		public ArrayList<Persona> getPersonasPorNivel(String nivel) {		
-			ArrayList<Persona> resultado = new ArrayList<>();
-			int i = 0;
-			while (i < lasPersonas.size()) {
-				if (nivel.equalsIgnoreCase("Tecnico") && lasPersonas.get(i) instanceof Tecnico)
-					resultado.add(lasPersonas.get(i));	
-				else if (nivel.equalsIgnoreCase("Grado") && lasPersonas.get(i) instanceof Grado) {
-					resultado.add(lasPersonas.get(i));
-				}
-				else if (nivel.equalsIgnoreCase("Trabajador") && lasPersonas.get(i) instanceof Trabajador) {
-					resultado.add(lasPersonas.get(i));
-				}
-				i++;
-			}	
-			return resultado;
-		}
-		
-		public Usuario getUsuarioPorUserName (String username){
-			
+		return aux;
+	}
+
+	public ArrayList<Persona> getPersonasDisponibles() {
+
+		ArrayList<Persona> resultado = new ArrayList<>();
+		int i = 0;
+		while (i < lasPersonas.size()) {
+			if (!lasPersonas.get(i).isEmpleado())
+				resultado.add(lasPersonas.get(i));
+			i++;
+		}		
+		return resultado;
+	}
+
+	public ArrayList<Persona> getPersonasPorNivel(String nivel) {		
+		ArrayList<Persona> resultado = new ArrayList<>();
+		int i = 0;
+		while (i < lasPersonas.size()) {
+			if (nivel.equalsIgnoreCase("Tecnico") && lasPersonas.get(i) instanceof Tecnico)
+				resultado.add(lasPersonas.get(i));	
+			else if (nivel.equalsIgnoreCase("Grado") && lasPersonas.get(i) instanceof Grado) {
+				resultado.add(lasPersonas.get(i));
+			}
+			else if (nivel.equalsIgnoreCase("Trabajador") && lasPersonas.get(i) instanceof Trabajador) {
+				resultado.add(lasPersonas.get(i));
+			}
+			i++;
+		}	
+		return resultado;
+	}
+
+	public Usuario getUsuarioPorUserName (String username){
+
 		Usuario resultado = null;
 		int i = 0;
 		while (i < losUsuarios.size()){
@@ -186,149 +185,155 @@ public class BolsaEmpleo {
 				resultado = losUsuarios.get(i);
 			i++;
 		}
-			return resultado;
+		return resultado;
+	}
+
+	public Usuario getUsuarioPorCorreo(String Correo) {
+		Usuario aux = null;
+		for (int i=0; i<losUsuarios.size();i++)
+		{
+			if (losUsuarios.get(i).getEmail().equals(Correo))
+				aux = losUsuarios.get(i);
 		}
-		
-		public Usuario getUsuarioPorCorreo(String Correo) {
-			Usuario aux = null;
-			for (int i=0; i<losUsuarios.size();i++)
-			{
-				if (losUsuarios.get(i).getEmail().equals(Correo))
-					aux = losUsuarios.get(i);
+		return aux;
+
+	}
+
+	//         Algoritmo de macheo
+
+	public ArrayList<String> PorcentajeCoincidencia(Oferta ofertaEmpresa) {
+		int i = 0;
+		int puntos = 0;
+		ArrayList<String> candidatosIdeales = new ArrayList<>();			
+		while (i < lasSolicitudes.size()) {
+			Solicitud solicitudCandidato = lasSolicitudes.get(i);			
+			Persona p = buscarPersona(solicitudCandidato.getIdUsuario());
+			if (solicitudCandidato.isActivo() && p != null && !p.isEmpleado()) {
+				puntos = calcularPuntosCoincidencia(solicitudCandidato, ofertaEmpresa);
+				if (puntos >= ofertaEmpresa.getCoincidencia())
+					candidatosIdeales.add(solicitudCandidato.getId());
 			}
-			return aux;
-			
+			i++;
 		}
-		
-		//         Algoritmo de macheo
-		
-		public ArrayList<String> PorcentajeCoincidencia(Oferta ofertaEmpresa) {
-			int i = 0;
-			int puntos = 0;
-			ArrayList<String> candidatosIdeales = new ArrayList<>();			
-			while (i < lasSolicitudes.size()) {
-				Solicitud solicitudCandidato = lasSolicitudes.get(i);			
-				Persona p = buscarPersona(solicitudCandidato.getIdUsuario());
-				if (solicitudCandidato.isActivo() && p != null && !p.isEmpleado()) {
-					puntos = calcularPuntosCoincidencia(solicitudCandidato, ofertaEmpresa);
-					if (puntos >= ofertaEmpresa.getCoincidencia())
-						candidatosIdeales.add(solicitudCandidato.getId());
-				}
-				i++;
+		return candidatosIdeales;
+	}
+
+	public int calcularPuntosCoincidencia(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
+		int puntos = 0;
+		puntos += compararDisponibilidadYTipo(solicitudCandidato, ofertaEmpresa);
+		puntos += compararExperienciaYSalario(solicitudCandidato, ofertaEmpresa);
+		puntos += compararDatosPersonales(solicitudCandidato, ofertaEmpresa);
+		puntos += compararResidencia(solicitudCandidato, ofertaEmpresa);
+		if (!aptitudSolicitud(solicitudCandidato, ofertaEmpresa) || solicitudCandidato.isActivo())
+			puntos = -1;
+		else {
+			puntos += 40;
+		}
+		return puntos;
+	}
+
+	private int compararDisponibilidadYTipo(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
+		int puntos = 0;
+		if (solicitudCandidato.getTiempoTrabajo().equalsIgnoreCase(ofertaEmpresa.getTiempoTrabajo()))
+			puntos += 5;
+		if (solicitudCandidato.getTipoTrabajo().equalsIgnoreCase(String.valueOf(ofertaEmpresa.getTipoTrabajo())))
+			puntos += 5;
+		return puntos;
+	}
+
+	private int compararExperienciaYSalario(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
+		int puntos = 0;
+		if (solicitudCandidato.getExperienciaLaboral() >= ofertaEmpresa.getExperienciaLaboral())
+			puntos += 8;
+		if (solicitudCandidato.getRangoMinSalario() <= ofertaEmpresa.getSalario()
+				&& solicitudCandidato.getRangoMaxSalario() >= ofertaEmpresa.getSalario())
+			puntos += 5;
+		return puntos;
+	}
+
+	private int compararDatosPersonales(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
+		int puntos = 0;
+		if (solicitudCandidato.getSexo() == ofertaEmpresa.getSexo())
+			puntos += 2;
+		if (!ofertaEmpresa.isLicenciaDeConducir() || solicitudCandidato.isLicenciaDeConducir())
+			puntos += 10;
+		if (!ofertaEmpresa.isDispuestoAMudarse() || solicitudCandidato.isDispuestoAMudarse())
+			puntos += 15;
+		return puntos;
+	}
+
+	private int compararResidencia(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
+		int puntos = 0;
+		if (solicitudCandidato.getProvincia().equalsIgnoreCase(ofertaEmpresa.getProvincia()))
+			puntos += 10;
+		return puntos;
+	}
+
+	private boolean aptitudSolicitud(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
+		boolean comp = true;
+
+		if (!ofertaEmpresa.getTitulo().equalsIgnoreCase("n/a") && !ofertaEmpresa.getTitulo().trim().isEmpty()) {
+			if (solicitudCandidato.getTitulo().equalsIgnoreCase("n/a") || 
+					!areaRelacionadaTitulo(ofertaEmpresa.getTitulo(), solicitudCandidato.getTitulo())) {
+				comp = false;
 			}
-			return candidatosIdeales;
 		}
 
-		public int calcularPuntosCoincidencia(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
-			int puntos = 0;
-			puntos += compararDisponibilidadYTipo(solicitudCandidato, ofertaEmpresa);
-			puntos += compararExperienciaYSalario(solicitudCandidato, ofertaEmpresa);
-			puntos += compararDatosPersonales(solicitudCandidato, ofertaEmpresa);
-			puntos += compararResidencia(solicitudCandidato, ofertaEmpresa);
-			if (!aptitudSolicitud(solicitudCandidato, ofertaEmpresa) || solicitudCandidato.isActivo())
-				puntos = -1;
-			else {
-				puntos += 40;
+		if (comp && !ofertaEmpresa.getTecnico().equalsIgnoreCase("n/a") && !ofertaEmpresa.getTecnico().trim().isEmpty()) {
+			if (solicitudCandidato.getTecnico().equalsIgnoreCase("n/a") || 
+					!areaRelacionadaTitulo(ofertaEmpresa.getTecnico(), solicitudCandidato.getTecnico())) {
+				comp = false;
 			}
-			return puntos;
 		}
 
-		private int compararDisponibilidadYTipo(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
-			int puntos = 0;
-			if (solicitudCandidato.getTiempoTrabajo().equalsIgnoreCase(ofertaEmpresa.getTiempoTrabajo()))
-				puntos += 5;
-			if (solicitudCandidato.getTipoTrabajo().equalsIgnoreCase(String.valueOf(ofertaEmpresa.getTipoTrabajo())))
-				puntos += 5;
-			return puntos;
+		if (comp && !ofertaEmpresa.getHabilidad().equalsIgnoreCase("n/a") && !ofertaEmpresa.getHabilidad().trim().isEmpty()) {
+			if (solicitudCandidato.getHabilidad().equalsIgnoreCase("n/a") || 
+					!areaRelacionadaTitulo(ofertaEmpresa.getHabilidad(), solicitudCandidato.getHabilidad())) {
+				comp = false;
+			}
 		}
 
-		private int compararExperienciaYSalario(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
-			int puntos = 0;
-			if (solicitudCandidato.getExperienciaLaboral() >= ofertaEmpresa.getExperienciaLaboral())
-				puntos += 8;
-			if (solicitudCandidato.getRangoMinSalario() <= ofertaEmpresa.getSalario()
-					&& solicitudCandidato.getRangoMaxSalario() >= ofertaEmpresa.getSalario())
-				puntos += 5;
-			return puntos;
+		return comp;
+	}
+
+	private boolean areaRelacionadaTitulo(String reqOferta, String areaCandidato) {
+		if (reqOferta == null || areaCandidato == null) {
+			return false;
 		}
 
-		private int compararDatosPersonales(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
-			int puntos = 0;
-			if (solicitudCandidato.getSexo() == ofertaEmpresa.getSexo())
-				puntos += 2;
-			if (!ofertaEmpresa.isLicenciaDeConducir() || solicitudCandidato.isLicenciaDeConducir())
-				puntos += 10;
-			if (!ofertaEmpresa.isDispuestoAMudarse() || solicitudCandidato.isDispuestoAMudarse())
-				puntos += 15;
-			return puntos;
-		}
+		String req = reqOferta.trim().toLowerCase();
+		String cand = areaCandidato.trim().toLowerCase();
 
-		private int compararResidencia(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
-			int puntos = 0;
-			if (solicitudCandidato.getProvincia().equalsIgnoreCase(ofertaEmpresa.getProvincia()))
-				puntos += 10;
-			return puntos;
-		}
-		
-		private boolean aptitudSolicitud(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
-		    boolean comp = true;
+		return req.equalsIgnoreCase(cand) || cand.contains(req) || req.contains(cand);
+	}
 
-		    if (!ofertaEmpresa.getTitulo().equalsIgnoreCase("n/a") && !ofertaEmpresa.getTitulo().trim().isEmpty()) {
-		        if (solicitudCandidato.getTitulo().equalsIgnoreCase("n/a") || 
-		            !areaRelacionadaTitulo(ofertaEmpresa.getTitulo(), solicitudCandidato.getTitulo())) {
-		        	comp = false;
-		        }
-		    }
-		    
-		    if (comp && !ofertaEmpresa.getTecnico().equalsIgnoreCase("n/a") && !ofertaEmpresa.getTecnico().trim().isEmpty()) {
-		        if (solicitudCandidato.getTecnico().equalsIgnoreCase("n/a") || 
-		            !areaRelacionadaTitulo(ofertaEmpresa.getTecnico(), solicitudCandidato.getTecnico())) {
-		        	comp = false;
-		        }
-		    }
-		    
-		    if (comp && !ofertaEmpresa.getHabilidad().equalsIgnoreCase("n/a") && !ofertaEmpresa.getHabilidad().trim().isEmpty()) {
-		        if (solicitudCandidato.getHabilidad().equalsIgnoreCase("n/a") || 
-		            !areaRelacionadaTitulo(ofertaEmpresa.getHabilidad(), solicitudCandidato.getHabilidad())) {
-		        	comp = false;
-		        }
-		    }
+	//      Comprobaciones
 
-		    return comp;
-		}
+	public boolean login (String username,String password){
+		boolean resp = false;
+		Usuario aux = getUsuarioPorUserName(username);
+		if (aux != null)
+		{
+			if(aux.getPassword().equals (password)) {
+				resp = true;
+				cookieUsuario = aux;
+			}
+		}	 
+		return resp;
+	}
 
-		private boolean areaRelacionadaTitulo(String reqOferta, String areaCandidato) {
-		    if (reqOferta == null || areaCandidato == null) {
-		        return false;
-		    }
+	public boolean existeUsuario (String username) {
+		boolean comp = false;
+		if (getUsuarioPorUserName(username) != null)
+			comp = true;
+		return comp;
+	}
 
-		    String req = reqOferta.trim().toLowerCase();
-		    String cand = areaCandidato.trim().toLowerCase();
+	public boolean claveCorrecta (String clave,Empresa empresa){
+		if (empresa.getClaveDeSeguridad().equals(clave))
+			return true;
+		return false;	
+	}
 
-		    return req.equalsIgnoreCase(cand) || cand.contains(req) || req.contains(cand);
-		}
-		
-		//      Comprobaciones
-		
-		public boolean login (String username,String password){
-			boolean resp = false;
-			Usuario aux = getUsuarioPorUserName(username);
-		    if (aux != null)
-		    {
-		    	if(aux.getPassword().equals (password)) {
-		    		resp = true;
-		    		cookieUsuario = aux;
-		    	}
-		    }	 
-			return resp;
-		}
-		
-		public boolean existeUsuario (String username) {
-			boolean comp = false;
-			if (getUsuarioPorUserName(username) != null)
-				comp = true;
-			return comp;
-		}
-	
 
 }

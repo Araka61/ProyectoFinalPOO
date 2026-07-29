@@ -6,6 +6,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.omg.PortableServer.ID_ASSIGNMENT_POLICY_ID;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -17,6 +20,7 @@ import javax.swing.ImageIcon;
 
 import logico.GestorFicheros;
 import logico.BolsaEmpleo;
+import logico.Empresa;
 import logico.Usuario;
 import logico.Grado;
 import logico.Tecnico;
@@ -71,6 +75,9 @@ public class RegistrarNuevoUsuario extends JDialog {
 	private JComboBox<String> cmbEmpresas;
 	private JButton btnRegistrarEmpresa;
 	private JPasswordField pfClave;
+	private boolean contraUsuario =false;
+	private boolean contraEmpresa =false;
+	private boolean clave =false;
 
 
 	/**
@@ -175,7 +182,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 				dispose();
 			}
 		});
-		
+
 		JButton btnLimpiar = new JButton("Limpiar");
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -344,16 +351,16 @@ public class RegistrarNuevoUsuario extends JDialog {
 		panelNivel.add(crearPanelGrado(), "GRADO");
 		panelNivel.add(crearPanelTecnico(), "TECNICO");
 		panelNivel.add(crearPanelTrabajador(), "TRABAJADOR");
-		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBackground(Color.BLACK);
-		btnNewButton.setIcon(new ImageIcon(getClass().getResource("/ojo.jpg")));
-		btnNewButton.addActionListener(new ActionListener() {
+
+		JRadioButton rdbtnContraUsuario = new JRadioButton("Mostrar Contrase\u00F1a");
+		rdbtnContraUsuario.setForeground(Color.WHITE);
+		rdbtnContraUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(530, 129, 100, 81);
-		panel.add(btnNewButton);
+		rdbtnContraUsuario.setBackground(Color.GRAY);
+		rdbtnContraUsuario.setBounds(543, 128, 147, 25);
+		panel.add(rdbtnContraUsuario);
 
 		rdbtnGrado.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -376,13 +383,15 @@ public class RegistrarNuevoUsuario extends JDialog {
 
 		return panel;
 	}
-	
+
 	private JPanel crearPanelEmpresa() {
 		JPanel panel = new JPanel();
 		panel.setForeground(Color.WHITE);
 		panel.setBackground(Color.GRAY);
 		panel.setLayout(null);
- 
+
+		llenarEmpresas();
+
 		JLabel lblUsuarioLoginEmpresa = new JLabel("Usuario:");
 		lblUsuarioLoginEmpresa.setForeground(Color.WHITE);
 		lblUsuarioLoginEmpresa.setBounds(10, 10, 80, 20);
@@ -392,7 +401,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		txtUsuarioLoginEmpresa.setBackground(Color.DARK_GRAY);
 		txtUsuarioLoginEmpresa.setBounds(100, 10, 160, 20);
 		panel.add(txtUsuarioLoginEmpresa);
- 
+
 		JLabel lblContrasenaEmpresa = new JLabel("Contrase\u00F1a:");
 		lblContrasenaEmpresa.setForeground(Color.WHITE);
 		lblContrasenaEmpresa.setBounds(280, 10, 80, 20);
@@ -403,7 +412,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		pfContrasenaEmpresa.setBackground(Color.DARK_GRAY);
 		pfContrasenaEmpresa.setBounds(360, 10, 160, 20);
 		panel.add(pfContrasenaEmpresa);
- 
+
 		JLabel lblCorreoEmpresa = new JLabel("Correo:");
 		lblCorreoEmpresa.setForeground(Color.WHITE);
 		lblCorreoEmpresa.setBounds(10, 40, 80, 20);
@@ -413,7 +422,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		txtCorreoEmpresa.setBackground(Color.DARK_GRAY);
 		txtCorreoEmpresa.setBounds(100, 40, 160, 20);
 		panel.add(txtCorreoEmpresa);
- 
+
 		JLabel lblEmpresas = new JLabel("Empresa:");
 		lblEmpresas.setForeground(Color.WHITE);
 		lblEmpresas.setBounds(10, 70, 80, 20);
@@ -423,67 +432,98 @@ public class RegistrarNuevoUsuario extends JDialog {
 		cmbEmpresas.setBackground(Color.DARK_GRAY);
 		cmbEmpresas.setBounds(100, 70, 200, 20);
 		panel.add(cmbEmpresas);
- 
+
+
+
 		btnRegistrarEmpresa = new JButton("Registrar Empresa");
 		btnRegistrarEmpresa.setForeground(Color.WHITE);
 		btnRegistrarEmpresa.setBackground(new Color(0, 128, 0));
-		btnRegistrarEmpresa.setBounds(310, 70, 150, 20);
+		btnRegistrarEmpresa.setBounds(310, 70, 139, 20);
 		btnRegistrarEmpresa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NuevaEmpresa dialogNuevaEmpresa = new NuevaEmpresa();
 				dialogNuevaEmpresa.setVisible(true);
 			}
+
 		});
 		panel.add(btnRegistrarEmpresa);
- 
+
 		JLabel lblRol = new JLabel("Rol:");
 		lblRol.setForeground(Color.WHITE);
 		lblRol.setBounds(10, 165, 80, 20);
 		panel.add(lblRol);
- 
+
 		rdbtnAdmin = new JRadioButton("Admin");
 		rdbtnAdmin.setForeground(Color.WHITE);
 		rdbtnAdmin.setBackground(Color.GRAY);
 		rdbtnAdmin.setSelected(true);
 		rdbtnAdmin.setBounds(100, 165, 100, 20);
 		panel.add(rdbtnAdmin);
- 
+
 		rdbtnReclutador = new JRadioButton("Reclutador");
 		rdbtnReclutador.setForeground(Color.WHITE);
 		rdbtnReclutador.setBackground(Color.GRAY);
 		rdbtnReclutador.setBounds(202, 165, 120, 20);
 		panel.add(rdbtnReclutador);
- 
+
 		ButtonGroup grupoRolEmpresa = new ButtonGroup();
 		grupoRolEmpresa.add(rdbtnAdmin);
 		grupoRolEmpresa.add(rdbtnReclutador);
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Mostrar contrase\u00F1a");
-		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+
+		JRadioButton rdbtnContraEmpresa = new JRadioButton("Mostrar contrase\u00F1a");
+		rdbtnContraEmpresa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pfContrasenaEmpresa.setEchoChar((char) 0);
+				if (!contraEmpresa) {
+					pfContrasenaEmpresa.setEchoChar((char) 0);
+					contraEmpresa= true;
+				}
+				else {
+					pfContrasenaEmpresa.setEchoChar('*');
+					contraEmpresa = false;
+				}
 			}
 		});
-		rdbtnNewRadioButton.setForeground(Color.WHITE);
-		rdbtnNewRadioButton.setBackground(Color.GRAY);
-		rdbtnNewRadioButton.setBounds(531, 9, 126, 23);
-		panel.add(rdbtnNewRadioButton);
-		
+		rdbtnContraEmpresa.setForeground(Color.WHITE);
+		rdbtnContraEmpresa.setBackground(Color.GRAY);
+		rdbtnContraEmpresa.setBounds(531, 9, 151, 23);
+		panel.add(rdbtnContraEmpresa);
+
 		pfClave = new JPasswordField();
 		pfClave.setForeground(Color.WHITE);
 		pfClave.setEchoChar('*');
 		pfClave.setBackground(Color.DARK_GRAY);
 		pfClave.setBounds(100, 102, 160, 20);
 		panel.add(pfClave);
-		
-		JLabel lblClave = new JLabel("Clave");
+
+		JLabel lblClave = new JLabel("Clave:");
 		lblClave.setForeground(Color.WHITE);
 		lblClave.setBounds(10, 105, 80, 20);
 		panel.add(lblClave);
- 
+
+		JRadioButton rdbtnClave = new JRadioButton("Mostrar clave");
+		rdbtnClave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (!clave)
+				{
+					pfClave.setEchoChar((char) 0);
+					clave = true;
+				}
+				else {
+					pfClave.setEchoChar('*');
+					clave = false;
+				}
+
+			}
+		});
+		rdbtnClave.setForeground(Color.WHITE);
+		rdbtnClave.setBackground(Color.GRAY);
+		rdbtnClave.setBounds(280, 102, 151, 23);
+		panel.add(rdbtnClave);
+
 		return panel;
 	}
- 
+
 
 
 	private JPanel crearPanelGrado() {
@@ -527,7 +567,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 	private JPanel crearPanelTecnico() {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-        panel.setBackground(Color.GRAY);
+		panel.setBackground(Color.GRAY);
 		JLabel lblInstituto = new JLabel("Instituto:");
 		lblInstituto.setBounds(0, 10, 100, 20);
 		lblInstituto.setForeground(Color.WHITE);
@@ -606,27 +646,27 @@ public class RegistrarNuevoUsuario extends JDialog {
 
 	private boolean validarCamposComunes() {
 		if (txtCedula.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty() ||
-			txtTelefono.getText().trim().isEmpty() || txtCorreo.getText().trim().isEmpty() ||
-			txtCiudad.getText().trim().isEmpty() || txtTiempoDisponible.getText().trim().isEmpty() ||
-			txtUsuarioLogin.getText().trim().isEmpty() || pfContrasenaPersona.getPassword().length == 0) {
-			
+				txtTelefono.getText().trim().isEmpty() || txtCorreo.getText().trim().isEmpty() ||
+				txtCiudad.getText().trim().isEmpty() || txtTiempoDisponible.getText().trim().isEmpty() ||
+				txtUsuarioLogin.getText().trim().isEmpty() || pfContrasenaPersona.getPassword().length == 0) {
+
 			JOptionPane.showMessageDialog(this, "Completa todos los datos.");
 			return false;
 		} else if (comprovarUsuarioYCorreo(txtUsuarioLogin.getText(), txtCorreo.getText())) {
-		return true;
-		
+			return true;
+
 		}
 		JOptionPane.showMessageDialog(this, "Usuario o correo ya registrado");
 		return false;
 	}
-	
+
 	private boolean comprovarUsuarioYCorreo (String userName,String correo){
 		if (BolsaEmpleo.getInstancia().getUsuarioPorCorreo(correo) != null ||
-			BolsaEmpleo.getInstancia().getUsuarioPorUserName(userName) != null) {
-		return false;
-	}
+				BolsaEmpleo.getInstancia().getUsuarioPorUserName(userName) != null) {
+			return false;
+		}
 		return true;
-		
+
 	}
 
 	private boolean validarCamposEspecificos() {
@@ -637,7 +677,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 
 	private boolean validarGrado() {
 		if (txtUniversidad.getText().trim().isEmpty() || txtCarrera.getText().trim().isEmpty() || 
-			txtTituloUniversitario.getText().trim().isEmpty()) {
+				txtTituloUniversitario.getText().trim().isEmpty()) {
 			JOptionPane.showMessageDialog(this, "Completa Universidad, Carrera y Titulo.");
 			return false;
 		}
@@ -646,7 +686,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 
 	private boolean validarTecnico() {
 		if (txtInstituto.getText().trim().isEmpty() || txtDiplomaTecnico.getText().trim().isEmpty() || 
-			txtEspecialidad.getText().trim().isEmpty()) {
+				txtEspecialidad.getText().trim().isEmpty()) {
 			JOptionPane.showMessageDialog(this, "Completa Instituto, Diploma y Especialidad.");
 			return false;
 		}
@@ -699,7 +739,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		BolsaEmpleo.getInstancia().setCookieUsuario(user);
 		GestorFicheros.guardarDatosFicheros();
 	}
-	
+
 	private void limpiarCampos ()
 	{
 		txtCedula.setText("");
@@ -723,5 +763,13 @@ public class RegistrarNuevoUsuario extends JDialog {
 		cardLayoutNivel.show(panelNivel, "GRADO");
 		rdbtnUsuario.setSelected(true);
 		cardLayoutPrincipal.show(panelContenedor, "USUARIO");
+	}
+
+	private void llenarEmpresas(){
+		
+		cmbEmpresas.removeAllItems();
+		for (Empresa emp : BolsaEmpleo.getInstancia().getLasEmpresas()) {
+			cmbEmpresas.addItem(emp.getNombre());
+		}
 	}
 }
