@@ -138,12 +138,9 @@ public class RegistrarSolicitud extends JDialog {
 
 		cbxProvincia = new JComboBox<>();
 		cbxProvincia.addItem("-- Seleccione --");
-		cbxProvincia.addItem("Santo Domingo");
-		cbxProvincia.addItem("Santiago");
-		cbxProvincia.addItem("La Vega");
-		cbxProvincia.addItem("Puerto Plata");
-		cbxProvincia.addItem("San Cristóbal");
-		cbxProvincia.addItem("Otra");
+		for(String ciudad : BolsaEmpleo.getInstancia().getCiudades()) {
+			cbxProvincia.addItem(ciudad);
+		}
 		cbxProvincia.setBounds(380, 78, 140, 22);
 		contentPanel.add(cbxProvincia);
 
