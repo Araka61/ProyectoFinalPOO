@@ -55,24 +55,132 @@ public class BolsaEmpleo {
 
 	//            Registro  
 
-	public void registrarPersona(Persona nueva, Usuario user) {
-		lasPersonas.add(nueva);
-		losUsuarios.add(user);
-		generadorIdPersona++;
-	}
-	public void registrarEmpresa(Empresa nueva) {
-		lasEmpresas.add(nueva);
-		generadorIdEmpresa++;
+	public void registrarPersonaGrado(String cedula, String nombre, String telefono, String correo, 
+            String tiempoDisponible, boolean tieneLicencia, char sexo, String ciudad,
+            String universidad, String carrera, String tituloUniversitario,
+            String username, String password, String rol) {
+
+		String id = "P" + generadorIdPersona;
+		Persona nueva = new Grado(id, cedula, nombre, telefono, correo, false, new ArrayList<>(), 
+				tiempoDisponible, tieneLicencia, sexo, ciudad, 
+				universidad, carrera, tituloUniversitario);
+
+		completarRegistroPersona(nueva, correo, username, password, rol);
 	}
 
-	public void registrarOferta(Empresa empresa, Oferta nueva) {
-		empresa.publicarOferta(nueva);
-		lasOfertas.add(nueva);
-		generadorIdOferta++;
+	public void registrarPersonaTecnico(String cedula, String nombre, String telefono, String correo, 
+			String tiempoDisponible, boolean tieneLicencia, char sexo, String ciudad,
+			String instituto, String diplomaTecnico, String especialidad,
+			String username, String password, String rol) {
+
+		String id = "P" + generadorIdPersona;
+		Persona nueva = new Tecnico(id, cedula, nombre, telefono, correo, false, new ArrayList<>(), 
+				tiempoDisponible, tieneLicencia, sexo, ciudad, 
+				instituto, diplomaTecnico, especialidad);
+
+		completarRegistroPersona(nueva, correo, username, password, rol);
 	}
-	public void registrarSolicitud(Solicitud nueva) {
-		lasSolicitudes.add(nueva);
-		generadorIdSolicitud++;
+
+	public void registrarPersonaTrabajador(String cedula, String nombre, String telefono, String correo, 
+			String tiempoDisponible, boolean tieneLicencia, char sexo, String ciudad,
+			String oficio, String username, String password, String rol) {
+
+		String id = "P" + generadorIdPersona;
+		Persona nueva = new Trabajador(id, cedula, nombre, telefono, correo, false, new ArrayList<>(), 
+				tiempoDisponible, tieneLicencia, sexo, ciudad, oficio);
+
+		completarRegistroPersona(nueva, correo, username, password, rol);
+	}
+
+	private void completarRegistroPersona(Persona nueva, String correo, String username, String password, String rol) {
+		Usuario usuario = new Usuario(nueva.getId(), correo, username, password, rol);
+		lasPersonas.add(nueva);
+		losUsuarios.add(usuario);
+		generadorIdPersona++;
+	}
+	
+	public Empresa registrarEmpresa(String nombre, String rnc, String representante, String tipo, String claveDeSeguridad) {
+	    String id = "E" + generadorIdEmpresa;
+	    Empresa nueva = new Empresa(id, nombre, rnc, representante, tipo, claveDeSeguridad);
+	    lasEmpresas.add(nueva);
+	    generadorIdEmpresa++;
+	    return nueva;
+	}
+
+	public void registrarOferta(String idEmpresa, String tipoTrabajo, String titulo, String tecnico, 
+            String habilidad, String tiempoTrabajo, int experienciaLaboral, 
+            char sexo, String provincia, boolean licencia, boolean dispuestoAMudarse, 
+            String descripcion, float salario, float coincidencia, int cantPuesto, boolean soloEspecif) {
+
+		Empresa emp = buscarEmpresa(idEmpresa);
+		if (emp != null) {
+			String idOferta = "O" + generadorIdOferta;
+			Oferta nueva = new Oferta(idOferta, tipoTrabajo, titulo, tecnico, habilidad, tiempoTrabajo, 
+                 experienciaLaboral, sexo, provincia, licencia, dispuestoAMudarse, 
+                 true, descripcion, salario, coincidencia, cantPuesto, soloEspecif);
+
+			emp.publicarOferta(nueva);
+			lasOfertas.add(nueva);
+			generadorIdOferta++;
+		}
+	}
+	
+	public void registrarSolicitud(String idUsuario, String tipo, String tituloCarrera, String diplomaTecnico,
+	        String habilidadOficio, String tiempoTrabajo, int experiencia, char sexo, String provincia,
+	        boolean tieneLicencia, boolean dispuestoAMudarse, float minSal, float maxSal) {
+	    
+	    String idSolicitud = "S" + generadorIdSolicitud;
+	    boolean activo = true;
+
+	    Solicitud nueva = new Solicitud(
+	        idSolicitud, 
+	        tipo, 
+	        tituloCarrera, 
+	        diplomaTecnico, 
+	        habilidadOficio, 
+	        tiempoTrabajo,
+	        experiencia, 
+	        sexo, 
+	        provincia, 
+	        tieneLicencia, 
+	        dispuestoAMudarse, 
+	        activo, 
+	        idUsuario, 
+	        minSal, 
+	        maxSal
+	    );
+
+	    lasSolicitudes.add(nueva);
+	    Persona persona = buscarPersona(idUsuario);
+	    if (persona != null) {
+	        if (persona.getSolicitudes() == null) {
+	            persona.setSolicitudes(new ArrayList<>());
+	        }
+	        persona.getSolicitudes().add(nueva);
+	    }
+
+	    generadorIdSolicitud++;
+	}
+	
+	public void modificarSolicitud(String idSolicitud, String tipo, String tituloCarrera, String diplomaTecnico,
+	        String habilidadOficio, String tiempoTrabajo, int experiencia, char sexo, String provincia,
+	        boolean tieneLicencia, boolean dispuestoAMudarse, float minSal, float maxSal) {
+	    
+	    Solicitud solicitud = buscarSolicitud(idSolicitud);
+	    if (solicitud != null) {
+	        solicitud.setTipoTrabajo(tipo);
+	        solicitud.setTitulo(tituloCarrera);
+	        solicitud.setTecnico(diplomaTecnico);
+	        solicitud.setHabilidad(habilidadOficio);
+	        solicitud.setTiempoTrabajo(tiempoTrabajo);
+	        solicitud.setExperienciaLaboral(experiencia);
+	        solicitud.setSexo(sexo);
+	        solicitud.setProvincia(provincia);
+	        solicitud.setLicenciaDeConducir(tieneLicencia);
+	        solicitud.setDispuestoAMudarse(dispuestoAMudarse);
+	        solicitud.setRangoMinSalario(minSal);
+	        solicitud.setRangoMaxSalario(maxSal);
+	    }
 	}
 
 	public Usuario getCookieUsuario() {
@@ -334,6 +442,4 @@ public class BolsaEmpleo {
 			return true;
 		return false;	
 	}
-
-
 }

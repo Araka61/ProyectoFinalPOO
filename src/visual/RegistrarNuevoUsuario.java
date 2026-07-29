@@ -702,42 +702,41 @@ public class RegistrarNuevoUsuario extends JDialog {
 	}
 
 	private void crearYRegistrarPerfil() {
-		String id = "P-" + BolsaEmpleo.generadorIdPersona;
-		String pass = new String(pfContrasenaPersona.getPassword());
-		Usuario user = new Usuario(id, txtCorreo.getText(), txtUsuarioLogin.getText(), pass, "candidato");
+	    String pass = new String(pfContrasenaPersona.getPassword());
+	    String cedula = txtCedula.getText().trim();
+	    String nombre = txtNombre.getText().trim();
+	    String telefono = txtTelefono.getText().trim();
+	    String correo = txtCorreo.getText().trim();
+	    String tiempo = txtTiempoDisponible.getText().trim();
+	    boolean licencia = chkLicencia.isSelected();
+	    char sexo = getSexoSeleccionado();
+	    String ciudad = txtCiudad.getText().trim();
+	    String user = txtUsuarioLogin.getText().trim();
 
-		if (rdbtnGrado.isSelected()) registrarGrado(id, user);
-		else if (rdbtnTecnico.isSelected()) registrarTecnico(id, user);
-		else registrarTrabajador(id, user);
-	}
+	    if (rdbtnGrado.isSelected()) {
+	        BolsaEmpleo.getInstancia().registrarPersonaGrado(
+	            cedula, nombre, telefono, correo, tiempo, licencia, sexo, ciudad,
+	            txtUniversidad.getText().trim(), txtCarrera.getText().trim(), 
+	            txtTituloUniversitario.getText().trim(), user, pass, "candidato"
+	        );
+	    } else if (rdbtnTecnico.isSelected()) {
+	        BolsaEmpleo.getInstancia().registrarPersonaTecnico(
+	            cedula, nombre, telefono, correo, tiempo, licencia, sexo, ciudad,
+	            txtInstituto.getText().trim(), txtDiplomaTecnico.getText().trim(), 
+	            txtEspecialidad.getText().trim(), user, pass, "candidato"
+	        );
+	    } else {
+	        BolsaEmpleo.getInstancia().registrarPersonaTrabajador(
+	            cedula, nombre, telefono, correo, tiempo, licencia, sexo, ciudad,
+	            txtOficio.getText().trim(), user, pass, "candidato"
+	        );
+	    }
 
-	private void registrarGrado(String id, Usuario user) {
-		Grado g = new Grado(id, txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
-				txtCorreo.getText(), false, new ArrayList<Solicitud>(), txtTiempoDisponible.getText(),
-				chkLicencia.isSelected(), getSexoSeleccionado(), txtCiudad.getText(), 
-				txtUniversidad.getText(), txtCarrera.getText(), txtTituloUniversitario.getText());
-		BolsaEmpleo.getInstancia().registrarPersona(g, user);
-		BolsaEmpleo.getInstancia().setCookieUsuario(user);
-		GestorFicheros.guardarDatosFicheros();
-	}
-
-	private void registrarTecnico(String id, Usuario user) {
-		Tecnico t = new Tecnico(id, txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
-				txtCorreo.getText(), false, new ArrayList<Solicitud>(), txtTiempoDisponible.getText(),
-				chkLicencia.isSelected(), getSexoSeleccionado(), txtCiudad.getText(), 
-				txtInstituto.getText(), txtDiplomaTecnico.getText(), txtEspecialidad.getText());
-		BolsaEmpleo.getInstancia().registrarPersona(t, user);
-		BolsaEmpleo.getInstancia().setCookieUsuario(user);
-		GestorFicheros.guardarDatosFicheros();
-	}
-
-	private void registrarTrabajador(String id, Usuario user) {
-		Trabajador tr = new Trabajador(id, txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
-				txtCorreo.getText(), false, new ArrayList<Solicitud>(), txtTiempoDisponible.getText(),
-				chkLicencia.isSelected(), getSexoSeleccionado(), txtCiudad.getText(), txtOficio.getText());
-		BolsaEmpleo.getInstancia().registrarPersona(tr, user);
-		BolsaEmpleo.getInstancia().setCookieUsuario(user);
-		GestorFicheros.guardarDatosFicheros();
+	    Usuario usuarioCreado = BolsaEmpleo.getInstancia().getUsuarioPorUserName(user);
+	    if (usuarioCreado != null) {
+	        BolsaEmpleo.getInstancia().setCookieUsuario(usuarioCreado);
+	    }
+	    GestorFicheros.guardarDatosFicheros();
 	}
 
 	private void limpiarCampos ()

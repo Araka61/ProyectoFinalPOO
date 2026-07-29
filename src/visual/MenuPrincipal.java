@@ -145,6 +145,7 @@ public class MenuPrincipal extends JFrame {
 				edit.setVisible(true);
 			}
 		});
+		menuPerfil.add(itemEditarSolicitud);
 		
 		JMenu menuEmpleos = new JMenu("Buscar Empleos");
 		JMenuItem itemCatalogoOfertas = new JMenuItem("Catalogo de Ofertas");
@@ -214,6 +215,7 @@ public class MenuPrincipal extends JFrame {
 			}
 		});
 		menuReclutamiento.add(itemCandidatos);
+		
 		JMenuItem itemDirectorio = new JMenuItem("Directorio de Personas");
 		itemDirectorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
