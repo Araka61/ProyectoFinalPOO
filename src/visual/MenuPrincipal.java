@@ -141,7 +141,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem itemCrearSolicitud = new JMenuItem("Crear Solicitud");
 		itemCrearSolicitud.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarSolicitud genSoli = new RegistrarSolicitud(null);
+				RegistrarSolicitud genSoli = new RegistrarSolicitud(MenuPrincipal.this, null);
 				genSoli.setModal(true);
 				genSoli.setVisible(true);
 			}

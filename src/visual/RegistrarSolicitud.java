@@ -3,6 +3,7 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -45,7 +46,7 @@ public class RegistrarSolicitud extends JDialog {
 	public static void main(String[] args) {
 		try {
 			GestorFicheros.cargarDatosDesdeFicheros();
-			RegistrarSolicitud dialog = new RegistrarSolicitud(null);
+			RegistrarSolicitud dialog = new RegistrarSolicitud(null, null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -53,14 +54,12 @@ public class RegistrarSolicitud extends JDialog {
 		}
 	}
 
-	public RegistrarSolicitud(String idSolicitud) {
-		setTitle(idSolicitud != null ? "Editar Solicitud" : "Generar Solicitud");
-		setBounds(100, 100, 550, 320);
-		setLocationRelativeTo(null);
-		setResizable(false);
-		
-		setTitle("Generar Solicitud");
-		setBounds(100, 100, 549, 260);
+	public RegistrarSolicitud(Window parent, String idSolicitud) {
+	    super(parent, ModalityType.APPLICATION_MODAL);
+	    setTitle(idSolicitud != null ? "Editar Solicitud" : "Generar Solicitud");
+	    setBounds(100, 100, 550, 320);
+	    setLocationRelativeTo(parent);
+	    setResizable(false);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.GRAY);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
