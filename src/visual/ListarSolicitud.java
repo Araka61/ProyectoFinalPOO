@@ -122,6 +122,40 @@ public class ListarSolicitud extends JDialog {
             }
         });
         buttonPane.add(btnEditar);
+        
+        JButton btnDesactivar = new JButton("Desactivar");
+        btnDesactivar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		int filaSeleccionada = tableSolicitudes.getSelectedRow();
+        		
+        		if(filaSeleccionada == -1) {
+        			JOptionPane.showMessageDialog(ListarSolicitud.this, "Seleccione una solicitud", 
+        					"Seleccion Requerida", JOptionPane.WARNING_MESSAGE);
+        			return;
+        		}
+        		
+        		String idSolicitud = (String) modelTabla.getValueAt(filaSeleccionada, 0);
+        		
+        		int respuesta = JOptionPane.showConfirmDialog(ListarSolicitud.this, "¿Seguro que desea desactivar esta solicitud?", 
+        				"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        		
+        		if(respuesta == JOptionPane.YES_OPTION) {
+        			Solicitud solicitud = BolsaEmpleo.getInstancia().buscarSolicitud(idSolicitud);
+        			if(solicitud != null) {
+        				solicitud.setActivo(false);
+        				
+        				GestorFicheros.guardarDatosFicheros();
+        				
+        				JOptionPane.showMessageDialog(ListarSolicitud.this,
+        						"La Solicitud ha sido desactivada correctamente.", "Exito",
+        						JOptionPane.INFORMATION_MESSAGE);
+        			}
+        		}
+        	}
+        });
+        btnDesactivar.setBackground(new Color(255, 0, 0));
+        btnDesactivar.setForeground(Color.WHITE);
+        buttonPane.add(btnDesactivar);
 
         JButton btnCerrar = new JButton("Cerrar");
         btnCerrar.addActionListener(new ActionListener() {
