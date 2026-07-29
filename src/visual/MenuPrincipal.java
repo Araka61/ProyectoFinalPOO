@@ -10,8 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import logico.BolsaEmpleo;
+import logico.ClienteBackup;
 import logico.GestorFicheros;
 import logico.Usuario;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JMenuBar;
@@ -121,17 +125,56 @@ public class MenuPrincipal extends JFrame {
 		menuBar.removeAll();
 
 		JMenu menuPerfil = new JMenu("Mi Solicitud");
-		menuPerfil.add(new JMenuItem("Editar Perfil / Solicitud"));
-
+		JMenuItem itemEditarDatos = new JMenuItem("Editar Datos Personales");
+		//itemEditarDatos.addActionListener();
+		menuPerfil.add(itemEditarDatos);
+		JMenuItem itemCrearSolicitud = new JMenuItem("Crear Solicitud");
+		itemCrearSolicitud.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarSolicitud genSoli = new RegistrarSolicitud(null);
+				genSoli.setModal(true);
+				genSoli.setVisible(true);
+			}
+		});
+		menuPerfil.add(itemCrearSolicitud);
+		JMenuItem itemEditarSolicitud = new JMenuItem("Editar Solicitud");
+		itemEditarSolicitud.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarSolicitud edit = new ListarSolicitud();
+				edit.setModal(true);
+				edit.setVisible(true);
+			}
+		});
+		
 		JMenu menuEmpleos = new JMenu("Buscar Empleos");
-		menuEmpleos.add(new JMenuItem("Catálogo de Ofertas"));
-		menuEmpleos.add(new JMenuItem("Ofertas Recomendadas"));
+		JMenuItem itemCatalogoOfertas = new JMenuItem("Catalogo de Ofertas");
+		itemCatalogoOfertas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CatalogoOfertas catalogo = new CatalogoOfertas();
+				catalogo.setModal(true);
+				catalogo.setVisible(true);
+			}
+		});
+		menuEmpleos.add(itemCatalogoOfertas);
+		JMenuItem itemOfertasRecomendadas = new JMenuItem("Ofertas Recomendadas");
+		itemCatalogoOfertas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OfertasRecomendadas recomendacion = new OfertasRecomendadas();
+				recomendacion.setModal(true);
+				recomendacion.setVisible(true);
+			}
+		});
+		menuEmpleos.add(itemOfertasRecomendadas);
 
 		JMenu menuCuenta = new JMenu("Cuenta");
 		JMenuItem itemCerrarSesion = new JMenuItem("Cerrar Sesión");
-		JMenuItem itemRespaldar = new JMenuItem("Respaldar Servidor");
-		itemCerrarSesion.addActionListener(e -> cerrarSesion());
+		itemCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cerrarSesion();
+			}
+		});
 		menuCuenta.add(itemCerrarSesion);
+		JMenuItem itemRespaldar = new JMenuItem("Respaldar Servidor");
 
 		menuBar.add(menuPerfil);
 		menuBar.add(menuEmpleos);
@@ -142,18 +185,54 @@ public class MenuPrincipal extends JFrame {
 		menuBar.removeAll();
 
 		JMenu menuOfertas = new JMenu("Gestión de Ofertas");
-		menuOfertas.add(new JMenuItem("Publicar Nueva Vacante"));
-		menuOfertas.add(new JMenuItem("Mis Vacantes Publicadas"));
+		JMenuItem itemNuevaVacante = new JMenuItem("Publicar Nueva Vacante");
+		itemNuevaVacante.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistrarOferta oferta = new RegistrarOferta();
+				oferta.setModal(true);
+				oferta.setVisible(true);
+			}
+		});
+		menuOfertas.add(itemNuevaVacante);
+		JMenuItem itemListarVacantes = new JMenuItem("Vacantes Publicadas");
+		itemListarVacantes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarOfertas list = new ListarOfertas();
+				list.setModal(true);
+				list.setVisible(true);
+			}
+		});
+		menuOfertas.add(itemListarVacantes);
 
 		JMenu menuReclutamiento = new JMenu("Reclutamiento");
-		menuReclutamiento.add(new JMenuItem("Candidatos Ideales"));
-		menuReclutamiento.add(new JMenuItem("Directorio de Personas"));
+		JMenuItem itemCandidatos = new JMenuItem("Candidatos Ideales");
+		itemCandidatos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MejoresCoincidencias best = new MejoresCoincidencias();
+				best.setModal(true);
+				best.setVisible(true);
+			}
+		});
+		menuReclutamiento.add(itemCandidatos);
+		JMenuItem itemDirectorio = new JMenuItem("Directorio de Personas");
+		itemDirectorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarPersonas list = new ListarPersonas();
+				list.setModal(true);
+				list.setVisible(true);
+			}
+		});
+		menuReclutamiento.add(itemDirectorio);
 
 		JMenu menuCuenta = new JMenu("Cuenta");
 		JMenuItem itemCerrarSesion = new JMenuItem("Cerrar Sesión");
-		JMenuItem itemRespaldar = new JMenuItem("Respaldar Servidor");
-		itemCerrarSesion.addActionListener(e -> cerrarSesion());
+		itemCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cerrarSesion();
+			}
+		});
 		menuCuenta.add(itemCerrarSesion);
+		JMenuItem itemRespaldar = new JMenuItem("Respaldar Servidor");
 
 		menuBar.add(menuOfertas);
 		menuBar.add(menuReclutamiento);

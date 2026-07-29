@@ -23,8 +23,9 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 
-public class EditarSolicitud extends JDialog {
+public class RegistrarSolicitud extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
@@ -38,7 +39,7 @@ public class EditarSolicitud extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			EditarSolicitud dialog = new EditarSolicitud();
+			RegistrarSolicitud dialog = new RegistrarSolicitud(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -49,8 +50,9 @@ public class EditarSolicitud extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EditarSolicitud() {
-		setBounds(100, 100, 549, 300);
+	public RegistrarSolicitud(String idSolicitud) {
+		setTitle("Generar Solicitud");
+		setBounds(100, 100, 549, 260);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.GRAY);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -128,17 +130,23 @@ public class EditarSolicitud extends JDialog {
 		
 		JLabel lblNewLabel_4 = new JLabel("Sexo: " + genero);
 		lblNewLabel_4.setForeground(Color.WHITE);
-		lblNewLabel_4.setBounds(12, 71, 269, 16);
+		lblNewLabel_4.setBounds(12, 69, 269, 16);
 		contentPanel.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_5 = new JLabel("New label");
+		JLabel lblNewLabel_5 = new JLabel("Provincia");
 		lblNewLabel_5.setForeground(Color.WHITE);
 		lblNewLabel_5.setBounds(293, 71, 56, 16);
 		contentPanel.add(lblNewLabel_5);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(390, 68, 31, 22);
+		comboBox.setBounds(390, 68, 129, 22);
 		contentPanel.add(comboBox);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Dispuesto a mudarse");
+		chckbxNewCheckBox.setForeground(Color.WHITE);
+		chckbxNewCheckBox.setBackground(Color.GRAY);
+		chckbxNewCheckBox.setBounds(12, 92, 269, 23);
+		contentPanel.add(chckbxNewCheckBox);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(Color.GRAY);
