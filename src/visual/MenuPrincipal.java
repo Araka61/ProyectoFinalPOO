@@ -52,9 +52,11 @@ public class MenuPrincipal extends JFrame {
 						frame.cargarInterfazSegunUsuario(cookie);
 						frame.setVisible(true);
 					} else {
+						frame.setAlwaysOnTop(false);
 						Login login = new Login(frame);
 						login.setModal(true);
 						login.setVisible(true);
+						
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

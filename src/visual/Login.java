@@ -167,6 +167,7 @@ public class Login extends JDialog {
 			btnNuevoUsuario.setBackground(new Color(0, 128, 0));
 			btnNuevoUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					setAlwaysOnTop(false);
 					 RegistrarNuevoUsuario registro = new RegistrarNuevoUsuario();
 				        registro.setModal(true);
 				        registro.setVisible(true);

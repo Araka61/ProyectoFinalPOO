@@ -2,6 +2,8 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
+import java.awt.Frame;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -90,6 +92,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 			RegistrarNuevoUsuario dialog = new RegistrarNuevoUsuario();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
+			GestorFicheros.cargarDatosDesdeFicheros();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -449,8 +452,10 @@ public class RegistrarNuevoUsuario extends JDialog {
 		btnRegistrarEmpresa.setBounds(310, 70, 139, 20);
 		btnRegistrarEmpresa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setAlwaysOnTop(false);
 				NuevaEmpresa dialogNuevaEmpresa = new NuevaEmpresa();
 				dialogNuevaEmpresa.setVisible(true);
+				llenarEmpresas();
 			}
 
 		});
@@ -645,6 +650,12 @@ public class RegistrarNuevoUsuario extends JDialog {
 
 		if (!validarCamposUsEmpresa() || !validarClaveEmpresa())
 			return;
+		else {
+			crearYRegistrarPerfil();
+			JOptionPane.showMessageDialog(this, "Persona registrada con exito.");
+			GestorFicheros.guardarDatosFicheros();
+			dispose();
+		}
 
 	}
 	private boolean validarCamposUsEmpresa () {
@@ -659,7 +670,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 	}
 	private boolean validarClaveEmpresa () {
 		Empresa aux = obtenerEmpresaSel();
-		if (!BolsaEmpleo.getInstancia().claveCorrecta( new String(pfContrasenaEmpresa.getPassword()), aux)) {
+		if (!BolsaEmpleo.getInstancia().claveCorrecta(new String(pfContrasenaEmpresa.getPassword()),aux)) {
 			JOptionPane.showMessageDialog(this, "Clave incorrecta");
 			return false;
 		}
@@ -775,9 +786,11 @@ public class RegistrarNuevoUsuario extends JDialog {
 			String idUsuario = aux.getId() + "-" + id;
 
 			Usuario nuevo = new Usuario(idUsuario, txtCorreoEmpresa.getText(),txtUsuarioLoginEmpresa.getText(), new String(pfContrasenaEmpresa.getPassword()), "Admin");
+			BolsaEmpleo.getInstancia().registrarUsuarioEmpres(nuevo);
+			aux.getReprecentantes().add(nuevo);
+			BolsaEmpleo.getInstancia().setCookieUsuario(nuevo);
 		}
 		GestorFicheros.guardarDatosFicheros();
-
 	}
 
 	private void limpiarCampos ()
@@ -819,6 +832,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 	private Empresa obtenerEmpresaSel() {
 		Empresa aux = null;
 		aux = BolsaEmpleo.getInstancia().getEmpresaNombre(cmbEmpresas.getSelectedItem().toString().trim());
+		System.out.print(aux.getClaveDeSeguridad());
 		return aux;
 	}
 }
