@@ -10,7 +10,7 @@ public class Oferta extends Empleo{
 	private boolean soloespecif;
 
 	public Oferta(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad, String tiempoTrabajo,
-			float experienciaLaboral, char sexo, String provincia, boolean licenciaDeConducir,
+			int experienciaLaboral, char sexo, String provincia, boolean licenciaDeConducir,
 			boolean dispuestoAMudarse, boolean activo, String descripcionTrabajo,
 			float salario, float coincidencia, int cantPuesto, boolean soloespecif) {
 		super(id, tipoTrabajo, titulo, tecnico, habilidad, tiempoTrabajo, experienciaLaboral, sexo, provincia,

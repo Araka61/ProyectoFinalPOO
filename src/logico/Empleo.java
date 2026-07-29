@@ -13,7 +13,7 @@ public abstract class Empleo implements Serializable {
 	private String habilidad;
 	private String tiempoTrabajo;
 	private LocalDate hora;
-	private float experienciaLaboral;
+	private int experienciaLaboral;
 	private char sexo;
 	private String provincia;
 	private boolean licenciaDeConducir;
@@ -21,7 +21,7 @@ public abstract class Empleo implements Serializable {
 	private boolean activo;
 	
 	public Empleo(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad, String tiempoTrabajo,
-			float experienciaLaboral, char sexo, String provincia, boolean licenciaDeConducir,
+			int experienciaLaboral, char sexo, String provincia, boolean licenciaDeConducir,
 			boolean dispuestoAMudarse, boolean activo) {
 		super();
 		this.id = id;
@@ -79,11 +79,11 @@ public abstract class Empleo implements Serializable {
 		this.tiempoTrabajo = tiempoTrabajo;
 	}
 
-	public float getExperienciaLaboral() {
+	public int getExperienciaLaboral() {
 		return experienciaLaboral;
 	}
 
-	public void setExperienciaLaboral(float experienciaLaboral) {
+	public void setExperienciaLaboral(int experienciaLaboral) {
 		this.experienciaLaboral = experienciaLaboral;
 	}
 

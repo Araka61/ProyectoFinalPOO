@@ -8,7 +8,7 @@ public class Solicitud extends Empleo{
 	private float rangoMaxSalario;
 	
 	public Solicitud(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad,
-			String tiempoTrabajo, float experienciaLaboral, char sexo, String provincia, boolean licenciaDeConducir,
+			String tiempoTrabajo, int experienciaLaboral, char sexo, String provincia, boolean licenciaDeConducir,
 			boolean dispuestoAMudarse, boolean activo, String idUsuario, float rangoMinSalario, float rangoMaxSalario) {
 		super(id, tipoTrabajo, titulo, tecnico, habilidad, tiempoTrabajo, experienciaLaboral, sexo, provincia,
 				licenciaDeConducir, dispuestoAMudarse, activo);

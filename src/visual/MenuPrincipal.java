@@ -122,7 +122,6 @@ public class MenuPrincipal extends JFrame {
 
 		JMenu menuPerfil = new JMenu("Mi Solicitud");
 		menuPerfil.add(new JMenuItem("Editar Perfil / Solicitud"));
-		menuPerfil.add(new JMenuItem("Estado de Solicitud"));
 
 		JMenu menuEmpleos = new JMenu("Buscar Empleos");
 		menuEmpleos.add(new JMenuItem("Catálogo de Ofertas"));
