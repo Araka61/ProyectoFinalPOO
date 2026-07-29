@@ -119,7 +119,7 @@ public class MenuPrincipal extends JFrame {
 
 		String rol = usuario.getRol();
 
-		if (rol.equalsIgnoreCase("Empresa")) {
+		if (rol.equalsIgnoreCase("Admin") || rol.equalsIgnoreCase("Reclutador")) {
 			configurarMenuEmpresa();
 			panelEmpresa.actualizarDatos(usuario);
 			cardLayoutCuenta.show(panelCuenta, CARD_EMPRESA);
