@@ -15,10 +15,6 @@ public class Empresa implements Serializable {
 	private ArrayList<Usuario> reprecentantes;
 	private String nombre;
 
-	public Empresa() {
-		lasOfertas = new ArrayList<>();
-		reprecentantes = new ArrayList<>();
-	}
 
 	public Empresa(String id,String nombre, String rnc, String representante, String tipo,String claveDeSeguridad) {
 		this.id = id;
@@ -28,6 +24,7 @@ public class Empresa implements Serializable {
 		this.tipo = tipo;
 		this.claveDeSeguridad = claveDeSeguridad;
 		lasOfertas = new ArrayList<>();
+		reprecentantes = new ArrayList<>();
 	}
 
 	public String getId() {
@@ -92,6 +89,10 @@ public class Empresa implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public void nuevoReprecentante(Usuario nuevo){
+		this.reprecentantes.add(nuevo);
 	}
 
 }

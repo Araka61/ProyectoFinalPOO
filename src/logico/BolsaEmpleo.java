@@ -53,8 +53,10 @@ public class BolsaEmpleo {
 		return losUsuarios;
 	}
 
+
 	//            Registro  
 
+	
 	public void registrarPersonaGrado(String cedula, String nombre, String telefono, String correo, 
             String tiempoDisponible, boolean tieneLicencia, char sexo, String ciudad,
             String universidad, String carrera, String tituloUniversitario,
@@ -161,7 +163,9 @@ public class BolsaEmpleo {
 
 	    generadorIdSolicitud++;
 	}
-	
+	public void registrarUsuarioEmpres(Usuario nuevo) {
+		losUsuarios.add(nuevo);
+	}
 	public void modificarSolicitud(String idSolicitud, String tipo, String tituloCarrera, String diplomaTecnico,
 	        String habilidadOficio, String tiempoTrabajo, int experiencia, char sexo, String provincia,
 	        boolean tieneLicencia, boolean dispuestoAMudarse, float minSal, float maxSal) {
@@ -217,6 +221,20 @@ public class BolsaEmpleo {
 
 		while (!encontrado && i < lasEmpresas.size()) {
 			if (lasEmpresas.get(i).getId().equalsIgnoreCase(id)) {
+				aux = lasEmpresas.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+		return aux;
+	}
+	public Empresa getEmpresaNombre(String nombre){
+		Empresa aux = null;
+		boolean encontrado = false;
+		int i = 0;
+
+		while (!encontrado && i < lasEmpresas.size()) {
+			if (lasEmpresas.get(i).getNombre().equalsIgnoreCase(nombre)) {
 				aux = lasEmpresas.get(i);
 				encontrado = true;
 			}
@@ -442,4 +460,5 @@ public class BolsaEmpleo {
 			return true;
 		return false;	
 	}
+	
 }

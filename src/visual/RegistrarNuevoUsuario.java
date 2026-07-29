@@ -34,6 +34,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDate;
+
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 
@@ -355,6 +357,13 @@ public class RegistrarNuevoUsuario extends JDialog {
 		rdbtnContraUsuario.setForeground(Color.WHITE);
 		rdbtnContraUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (!contraUsuario) {
+					pfContrasenaPersona.setEchoChar((char)0);
+					contraUsuario = true;
+				}else {
+					pfContrasenaPersona.setEchoChar('*');
+					contraUsuario = false;
+				}
 			}
 		});
 		rdbtnContraUsuario.setBackground(Color.GRAY);
@@ -389,7 +398,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		panel.setBackground(Color.GRAY);
 		panel.setLayout(null);
 
-		
+
 
 		JLabel lblUsuarioLoginEmpresa = new JLabel("Usuario:");
 		lblUsuarioLoginEmpresa.setForeground(Color.WHITE);
@@ -628,9 +637,33 @@ public class RegistrarNuevoUsuario extends JDialog {
 		if (rdbtnUsuario.isSelected()) {
 			registrarComoPersona();
 		} else {
-			// No hay Nada por el momento 
-			// Cuando tengamos claro lo de empresa lo hacemos 
+			registrarComoUsuarioEmpresa();
 		}
+	}
+
+	private void registrarComoUsuarioEmpresa(){
+
+		if (!validarCamposUsEmpresa() || !validarClaveEmpresa())
+			return;
+
+	}
+	private boolean validarCamposUsEmpresa () {
+		if (txtUsuarioLoginEmpresa.getText().trim().isEmpty() || pfContrasenaEmpresa.getPassword().length == 0||
+				txtCorreoEmpresa.getText().trim().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "Completa todos los datos.");
+			return false;
+		}else if (comprovarUsuarioYCorreo(txtUsuarioLoginEmpresa.getText(), txtCorreoEmpresa.getText())) 
+			return true;
+		JOptionPane.showMessageDialog(this, "Usuario o correo ya registrado");
+		return false;
+	}
+	private boolean validarClaveEmpresa () {
+		Empresa aux = obtenerEmpresaSel();
+		if (!BolsaEmpleo.getInstancia().claveCorrecta( new String(pfContrasenaEmpresa.getPassword()), aux)) {
+			JOptionPane.showMessageDialog(this, "Clave incorrecta");
+			return false;
+		}
+		return true;
 	}
 
 	private void registrarComoPersona() {
@@ -653,7 +686,6 @@ public class RegistrarNuevoUsuario extends JDialog {
 			return false;
 		} else if (comprovarUsuarioYCorreo(txtUsuarioLogin.getText(), txtCorreo.getText())) {
 			return true;
-
 		}
 		JOptionPane.showMessageDialog(this, "Usuario o correo ya registrado");
 		return false;
@@ -701,41 +733,51 @@ public class RegistrarNuevoUsuario extends JDialog {
 	}
 
 	private void crearYRegistrarPerfil() {
-	    String pass = new String(pfContrasenaPersona.getPassword());
-	    String cedula = txtCedula.getText().trim();
-	    String nombre = txtNombre.getText().trim();
-	    String telefono = txtTelefono.getText().trim();
-	    String correo = txtCorreo.getText().trim();
-	    String tiempo = txtTiempoDisponible.getText().trim();
-	    boolean licencia = chkLicencia.isSelected();
-	    char sexo = getSexoSeleccionado();
-	    String ciudad = txtCiudad.getText().trim();
-	    String user = txtUsuarioLogin.getText().trim();
 
-	    if (rdbtnGrado.isSelected()) {
-	        BolsaEmpleo.getInstancia().registrarPersonaGrado(
-	            cedula, nombre, telefono, correo, tiempo, licencia, sexo, ciudad,
-	            txtUniversidad.getText().trim(), txtCarrera.getText().trim(), 
-	            txtTituloUniversitario.getText().trim(), user, pass, "candidato"
-	        );
-	    } else if (rdbtnTecnico.isSelected()) {
-	        BolsaEmpleo.getInstancia().registrarPersonaTecnico(
-	            cedula, nombre, telefono, correo, tiempo, licencia, sexo, ciudad,
-	            txtInstituto.getText().trim(), txtDiplomaTecnico.getText().trim(), 
-	            txtEspecialidad.getText().trim(), user, pass, "candidato"
-	        );
-	    } else {
-	        BolsaEmpleo.getInstancia().registrarPersonaTrabajador(
-	            cedula, nombre, telefono, correo, tiempo, licencia, sexo, ciudad,
-	            txtOficio.getText().trim(), user, pass, "candidato"
-	        );
-	    }
+		if (rdbtnUsuario.isSelected()) {
+			String pass = new String(pfContrasenaPersona.getPassword());
+			String cedula = txtCedula.getText().trim();
+			String nombre = txtNombre.getText().trim();
+			String telefono = txtTelefono.getText().trim();
+			String correo = txtCorreo.getText().trim();
+			String tiempo = txtTiempoDisponible.getText().trim();
+			boolean licencia = chkLicencia.isSelected();
+			char sexo = getSexoSeleccionado();
+			String ciudad = txtCiudad.getText().trim();
+			String user = txtUsuarioLogin.getText().trim();
 
-	    Usuario usuarioCreado = BolsaEmpleo.getInstancia().getUsuarioPorUserName(user);
-	    if (usuarioCreado != null) {
-	        BolsaEmpleo.getInstancia().setCookieUsuario(usuarioCreado);
-	    }
-	    GestorFicheros.guardarDatosFicheros();
+			if (rdbtnGrado.isSelected()) {
+				BolsaEmpleo.getInstancia().registrarPersonaGrado(
+						cedula, nombre, telefono, correo, tiempo, licencia, sexo, ciudad,
+						txtUniversidad.getText().trim(), txtCarrera.getText().trim(), 
+						txtTituloUniversitario.getText().trim(), user, pass, "candidato"
+						);
+			} else if (rdbtnTecnico.isSelected()) {
+				BolsaEmpleo.getInstancia().registrarPersonaTecnico(
+						cedula, nombre, telefono, correo, tiempo, licencia, sexo, ciudad,
+						txtInstituto.getText().trim(), txtDiplomaTecnico.getText().trim(), 
+						txtEspecialidad.getText().trim(), user, pass, "candidato"
+						);
+			} else {
+				BolsaEmpleo.getInstancia().registrarPersonaTrabajador(
+						cedula, nombre, telefono, correo, tiempo, licencia, sexo, ciudad,
+						txtOficio.getText().trim(), user, pass, "candidato"
+						);
+			}
+
+			Usuario usuarioCreado = BolsaEmpleo.getInstancia().getUsuarioPorUserName(user);
+			if (usuarioCreado != null) {
+				BolsaEmpleo.getInstancia().setCookieUsuario(usuarioCreado);
+			}
+		}else {
+			short id = (short)System.currentTimeMillis();
+			Empresa aux = obtenerEmpresaSel();
+			String idUsuario = aux.getId() + "-" + id;
+
+			Usuario nuevo = new Usuario(idUsuario, txtCorreoEmpresa.getText(),txtUsuarioLoginEmpresa.getText(), new String(pfContrasenaEmpresa.getPassword()), "Admin");
+		}
+		GestorFicheros.guardarDatosFicheros();
+
 	}
 
 	private void limpiarCampos ()
@@ -761,13 +803,22 @@ public class RegistrarNuevoUsuario extends JDialog {
 		cardLayoutNivel.show(panelNivel, "GRADO");
 		rdbtnUsuario.setSelected(true);
 		cardLayoutPrincipal.show(panelContenedor, "USUARIO");
+		txtCorreoEmpresa.setText("");
+		pfContrasenaEmpresa.setText("");
+		txtCorreo.setText("");
+		pfClave.setText("");
 	}
 
 	private void llenarEmpresas(){
-		
+
 		cmbEmpresas.removeAllItems();
 		for (Empresa emp : BolsaEmpleo.getInstancia().getLasEmpresas()) {
 			cmbEmpresas.addItem(emp.getNombre());
 		}
+	}
+	private Empresa obtenerEmpresaSel() {
+		Empresa aux = null;
+		aux = BolsaEmpleo.getInstancia().getEmpresaNombre(cmbEmpresas.getSelectedItem().toString().trim());
+		return aux;
 	}
 }
