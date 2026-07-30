@@ -209,7 +209,7 @@ public class NuevaEmpresa extends JDialog {
 
 	private boolean validarCampos() {
 		if (txtNombre.getText().trim().isEmpty() || ftxtRnc.getText().contains("_") ||
-				txtRepresentante.getText().trim().isEmpty() || cmbTipo.getSelectedIndex() >= 0 ||
+				txtRepresentante.getText().trim().isEmpty() || !(cmbTipo.getSelectedIndex() >= 0) ||
 				pfClaveDeSeguridad.getPassword().length == 0) {
 			JOptionPane.showMessageDialog(this, "Completa todos los datos. El RNC debe tener el formato 0-00-00000-0.");
 			return false;
