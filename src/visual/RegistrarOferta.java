@@ -58,6 +58,7 @@ public class RegistrarOferta extends JDialog {
     private final Color colorTexto = new Color(31, 41, 55);     // Gris carbón oscuro
     private final Color colorVerde = new Color(16, 185, 129);   // Verde 
     private final Color colorRojo = new Color(239, 68, 68);     // Rojo
+    private JTextField textField;
 
     public static void main(String[] args) {
         try {
@@ -174,17 +175,17 @@ public class RegistrarOferta extends JDialog {
 		
 		spnSalario = new JSpinner();
 		spnSalario.setModel(getSalioMinimo());
-		spnSalario.setBounds(84, 121, 197, 20);
+		spnSalario.setBounds(83, 112, 197, 20);
 		contentPanel.add(spnSalario);
 		
 		chkMudarse = new JCheckBox("Dispuesto a mudarse");
         chkMudarse.setBackground(bgPrincipal);
-        chkMudarse.setBounds(15, 145, 170, 23);
+        chkMudarse.setBounds(300, 173, 170, 23);
         contentPanel.add(chkMudarse);
 
         chkLicencia = new JCheckBox("Licencia requerida");
         chkLicencia.setBackground(bgPrincipal);
-        chkLicencia.setBounds(236, 145, 145, 23);
+        chkLicencia.setBounds(300, 145, 145, 23);
         contentPanel.add(chkLicencia);
 
         JLabel lblPuestos = new JLabel("Puestos Disp.:");
@@ -207,7 +208,7 @@ public class RegistrarOferta extends JDialog {
         contentPanel.add(scrollDesc);
         
         JCheckBox chkEspecificado = new JCheckBox("Solo Especificado");
-        chkEspecificado.setBounds(425, 145, 145, 23);
+        chkEspecificado.setBounds(447, 145, 123, 23);
         contentPanel.add(chkEspecificado);
         
         JLabel lblNewLabel = new JLabel("Minimo Coincidencia: ");
@@ -217,6 +218,15 @@ public class RegistrarOferta extends JDialog {
         JSpinner spnCoincidencia = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 100.0, 1.0));
         spnCoincidencia.setBounds(131, 328, 149, 20);
         contentPanel.add(spnCoincidencia);
+        
+        JLabel lblNewLabel_1 = new JLabel("Area");
+        lblNewLabel_1.setBounds(15, 149, 46, 14);
+        contentPanel.add(lblNewLabel_1);
+        
+        JTextField txtArea = new JTextField();
+        txtArea.setBounds(83, 146, 197, 20);
+        contentPanel.add(txtArea);
+        txtArea.setColumns(10);
 
         if (idOferta != null) {
             Oferta oferta = BolsaEmpleo.getInstancia().buscarOferta(idOferta);
@@ -277,10 +287,14 @@ public class RegistrarOferta extends JDialog {
 
                 String tituloSelect = (String) cbxTituloOficio.getSelectedItem();
                 String titulo = "n/a", tecnico = "n/a", habilidad = "n/a";
-                if ("Grado / Ingeniería".equals(tituloSelect)) titulo = "Requerido";
-                else if ("Técnico".equals(tituloSelect)) tecnico = "Requerido";
-                else if ("Oficio General".equals(tituloSelect)) habilidad = "Requerido";
-
+                if ("Grado / Ingenieria".equals(tituloSelect)) {
+                    titulo = txtArea.getText();
+                } else if ("Tecnico".equals(tituloSelect)) {
+                    tecnico = txtArea.getText();
+                } else if ("Oficio".equals(tituloSelect)) {
+                    habilidad = txtArea.getText();
+                }
+                
                 if (idOferta != null) {
                     BolsaEmpleo.getInstancia().modificarOferta(
                         idOferta, tipo, titulo, tecnico, habilidad, tiempoTrabajo, 

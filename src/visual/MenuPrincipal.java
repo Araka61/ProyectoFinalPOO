@@ -177,6 +177,7 @@ public class MenuPrincipal extends JFrame {
 			}
 		});
 		menuEmpleos.add(itemCatalogoOfertas);
+		
 		JMenuItem itemOfertasRecomendadas = new JMenuItem("Ofertas Recomendadas");
 		itemCatalogoOfertas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

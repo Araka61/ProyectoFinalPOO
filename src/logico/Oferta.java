@@ -3,6 +3,7 @@ package logico;
 public class Oferta extends Empleo{
 	private static final long serialVersionUID = 1L;
 	
+	private String idEmpresa;
 	private String descripcionTrabajo;
 	private float salario;
 	private float coincidencia;
@@ -11,10 +12,11 @@ public class Oferta extends Empleo{
 
 	public Oferta(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad, String tiempoTrabajo,
 			int experienciaLaboral, char sexo, String provincia, boolean licenciaDeConducir,
-			boolean dispuestoAMudarse, boolean activo, String descripcionTrabajo,
+			boolean dispuestoAMudarse, boolean activo, String idEmpresa, String descripcionTrabajo,
 			float salario, float coincidencia, int cantPuesto, boolean soloespecif) {
 		super(id, tipoTrabajo, titulo, tecnico, habilidad, tiempoTrabajo, experienciaLaboral, sexo, provincia,
 				licenciaDeConducir, dispuestoAMudarse, activo);
+		this.idEmpresa = idEmpresa;
 		this.descripcionTrabajo = descripcionTrabajo;
 		this.salario = salario;
 		this.coincidencia = coincidencia;
@@ -64,5 +66,9 @@ public class Oferta extends Empleo{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getIdEmpresa() {
+		return idEmpresa;
 	}
 }

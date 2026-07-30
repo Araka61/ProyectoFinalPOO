@@ -143,17 +143,19 @@ public class BolsaEmpleo {
 	    return nueva;
 	}
 
-	public void registrarOferta(String idEmpresa, String tipoTrabajo, String titulo, String tecnico, 
+	public void registrarOferta(String idEmpresaUsuario, String tipoTrabajo, String titulo, String tecnico, 
             String habilidad, String tiempoTrabajo, int experienciaLaboral, 
-            char sexo, String provincia, boolean licencia, boolean dispuestoAMudarse, 
+            char sexo, String provincia, boolean licencia, boolean dispuestoAMudarse,
             String descripcion, float salario, float coincidencia, int cantPuesto, boolean soloEspecif) {
-
+		String[] partesId = idEmpresaUsuario.split("-");
+		String idEmpresa = partesId[0];
+		
 		Empresa emp = buscarEmpresa(idEmpresa);
 		if (emp != null) {
 			String idOferta = "O" + generadorIdOferta;
 			Oferta nueva = new Oferta(idOferta, tipoTrabajo, titulo, tecnico, habilidad, tiempoTrabajo, 
                  experienciaLaboral, sexo, provincia, licencia, dispuestoAMudarse, 
-                 true, descripcion, salario, coincidencia, cantPuesto, soloEspecif);
+                 true, idEmpresa, descripcion, salario, coincidencia, cantPuesto, soloEspecif);
 
 			emp.publicarOferta(nueva);
 			lasOfertas.add(nueva);
