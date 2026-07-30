@@ -418,11 +418,18 @@ public class BolsaEmpleo {
 	public ArrayList<String> PorcentajeCoincidencia(Oferta ofertaEmpresa) {
 		int i = 0;
 		int puntos = 0;
+		boolean solicitudRechazada;
 		ArrayList<String> candidatosIdeales = new ArrayList<>();			
 		while (i < lasSolicitudes.size()) {
 			Solicitud solicitudCandidato = lasSolicitudes.get(i);			
 			Persona p = buscarPersona(solicitudCandidato.getIdUsuario());
-			if (solicitudCandidato.isActivo() && p != null && !p.isEmpleado()) {
+			solicitudRechazada = false;
+			for(String idSolicitud : ofertaEmpresa.getIdSolicitudesRechazadas()) {
+				if(solicitudCandidato.getId().equalsIgnoreCase(idSolicitud)) {
+					solicitudRechazada = true;
+				}
+			}
+			if (solicitudCandidato.isActivo() && p != null && !p.isEmpleado() && !solicitudRechazada) {
 				puntos = calcularPuntosCoincidencia(solicitudCandidato, ofertaEmpresa);
 				if (puntos >= ofertaEmpresa.getCoincidencia())
 					candidatosIdeales.add(solicitudCandidato.getId());

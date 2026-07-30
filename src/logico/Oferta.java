@@ -1,5 +1,7 @@
 package logico;
 
+import java.util.ArrayList;
+
 public class Oferta extends Empleo{
 	private static final long serialVersionUID = 1L;
 	
@@ -9,6 +11,7 @@ public class Oferta extends Empleo{
 	private float coincidencia;
 	private int cantPuesto;
 	private boolean soloespecif;
+	private ArrayList<String>idSolicitudesRechazadas;
 
 	public Oferta(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad, String tiempoTrabajo,
 			int experienciaLaboral, char sexo, String provincia, boolean licenciaDeConducir,
@@ -22,6 +25,7 @@ public class Oferta extends Empleo{
 		this.coincidencia = coincidencia;
 		this.cantPuesto = cantPuesto;
 		this.soloespecif = soloespecif;
+		this.idSolicitudesRechazadas = new ArrayList<>();
 	}
 
 	public String getDescripcionTrabajo() {
@@ -70,5 +74,18 @@ public class Oferta extends Empleo{
 
 	public String getIdEmpresa() {
 		return idEmpresa;
+	}
+	
+	public ArrayList<String> getIdSolicitudesRechazadas() {
+		return idSolicitudesRechazadas;
+	}
+	
+	public void setIdSolicitudesRechazadas(ArrayList<String> idSolicitudesRechazadas) {
+		this.idSolicitudesRechazadas = idSolicitudesRechazadas;
+	}
+	
+	public void rechazarSolicitud(Solicitud solicitud) {
+		String idSolicitud = solicitud.getId();
+		idSolicitudesRechazadas.add(idSolicitud);
 	}
 }
