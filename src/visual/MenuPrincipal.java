@@ -211,7 +211,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem itemNuevaVacante = new JMenuItem("Publicar Nueva Vacante");
 		itemNuevaVacante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarOferta oferta = new RegistrarOferta();
+				RegistrarOferta oferta = new RegistrarOferta(MenuPrincipal.this,null);
 				oferta.setModal(true);
 				oferta.setVisible(true);
 			}

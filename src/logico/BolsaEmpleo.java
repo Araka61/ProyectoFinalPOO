@@ -220,6 +220,30 @@ public class BolsaEmpleo {
 	        solicitud.setRangoMaxSalario(maxSal);
 	    }
 	}
+	
+	public void modificarOferta(String idOferta, String tipo, String titulo, String tecnico, String habilidad,
+			String tiempoTrabajo, int experiencia, char sexo, String provincia, boolean licRequerida,
+			boolean dispMudarse, String descripcion, float sal, float coincidencia, int puestos, boolean solEspecif) {
+		Oferta oferta = buscarOferta(idOferta);
+		
+		if(oferta != null) {
+			oferta.setTipoTrabajo(tipo);
+			oferta.setTitulo(titulo);
+			oferta.setTecnico(tecnico);
+			oferta.setHabilidad(habilidad);
+			oferta.setTiempoTrabajo(tiempoTrabajo);
+			oferta.setExperienciaLaboral(experiencia);
+			oferta.setSexo(sexo);
+			oferta.setProvincia(provincia);
+			oferta.setLicenciaDeConducir(licRequerida);
+			oferta.setDispuestoAMudarse(dispMudarse);
+			oferta.setDescripcionTrabajo(descripcion);
+			oferta.setSalario(sal);
+			oferta.setCoincidencia(coincidencia);
+			oferta.setCantPuesto(puestos);
+			oferta.setSoloespecif(solEspecif);
+		}
+	}
 
 	public Usuario getCookieUsuario() {
 		return cookieUsuario;
