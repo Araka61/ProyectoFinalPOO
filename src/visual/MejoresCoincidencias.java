@@ -73,6 +73,8 @@ public class MejoresCoincidencias extends JDialog {
 		private Solicitud[] candidatos;
 		private float[] porcCoincCandidatos;
 		private int candidatoSel;
+		private JButton btnContratar;
+		private JButton btnRechazar;
 	/**
 	 
 	 * Launch the application.
@@ -109,17 +111,10 @@ public class MejoresCoincidencias extends JDialog {
 		candidatos = new Solicitud[3];
 		porcCoincCandidatos = new float[3];
 		candidatoSel = -1;
-		//cargarNuevosCandidatos(oferta);
 		getContentPane().add(panelCandidatos);
 		panelCandidatos.setLayout(null);
 		
-		//candidatos = BolsaEmpleo.getInstancia().top3Candidatos(oferta);
-		
-		float porcCoincCandidato1 = 0;//BolsaEmpleo.getInstancia().calcularPuntosCoincidencia(candidatos[0], oferta);
-		float porcCoincCandidato2 = 0;//BolsaEmpleo.getInstancia().calcularPuntosCoincidencia(candidatos[1], oferta);
-		float porcCoincCandidato3 = 0;//BolsaEmpleo.getInstancia().calcularPuntosCoincidencia(candidatos[2], oferta);
-		
-		JLabel lblNewLabel = new JLabel("Candidato 1: "+porcCoincCandidato1+"%");
+		JLabel lblNewLabel = new JLabel("Candidato 1: "+porcCoincCandidatos[0]+"%");
 		lblNewLabel.setBounds(10, 11, 117, 14);
 		panelCandidatos.add(lblNewLabel);
 		
@@ -132,10 +127,17 @@ public class MejoresCoincidencias extends JDialog {
 		panelCandidatos.add(correoCandidato1);
 		
 		JButton btnSolComplCandidato1 = new JButton("Ver solicitud completa");
+		if(candidatos[0] != null) {
+			btnSolComplCandidato1.setEnabled(true);
+		}else {
+			btnSolComplCandidato1.setEnabled(false);
+		}
 		btnSolComplCandidato1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cargarPerfil(candidatos[0]);
 				candidatoSel = 0;
+				btnContratar.setEnabled(true);
+				btnRechazar.setEnabled(true);
 			}
 		});
 		btnSolComplCandidato1.setBounds(20, 86, 166, 23);
@@ -144,10 +146,17 @@ public class MejoresCoincidencias extends JDialog {
 		panelCandidatos.add(btnSolComplCandidato1);
 		
 		JButton btnSolComplCandidato2 = new JButton("Ver solicitud completa");
+		if(candidatos[1] != null) {
+			btnSolComplCandidato2.setEnabled(true);
+		}else {
+			btnSolComplCandidato2.setEnabled(false);
+		}
 		btnSolComplCandidato2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cargarPerfil(candidatos[1]);
 				candidatoSel = 1;
+				btnContratar.setEnabled(true);
+				btnRechazar.setEnabled(true);
 			}
 		});
 		btnSolComplCandidato2.setForeground(Color.WHITE);
@@ -163,11 +172,11 @@ public class MejoresCoincidencias extends JDialog {
 		nombreCandidato2.setBounds(20, 153, 60, 14);
 		panelCandidatos.add(nombreCandidato2);
 		
-		JLabel lblCandidato = new JLabel("Candidato 2: "+porcCoincCandidato2+"%");
+		JLabel lblCandidato = new JLabel("Candidato 2: "+porcCoincCandidatos[1]+"%");
 		lblCandidato.setBounds(10, 128, 117, 14);
 		panelCandidatos.add(lblCandidato);
 		
-		JLabel lblCandidato_1 = new JLabel("Candidato 3: "+porcCoincCandidato3+"%");
+		JLabel lblCandidato_1 = new JLabel("Candidato 3: "+porcCoincCandidatos[2]+"%");
 		lblCandidato_1.setBounds(10, 247, 117, 14);
 		panelCandidatos.add(lblCandidato_1);
 		
@@ -179,17 +188,24 @@ public class MejoresCoincidencias extends JDialog {
 		correoCandidato3.setBounds(20, 297, 60, 14);
 		panelCandidatos.add(correoCandidato3);
 		
-		JButton button = new JButton("Ver solicitud completa");
-		button.addActionListener(new ActionListener() {
+		JButton btnSolComplCandidato3 = new JButton("Ver solicitud completa");
+		if(candidatos[2] != null) {
+			btnSolComplCandidato3.setEnabled(true);
+		}else {
+			btnSolComplCandidato3.setEnabled(false);
+		}
+		btnSolComplCandidato3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cargarPerfil(candidatos[2]);
 				candidatoSel = 2;
+				btnContratar.setEnabled(true);
+				btnRechazar.setEnabled(true);
 			}
 		});
-		button.setForeground(Color.WHITE);
-		button.setBackground(new Color(37, 99, 235));
-		button.setBounds(20, 322, 166, 23);
-		panelCandidatos.add(button);
+		btnSolComplCandidato3.setForeground(Color.WHITE);
+		btnSolComplCandidato3.setBackground(new Color(37, 99, 235));
+		btnSolComplCandidato3.setBounds(20, 322, 166, 23);
+		panelCandidatos.add(btnSolComplCandidato3);
 		
 		txtNombreCandidato1 = new JTextField();
 		txtNombreCandidato1.setEditable(false);
@@ -239,12 +255,14 @@ public class MejoresCoincidencias extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane);
 			
-			JButton btnContratar = new JButton("Contratar");
+			btnContratar = new JButton("Contratar");
+			btnContratar.setEnabled(false);
 			btnContratar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(candidatoSel >= 0) {
 						if(candidatos[candidatoSel] != null) {
-							candidatos[candidatoSel].setActivo(false);
+							Persona persona = BolsaEmpleo.getInstancia().buscarPersona(candidatos[candidatoSel].getIdUsuario());
+							persona.setEmpleado(true);
 							oferta.setCantPuesto(oferta.getCantPuesto()-1);
 							JOptionPane.showMessageDialog(null, "El candidato fue contratado", "Candidato contratado", JOptionPane.INFORMATION_MESSAGE);
 							if(oferta.getCantPuesto() == 0) {
@@ -252,6 +270,10 @@ public class MejoresCoincidencias extends JDialog {
 								dispose();
 							}
 							cargarNuevosCandidatos(oferta);
+							candidatoSel = -1;
+							vaciarPerfil();
+							btnContratar.setEnabled(false);
+							btnRechazar.setEnabled(false);
 						}
 					}
 				}
@@ -261,12 +283,30 @@ public class MejoresCoincidencias extends JDialog {
 			btnContratar.setActionCommand("OK");
 			buttonPane.add(btnContratar);
 			{
-				JButton okButton = new JButton("Eliminar");
-				okButton.setForeground(Color.WHITE);
-				okButton.setBackground(colorRojo);
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnRechazar = new JButton("Rechazar");
+				btnRechazar.setEnabled(false);
+				btnRechazar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(candidatoSel >= 0) {
+							if(candidatos[candidatoSel] != null) {
+								int opcionSel = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea rechazar este candidato?", "Rechazar candidato",JOptionPane.WARNING_MESSAGE);
+								if(opcionSel == JOptionPane.OK_OPTION) {
+									oferta.rechazarSolicitud(candidatos[candidatoSel]);
+									cargarNuevosCandidatos(oferta);
+									candidatoSel = -1;
+									vaciarPerfil();
+									btnContratar.setEnabled(false);
+									btnRechazar.setEnabled(false);
+								}
+							}
+						}
+					}
+				});
+				btnRechazar.setForeground(Color.WHITE);
+				btnRechazar.setBackground(colorRojo);
+				btnRechazar.setActionCommand("OK");
+				buttonPane.add(btnRechazar);
+				getRootPane().setDefaultButton(btnRechazar);
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
@@ -366,7 +406,7 @@ public class MejoresCoincidencias extends JDialog {
 		label_7.setBounds(10, 280, 80, 20);
 		panelDatos.add(label_7);
 		
-		rdbSexo = new JRadioButton("F");
+		rdbSexo = new JRadioButton("");
 		rdbSexo.setSelected(true);
 		rdbSexo.setBounds(100, 279, 109, 23);
 		rdbSexo.setEnabled(false);
@@ -381,7 +421,7 @@ public class MejoresCoincidencias extends JDialog {
 		panelDatos.add(chkLicencia);
 		
 		chkMudarse = new JCheckBox("Dispuesto a mudarse de provincia");
-		chkMudarse.setSelected(true);
+		chkMudarse.setSelected(false);
 		chkMudarse.setForeground(new Color(31, 41, 55));
 		chkMudarse.setBackground(new Color(243, 244, 246));
 		chkMudarse.setBounds(10, 253, 280, 23);
@@ -575,5 +615,29 @@ public class MejoresCoincidencias extends JDialog {
 		}else {
 			porcCoincCandidatos[2] = 0;
 		}
+	}
+	
+	private void vaciarPerfil() {
+		txtCedula.setText("");
+		txtNombre.setText("");
+		txtCorreo.setText("");
+		txtTelefono.setText("");
+		txtDisponibilidad.setText("");
+		txtRangoSalario.setText("");
+		txtExperiencia.setText("");
+		txtProvincia.setText("");
+		chkMudarse.setSelected(false);
+		rdbSexo.setText("");
+		chkLicencia.setSelected(false);
+		panelUniversitario.setVisible(true);
+		panelTecnico.setVisible(false);
+		panelTrabajador.setVisible(false);
+		txtUniversidad.setText("");
+		txtCarrera.setText("");
+		txtTitulo.setText("");
+		txtInstituto.setText("");
+		txtDiploma.setText("");
+		txtEspecialidad.setText("");
+		txtOficio.setText("");
 	}
 }
