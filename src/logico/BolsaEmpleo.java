@@ -42,7 +42,7 @@ public class BolsaEmpleo {
         ciudades.add("San Juan de la Maguana");
         ciudades.add("Barahona");
         ciudades.add("Azua");
-        tiposEmpresa = new ArrayList<>();
+        tiposEmpresa = new ArrayList<>();//----------------
         tiposEmpresa.add("Micro");
         tiposEmpresa.add("Pequeña");
         tiposEmpresa.add("Mediana");
@@ -86,10 +86,6 @@ public class BolsaEmpleo {
 	public ArrayList<String> getTiposEmpresa() {
 		return tiposEmpresa;
 	}
-
-
-	//            Registro  
-
 	
 	public void registrarPersonaGrado(String cedula, String nombre, String telefono, String correo, 
             String tiempoDisponible, boolean tieneLicencia, char sexo, String ciudad,
@@ -255,8 +251,6 @@ public class BolsaEmpleo {
 		this.cookieUsuario = cookieUsuario;
 	}
 
-	//               Busqueda
-
 	public Persona buscarPersona(String id) {
 
 		Persona aux = null;
@@ -413,7 +407,6 @@ public class BolsaEmpleo {
 
 	}
 
-	//         Algoritmo de macheo
 
 	public ArrayList<String> PorcentajeCoincidencia(Oferta ofertaEmpresa) {
 		int i = 0;
@@ -528,8 +521,6 @@ public class BolsaEmpleo {
 		return req.equalsIgnoreCase(cand) || cand.contains(req) || req.contains(cand);
 	}
 
-	//      Comprobaciones
-
 	public boolean login (String username,String password){
 		boolean resp = false;
 		Usuario aux = getUsuarioPorUserName(username);
@@ -585,4 +576,17 @@ public class BolsaEmpleo {
 		}
 		return top3Candidatos;
 	}
+	public ArrayList<Oferta> misRecomentaciones (Solicitud miSolicitud) {
+		ArrayList<Oferta> misResultados = new ArrayList<>();
+		int i=0;
+		int puntos = 0;
+		while(i< lasOfertas.size()) {
+			puntos = calcularPuntosCoincidencia(miSolicitud, lasOfertas.get(i));
+			if (puntos >= lasOfertas.get(i).getCoincidencia())
+				misResultados.add(lasOfertas.get(i));
+			i++;
+		}
+		return misResultados;
+	}
 }
+

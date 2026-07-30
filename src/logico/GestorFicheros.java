@@ -259,30 +259,43 @@ public class GestorFicheros {
 	}
 	
 	public static void cargarDatosDesdeFicheros() {
-		try {
-			cargarDatosID();
-			cargarDatosUsuarios();
-			cargarDatosPersonas();
-			cargarDatosEmpresa();
-			cargarDatosOfertas();
-			cargarDatosSolicitudes();
-			cargarCookies();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Runnable procesoCarga = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					cargarDatosID();
+					cargarDatosUsuarios();
+					cargarDatosPersonas();
+					cargarDatosEmpresa();
+					cargarDatosOfertas();
+					cargarDatosSolicitudes();
+					cargarCookies();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		new Thread(procesoCarga).start();
 	}
 	
 	public static void guardarDatosFicheros() {
-		try {
-			guardarCookies();
-			guardarDatosEmpresas();
-			guardarDatosID();
-			guardarDatosOfertas();
-			guardarDatosPersonas();
-			guardarDatosSolicitudes();
-			guardarDatosUsuarios();		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Runnable procesoGuardado = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					guardarCookies();
+					guardarDatosEmpresas();
+					guardarDatosID();
+					guardarDatosOfertas();
+					guardarDatosPersonas();
+					guardarDatosSolicitudes();
+					guardarDatosUsuarios();		
+	
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		new Thread(procesoGuardado).start();
 	}
 }
