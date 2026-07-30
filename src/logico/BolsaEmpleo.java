@@ -11,6 +11,7 @@ public class BolsaEmpleo {
 	private ArrayList<Usuario> losUsuarios;
 	private ArrayList<String> ciudades;
 	private ArrayList<String> tiposEmpresa;
+	private ArrayList<String> areas;
 	public  Usuario cookieUsuario;
 
 	private static BolsaEmpleo controlador= null;
@@ -28,30 +29,168 @@ public class BolsaEmpleo {
 		losUsuarios = new ArrayList<>();
 		ciudades = new ArrayList<>();
 		ciudades.add("Santo Domingo");
-        ciudades.add("Santiago de los Caballeros");
-        ciudades.add("San Francisco de Macorís");
-        ciudades.add("La Vega");
-        ciudades.add("Puerto Plata");
-        ciudades.add("San Pedro de Macorís");
-        ciudades.add("La Romana");
-        ciudades.add("San Cristóbal");
-        ciudades.add("Higüey");
-        ciudades.add("Moca");
-        ciudades.add("Bonao");
-        ciudades.add("Baní");
-        ciudades.add("San Juan de la Maguana");
-        ciudades.add("Barahona");
-        ciudades.add("Azua");
-        tiposEmpresa = new ArrayList<>();//----------------
-        tiposEmpresa.add("Micro");
-        tiposEmpresa.add("Pequeña");
-        tiposEmpresa.add("Mediana");
-        tiposEmpresa.add("Grande");
-        tiposEmpresa.add("Zona Franca");
-        tiposEmpresa.add("Hotel o Casino (mediano/pequeño)");
-        tiposEmpresa.add("Hotel o Casino (Grande)");
-        
-		cookieUsuario = null;
+		ciudades.add("Santiago de los Caballeros");
+		ciudades.add("San Francisco de Macorís");
+		ciudades.add("La Vega");
+		ciudades.add("Puerto Plata");
+		ciudades.add("San Pedro de Macorís");
+		ciudades.add("La Romana");
+		ciudades.add("San Cristóbal");
+		ciudades.add("Higüey");
+		ciudades.add("Moca");
+		ciudades.add("Bonao");
+		ciudades.add("Baní");
+		ciudades.add("San Juan de la Maguana");
+		ciudades.add("Barahona");
+		ciudades.add("Azua");
+		tiposEmpresa = new ArrayList<>();//----------------
+		tiposEmpresa.add("Micro");
+		tiposEmpresa.add("Pequeña");
+		tiposEmpresa.add("Mediana");
+		tiposEmpresa.add("Grande");
+		tiposEmpresa.add("Zona Franca");
+		tiposEmpresa.add("Hotel o Casino (mediano/pequeño)");
+		tiposEmpresa.add("Hotel o Casino (Grande)");
+		areas = new ArrayList<>();
+
+		// Ingenieria
+
+		areas.add("Ingenieria civil");
+		areas.add("Ingenieria industrial");
+		areas.add("Ingenieria electrica");
+		areas.add("Ingenieria electronica");
+		areas.add("Ingenieria mecanica");
+		areas.add("Ingenieria quimica");
+		areas.add("Ingenieria ambiental");
+		areas.add("Ingenieria agronomica");
+		areas.add("Ingenieria en telecomunicaciones");
+		areas.add("Ingenieria naval");
+		areas.add("Ingenieria de minas");
+		areas.add("Ingenieria en alimentos");
+		areas.add("Arquitectura");
+
+		// Salu
+
+		areas.add("Medicina general");
+		areas.add("Paramedico / tecnico en emergencias");
+		areas.add("Enfermeria");
+		areas.add("Cardiologia");
+		areas.add("Pediatria");
+		areas.add("Ginecologia y obstetricia");
+		areas.add("Odontologia");
+		areas.add("Fisioterapia");
+		areas.add("Psicologia clinica");
+		areas.add("Nutricion y dietetica");
+		areas.add("Farmacia");
+		areas.add("Laboratorio clinico / bioanalisis");
+		areas.add("Radiologia / tecnico en imagenes");
+		areas.add("Anestesiologia");
+		areas.add("Veterinaria");
+		areas.add("Auxiliar de enfermeria");
+
+		// Tecnologia / Informatica
+
+		areas.add("Desarrollo de software");
+		areas.add("Ingenieria en sistemas");
+		areas.add("Gestion de redes");
+		areas.add("Ciberseguridad");
+		areas.add("Administracion de bases de datos");
+		areas.add("Soporte tecnico / help desk");
+		areas.add("Analisis de datos");
+		areas.add("Devops / infraestructura cloud");
+		areas.add("Qa / testing de software");
+		areas.add("Diseño ux/ui");
+		areas.add("Inteligencia artificial / machine learning");
+		areas.add("Telecomunicaciones");
+
+		// Oficios 
+
+		areas.add("Plomeria");
+		areas.add("Electricista");
+		areas.add("Albañileria");
+		areas.add("Carpinteria");
+		areas.add("Soldadura");
+		areas.add("Pintura (construccion)");
+		areas.add("Mecanica automotriz");
+		areas.add("Mecanica industrial");
+		areas.add("Refrigeracion y aire acondicionado");
+		areas.add("Herreria");
+		areas.add("Operador de maquinaria pesada");
+		areas.add("Instalador de paneles solares");
+		areas.add("Techador");
+
+		// Negocio
+
+		areas.add("Administracion de empresas");
+		areas.add("Marketing");
+		areas.add("Contabilidad");
+		areas.add("Recursos humanos");
+		areas.add("Servicio al cliente");
+		areas.add("Ventas");
+		areas.add("Logistica y cadena de suministro");
+		areas.add("Comercio exterior");
+		areas.add("Finanzas");
+		areas.add("Auditoria");
+		areas.add("Gestion de proyectos");
+		areas.add("Emprendimiento / negocios propios");
+
+		// Diseño / Comunicacion / Arte
+		
+		areas.add("Diseño grafico");
+		areas.add("Diseño industrial");
+		areas.add("Fotografia");
+		areas.add("Produccion audiovisual");
+		areas.add("Periodismo");
+		areas.add("Comunicacion social");
+		areas.add("Publicidad");
+		areas.add("Community manager");
+		areas.add("Animacion digital");
+		areas.add("Diseño de moda");
+
+		// Educacion
+		
+		areas.add("Educacion primaria");
+		areas.add("Educacion secundaria");
+		areas.add("Profesor de matematicas");
+		areas.add("Profesor de quimica");
+		areas.add("Profesor de fisica");
+		areas.add("Profesor de historia");
+		areas.add("Profesor de español / literatura");
+		areas.add("Profesor de idiomas");
+		areas.add("Educacion especial");
+		areas.add("Orientacion educativa (psicopedagogia)");
+		areas.add("Educacion fisica");
+
+		// Turismo / Hosteleria
+
+		areas.add("Gastronomia / chef");
+		areas.add("Bartender");
+		areas.add("Hoteleria");
+		areas.add("Guia turistico");
+		areas.add("Recepcion de hotel");
+		areas.add("Ama de llaves");
+		areas.add("Aviacion (asistente de vuelo, tripulacion)");
+
+		// Legal / Seguridad
+
+		areas.add("Derecho");
+		areas.add("Notaria");
+		areas.add("Criminologia");
+		areas.add("Seguridad privada");
+
+		// Produccion / Industria
+
+		areas.add("Operario de produccion");
+		areas.add("Control de calidad");
+		areas.add("Tecnico en mantenimiento industrial");
+		areas.add("Almacen / inventario");
+		areas.add("Textil / confeccion");
+		areas.add("Agricultura / agropecuaria");
+		areas.add("Pesca / acuicultura");
+
+		// Otro
+
+		areas.add("Otro");
 	}
 
 	public static BolsaEmpleo getInstancia() {
@@ -82,15 +221,15 @@ public class BolsaEmpleo {
 	public ArrayList<String> getCiudades() {
 		return ciudades;
 	}
-	
+
 	public ArrayList<String> getTiposEmpresa() {
 		return tiposEmpresa;
 	}
-	
+
 	public void registrarPersonaGrado(String cedula, String nombre, String telefono, String correo, 
-            String tiempoDisponible, boolean tieneLicencia, char sexo, String ciudad,
-            String universidad, String carrera, String tituloUniversitario,
-            String username, String password, String rol) {
+			String tiempoDisponible, boolean tieneLicencia, char sexo, String ciudad,
+			String universidad, String carrera, String tituloUniversitario,
+			String username, String password, String rol) {
 
 		String id = "P" + generadorIdPersona;
 		Persona nueva = new Grado(id, cedula, nombre, telefono, correo, false, new ArrayList<>(), 
@@ -130,100 +269,100 @@ public class BolsaEmpleo {
 		losUsuarios.add(usuario);
 		generadorIdPersona++;
 	}
-	
+
 	public Empresa registrarEmpresa(String nombre, String rnc, String representante, String tipo, String claveDeSeguridad) {
-	    String id = "E" + generadorIdEmpresa;
-	    Empresa nueva = new Empresa(id, nombre, rnc, representante, tipo, claveDeSeguridad);
-	    lasEmpresas.add(nueva);
-	    generadorIdEmpresa++;
-	    return nueva;
+		String id = "E" + generadorIdEmpresa;
+		Empresa nueva = new Empresa(id, nombre, rnc, representante, tipo, claveDeSeguridad);
+		lasEmpresas.add(nueva);
+		generadorIdEmpresa++;
+		return nueva;
 	}
 
 	public void registrarOferta(String idEmpresaUsuario, String tipoTrabajo, String titulo, String tecnico, 
-            String habilidad, String tiempoTrabajo, int experienciaLaboral, 
-            char sexo, String provincia, boolean licencia, boolean dispuestoAMudarse,
-            String descripcion, float salario, float coincidencia, int cantPuesto, boolean soloEspecif) {
+			String habilidad, String tiempoTrabajo, int experienciaLaboral, 
+			char sexo, String provincia, boolean licencia, boolean dispuestoAMudarse,
+			String descripcion, float salario, float coincidencia, int cantPuesto, boolean soloEspecif) {
 		String[] partesId = idEmpresaUsuario.split("-");
 		String idEmpresa = partesId[0];
-		
+
 		Empresa emp = buscarEmpresa(idEmpresa);
 		if (emp != null) {
 			String idOferta = "O" + generadorIdOferta;
 			Oferta nueva = new Oferta(idOferta, tipoTrabajo, titulo, tecnico, habilidad, tiempoTrabajo, 
-                 experienciaLaboral, sexo, provincia, licencia, dispuestoAMudarse, 
-                 true, idEmpresa, descripcion, salario, coincidencia, cantPuesto, soloEspecif);
+					experienciaLaboral, sexo, provincia, licencia, dispuestoAMudarse, 
+					true, idEmpresa, descripcion, salario, coincidencia, cantPuesto, soloEspecif);
 
 			emp.publicarOferta(nueva);
 			lasOfertas.add(nueva);
 			generadorIdOferta++;
 		}
 	}
-	
+
 	public void registrarSolicitud(String idUsuario, String tipo, String tituloCarrera, String diplomaTecnico,
-	        String habilidadOficio, String tiempoTrabajo, int experiencia, char sexo, String provincia,
-	        boolean tieneLicencia, boolean dispuestoAMudarse, float minSal, float maxSal) {
-	    
-	    String idSolicitud = "S" + generadorIdSolicitud;
-	    boolean activo = true;
+			String habilidadOficio, String tiempoTrabajo, int experiencia, char sexo, String provincia,
+			boolean tieneLicencia, boolean dispuestoAMudarse, float minSal, float maxSal) {
 
-	    Solicitud nueva = new Solicitud(
-	        idSolicitud, 
-	        tipo, 
-	        tituloCarrera, 
-	        diplomaTecnico, 
-	        habilidadOficio, 
-	        tiempoTrabajo,
-	        experiencia, 
-	        sexo, 
-	        provincia, 
-	        tieneLicencia, 
-	        dispuestoAMudarse, 
-	        activo, 
-	        idUsuario, 
-	        minSal, 
-	        maxSal
-	    );
+		String idSolicitud = "S" + generadorIdSolicitud;
+		boolean activo = true;
 
-	    lasSolicitudes.add(nueva);
-	    Persona persona = buscarPersona(idUsuario);
-	    if (persona != null) {
-	        if (persona.getSolicitudes() == null) {
-	            persona.setSolicitudes(new ArrayList<>());
-	        }
-	        persona.getSolicitudes().add(nueva);
-	    }
+		Solicitud nueva = new Solicitud(
+				idSolicitud, 
+				tipo, 
+				tituloCarrera, 
+				diplomaTecnico, 
+				habilidadOficio, 
+				tiempoTrabajo,
+				experiencia, 
+				sexo, 
+				provincia, 
+				tieneLicencia, 
+				dispuestoAMudarse, 
+				activo, 
+				idUsuario, 
+				minSal, 
+				maxSal
+				);
 
-	    generadorIdSolicitud++;
+		lasSolicitudes.add(nueva);
+		Persona persona = buscarPersona(idUsuario);
+		if (persona != null) {
+			if (persona.getSolicitudes() == null) {
+				persona.setSolicitudes(new ArrayList<>());
+			}
+			persona.getSolicitudes().add(nueva);
+		}
+
+		generadorIdSolicitud++;
 	}
 	public void registrarUsuarioEmpres(Usuario nuevo) {
 		losUsuarios.add(nuevo);
 	}
 	public void modificarSolicitud(String idSolicitud, String tipo, String tituloCarrera, String diplomaTecnico,
-	        String habilidadOficio, String tiempoTrabajo, int experiencia, char sexo, String provincia,
-	        boolean tieneLicencia, boolean dispuestoAMudarse, float minSal, float maxSal) {
-	    
-	    Solicitud solicitud = buscarSolicitud(idSolicitud);
-	    if (solicitud != null) {
-	        solicitud.setTipoTrabajo(tipo);
-	        solicitud.setTitulo(tituloCarrera);
-	        solicitud.setTecnico(diplomaTecnico);
-	        solicitud.setHabilidad(habilidadOficio);
-	        solicitud.setTiempoTrabajo(tiempoTrabajo);
-	        solicitud.setExperienciaLaboral(experiencia);
-	        solicitud.setSexo(sexo);
-	        solicitud.setProvincia(provincia);
-	        solicitud.setLicenciaDeConducir(tieneLicencia);
-	        solicitud.setDispuestoAMudarse(dispuestoAMudarse);
-	        solicitud.setRangoMinSalario(minSal);
-	        solicitud.setRangoMaxSalario(maxSal);
-	    }
+			String habilidadOficio, String tiempoTrabajo, int experiencia, char sexo, String provincia,
+			boolean tieneLicencia, boolean dispuestoAMudarse, float minSal, float maxSal) {
+
+		Solicitud solicitud = buscarSolicitud(idSolicitud);
+		if (solicitud != null) {
+			solicitud.setTipoTrabajo(tipo);
+			solicitud.setTitulo(tituloCarrera);
+			solicitud.setTecnico(diplomaTecnico);
+			solicitud.setHabilidad(habilidadOficio);
+			solicitud.setTiempoTrabajo(tiempoTrabajo);
+			solicitud.setExperienciaLaboral(experiencia);
+			solicitud.setSexo(sexo);
+			solicitud.setProvincia(provincia);
+			solicitud.setLicenciaDeConducir(tieneLicencia);
+			solicitud.setDispuestoAMudarse(dispuestoAMudarse);
+			solicitud.setRangoMinSalario(minSal);
+			solicitud.setRangoMaxSalario(maxSal);
+		}
 	}
-	
+
 	public void modificarOferta(String idOferta, String tipo, String titulo, String tecnico, String habilidad,
 			String tiempoTrabajo, int experiencia, char sexo, String provincia, boolean licRequerida,
 			boolean dispMudarse, String descripcion, float sal, float coincidencia, int puestos, boolean solEspecif) {
 		Oferta oferta = buscarOferta(idOferta);
-		
+
 		if(oferta != null) {
 			oferta.setTipoTrabajo(tipo);
 			oferta.setTitulo(titulo);
@@ -295,7 +434,7 @@ public class BolsaEmpleo {
 		}
 		return aux;
 	}
-	
+
 	public Empresa getEmpresaRNC(String rnc){
 		Empresa aux = null;
 		boolean encontrado = false;
@@ -324,19 +463,19 @@ public class BolsaEmpleo {
 		}
 		return aux;
 	}
-	
+
 	public Empresa getEmpresaPorEmpleado (Usuario empleado) {
-	Empresa aux = null;
-	String[] idEmpresa = empleado.getId().split("-");
-	int i =0;
-	while (i< lasEmpresas.size()) {
-		if (lasEmpresas.get(i).getId().equals(idEmpresa[0])) {
-			aux = lasEmpresas.get(i);
-			return aux;
+		Empresa aux = null;
+		String[] idEmpresa = empleado.getId().split("-");
+		int i =0;
+		while (i< lasEmpresas.size()) {
+			if (lasEmpresas.get(i).getId().equals(idEmpresa[0])) {
+				aux = lasEmpresas.get(i);
+				return aux;
+			}
+			i++;
 		}
-		i++;
-	}
-	return aux;
+		return aux;
 	}
 
 	public Oferta buscarOferta(String id) { 
@@ -434,23 +573,22 @@ public class BolsaEmpleo {
 
 	public int calcularPuntosCoincidencia(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
 		int puntos = 0;
+		if (!aptitudSolicitud(solicitudCandidato, ofertaEmpresa) || solicitudCandidato.isActivo())
+			puntos = -1;
+
 		puntos += compararDisponibilidadYTipo(solicitudCandidato, ofertaEmpresa);
 		puntos += compararExperienciaYSalario(solicitudCandidato, ofertaEmpresa);
 		puntos += compararDatosPersonales(solicitudCandidato, ofertaEmpresa);
 		puntos += compararResidencia(solicitudCandidato, ofertaEmpresa);
-		if (!aptitudSolicitud(solicitudCandidato, ofertaEmpresa) || solicitudCandidato.isActivo())
-			puntos = -1;
-		else {
-			puntos += 40;
-		}
+		puntos += 40;
 		return puntos;
 	}
 
 	private int compararDisponibilidadYTipo(Solicitud solicitudCandidato, Oferta ofertaEmpresa) {
 		int puntos = 0;
-		if (solicitudCandidato.getTiempoTrabajo().equalsIgnoreCase(ofertaEmpresa.getTiempoTrabajo()))
+		if (solicitudCandidato.getTiempoTrabajo() != null &&solicitudCandidato.getTiempoTrabajo().equalsIgnoreCase(ofertaEmpresa.getTiempoTrabajo()))
 			puntos += 5;
-		if (solicitudCandidato.getTipoTrabajo().equalsIgnoreCase(String.valueOf(ofertaEmpresa.getTipoTrabajo())))
+		if (solicitudCandidato.getTipoTrabajo() != null && solicitudCandidato.getTipoTrabajo().equalsIgnoreCase(String.valueOf(ofertaEmpresa.getTipoTrabajo())))
 			puntos += 5;
 		return puntos;
 	}
@@ -506,7 +644,6 @@ public class BolsaEmpleo {
 				comp = false;
 			}
 		}
-
 		return comp;
 	}
 
@@ -546,17 +683,17 @@ public class BolsaEmpleo {
 			return true;
 		return false;	
 	}
-	
+
 	public Solicitud[] top3Candidatos(Oferta oferta){
 		ArrayList<String> candidatosValidos = PorcentajeCoincidencia(oferta);
 		Solicitud top3Candidatos[] = new Solicitud[3];
 		int puntosTop3Candidatos[] = new int[3];
- 		Solicitud candidatoActual = null;
+		Solicitud candidatoActual = null;
 		int puntosCandidato = 0;
 		for(String idCandidato : candidatosValidos) {
 			candidatoActual = buscarSolicitud(idCandidato);
 			puntosCandidato = calcularPuntosCoincidencia(candidatoActual, oferta);
-			
+
 			if(puntosCandidato >= puntosTop3Candidatos[0]) {
 				top3Candidatos[2] = top3Candidatos[1];
 				puntosTop3Candidatos[2] = puntosTop3Candidatos[1];
