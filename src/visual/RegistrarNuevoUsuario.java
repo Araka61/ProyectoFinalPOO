@@ -88,6 +88,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 			GestorFicheros.cargarDatosDesdeFicheros();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -184,7 +185,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		btnLimpiar.setBackground(new Color(245, 158, 11)); 
 		btnLimpiar.setActionCommand("OK");
 		buttonPane.add(btnLimpiar);
-		
+
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -362,7 +363,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 		rdbtnContraUsuario.setBackground(bgPrincipal);
 		rdbtnContraUsuario.setBounds(543, 128, 147, 25);
 		panel.add(rdbtnContraUsuario);
-		
+
 		cmbCiudades = new JComboBox<String>();
 		cmbCiudades.setForeground(colorTexto);
 		cmbCiudades.setBackground(bgInputs);
@@ -653,12 +654,14 @@ public class RegistrarNuevoUsuario extends JDialog {
 				txtCorreoEmpresa.getText().trim().isEmpty()) {
 			JOptionPane.showMessageDialog(this, "Completa todos los datos.");
 			return false;
-		}else if (comprovarUsuarioYCorreo(txtUsuarioLoginEmpresa.getText().trim(), txtCorreoEmpresa.getText().trim())) 
+		}else if (comprovarUsuarioYCorreo(txtUsuarioLoginEmpresa.getText().trim(), txtCorreoEmpresa.getText().trim()) && correoValido(txtCorreoEmpresa.getText().trim())) 
 			return true;
-		JOptionPane.showMessageDialog(this, "Usuario o correo ya registrado");
+		else if (!comprovarUsuarioYCorreo(txtUsuarioLoginEmpresa.getText().trim(), txtCorreoEmpresa.getText().trim())){
+			JOptionPane.showMessageDialog(this, "Usuario o correo ya registrado");
+		}
 		return false;
 	}
-	
+
 	private boolean validarClaveEmpresa () {
 		Empresa aux = obtenerEmpresaSel();
 		String clave = new String(pfContrasenaEmpresa.getPassword());
@@ -831,6 +834,12 @@ public class RegistrarNuevoUsuario extends JDialog {
 		for (String ciudad : BolsaEmpleo.getInstancia().getCiudades()) {
 			cmbCiudades.addItem(ciudad);
 		}
+	}
+	private boolean correoValido(String correo){
+		if (correo.contains("@") && correo.contains(".")) {
+			return true;}
+		JOptionPane.showMessageDialog(this, "Correo no valido.");
+		return false;
 	}
 	//quite los imports que dan warning 
 }

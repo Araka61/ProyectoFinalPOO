@@ -44,9 +44,12 @@ public class BolsaEmpleo {
         ciudades.add("Azua");
         tiposEmpresa = new ArrayList<>();
         tiposEmpresa.add("Micro");
-        tiposEmpresa.add("Pequña");
+        tiposEmpresa.add("Pequeña");
         tiposEmpresa.add("Mediana");
         tiposEmpresa.add("Grande");
+        tiposEmpresa.add("Zona Franca");
+        tiposEmpresa.add("Hotel o Casino (mediano/pequeño)");
+        tiposEmpresa.add("Hotel o Casino (Grande)");
         
 		cookieUsuario = null;
 	}
@@ -300,6 +303,20 @@ public class BolsaEmpleo {
 			i++;
 		}
 		return aux;
+	}
+	
+	public Empresa getEmpresaPorEmpleado (Usuario empleado) {
+	Empresa aux = null;
+	String[] idEmpresa = empleado.getId().split("-");
+	int i =0;
+	while (i< lasEmpresas.size()) {
+		if (lasEmpresas.get(i).getId().equals(idEmpresa[0])) {
+			aux = lasEmpresas.get(i);
+			return aux;
+		}
+		i++;
+	}
+	return aux;
 	}
 
 	public Oferta buscarOferta(String id) { 
