@@ -578,6 +578,4 @@ public class BolsaEmpleo {
 		}
 		return top3Candidatos;
 	}
-
-
 }

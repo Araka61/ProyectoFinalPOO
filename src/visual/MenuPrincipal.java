@@ -52,7 +52,6 @@ public class MenuPrincipal extends JFrame {
 			public void run() {
 				try {
 					GestorFicheros.cargarDatosDesdeFicheros();
-
 					MenuPrincipal frame = new MenuPrincipal();
 
 					Usuario cookie = BolsaEmpleo.getInstancia().getCookieUsuario();
@@ -179,7 +178,7 @@ public class MenuPrincipal extends JFrame {
 		menuEmpleos.add(itemCatalogoOfertas);
 		
 		JMenuItem itemOfertasRecomendadas = new JMenuItem("Ofertas Recomendadas");
-		itemCatalogoOfertas.addActionListener(new ActionListener() {
+		itemOfertasRecomendadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				OfertasRecomendadas recomendacion = new OfertasRecomendadas();
 				recomendacion.setModal(true);

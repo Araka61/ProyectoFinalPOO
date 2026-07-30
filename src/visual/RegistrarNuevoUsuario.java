@@ -88,12 +88,11 @@ public class RegistrarNuevoUsuario extends JDialog {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 			GestorFicheros.cargarDatosDesdeFicheros();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 	/**
 	 * Create the dialog.
 	 */
@@ -690,10 +689,11 @@ public class RegistrarNuevoUsuario extends JDialog {
 
 			JOptionPane.showMessageDialog(this, "Completa todos los datos.");
 			return false;
-		} else if (comprovarUsuarioYCorreo(txtUsuarioLogin.getText(), txtCorreo.getText())) {
+		} else if (comprovarUsuarioYCorreo(txtUsuarioLogin.getText(), txtCorreo.getText()) || correoValido(txtCorreo.getText().trim())) {
 			return true;
-		}
-		JOptionPane.showMessageDialog(this, "Usuario o correo ya registrado");
+		}else if (!comprovarUsuarioYCorreo(txtUsuarioLogin.getText(), txtCorreo.getText()))
+			JOptionPane.showMessageDialog(this, "Usuario o correo ya registrado");
+
 		return false;
 	}
 
