@@ -523,7 +523,8 @@ public class BolsaEmpleo {
 		return false;	
 	}
 	
-	public Solicitud[] top3Candidatos(ArrayList<String> candidatosValidos, Oferta oferta){
+	public Solicitud[] top3Candidatos(Oferta oferta){
+		ArrayList<String> candidatosValidos = PorcentajeCoincidencia(oferta);
 		Solicitud top3Candidatos[] = new Solicitud[3];
 		int puntosTop3Candidatos[] = new int[3];
  		Solicitud candidatoActual = null;
@@ -551,4 +552,6 @@ public class BolsaEmpleo {
 		}
 		return top3Candidatos;
 	}
+
+
 }
