@@ -170,7 +170,7 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem itemCatalogoOfertas = new JMenuItem("Catalogo de Ofertas");
 		itemCatalogoOfertas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CatalogoOfertas catalogo = new CatalogoOfertas();
+				CatalogoOfertas catalogo = new CatalogoOfertas(false);
 				catalogo.setModal(true);
 				catalogo.setVisible(true);
 			}
@@ -180,9 +180,9 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem itemOfertasRecomendadas = new JMenuItem("Ofertas Recomendadas");
 		itemOfertasRecomendadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OfertasRecomendadas recomendacion = new OfertasRecomendadas();
-				recomendacion.setModal(true);
-				recomendacion.setVisible(true);
+				CatalogoOfertas catalogo = new CatalogoOfertas(true);
+				catalogo.setModal(true);
+				catalogo.setVisible(true);
 			}
 			
 			

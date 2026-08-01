@@ -3,8 +3,10 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.sql.rowset.FilteredRowSet;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -15,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import logico.BolsaEmpleo;
 import logico.GestorFicheros;
 import logico.Oferta;
+import logico.Persona;
 import logico.Solicitud;
 import logico.Usuario;
 
@@ -24,12 +27,14 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class CatalogoOfertas extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable tableOfertas;
 	private DefaultTableModel modelTabla;
+	private ArrayList<Oferta> listaActual = new ArrayList<>();
 	
 	// Colores Paleta 
 	private final Color bgPrincipal = new Color(243, 244, 246); // Gris muy claro
@@ -38,13 +43,17 @@ public class CatalogoOfertas extends JDialog {
 	private final Color colorVerde = new Color(16, 185, 129);   // Verde 
 	private final Color colorRojo = new Color(239, 68, 68);     // Rojo
 	private final Color colorAzul = new Color(37, 99, 235);     // Azul estándar
+	private JTextField txtIndice;
+	private int i;
+	private Persona auxPersona = BolsaEmpleo.getInstancia().buscarPersona(BolsaEmpleo.getInstancia().getCookieUsuario().getId());
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			CatalogoOfertas dialog = new CatalogoOfertas();
+			GestorFicheros.cargarDatosDesdeFicheros();
+			CatalogoOfertas dialog = new CatalogoOfertas(false);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -55,7 +64,7 @@ public class CatalogoOfertas extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CatalogoOfertas() {
+	public CatalogoOfertas(boolean filtro) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -90,7 +99,7 @@ public class CatalogoOfertas extends JDialog {
 		JScrollPane scrollPane = new JScrollPane(tableOfertas);
 		scrollPane.getViewport().setBackground(bgInputs); 
 		contentPanel.add(scrollPane, BorderLayout.CENTER);
-		cargarOfertas();
+		cargarOfertas(filtro);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBackground(bgPrincipal);
@@ -104,15 +113,77 @@ public class CatalogoOfertas extends JDialog {
 				dispose();
 			}
 		});
+		
+		JButton btnAnterior = new JButton("Anterior");
+		btnAnterior.setForeground(Color.WHITE);
+		btnAnterior.setBackground(colorAzul);
+		btnAnterior.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (i>0)
+					i--;
+				cargarOfertas(filtro);
+				txtIndice.setText("Solicitud : " + (i+1));
+				if (i==0)
+					btnAnterior.setVisible(false);
+				
+			}
+		});
+		btnAnterior.setVisible(false);
+		buttonPane.add(btnAnterior);
+		
+		txtIndice = new JTextField();
+		txtIndice.setEditable(false);
+		txtIndice.setText("Solicitud : " + (i+1));
+		buttonPane.add(txtIndice);
+		txtIndice.setColumns(10);
+		txtIndice.setVisible(filtro);
+		
+		JButton btnSiguiente = new JButton("Siguiente");
+		btnSiguiente.setForeground(Color.white);
+		btnSiguiente.setBackground(colorAzul);
+		btnSiguiente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				i++;
+				if (i>auxPersona.getSolicitudes().size())
+					i = 0;
+				if (i>0)
+				{btnAnterior.setVisible(true);}
+				cargarOfertas(filtro);
+				txtIndice.setText("Solicitud : " + (i+1));
+			}
+		});
+		btnSiguiente.setVisible(filtro);
+		buttonPane.add(btnSiguiente);
+		
+		JButton btnDescripcion = new JButton("Descripcion");
+		btnDescripcion.setBackground(colorVerde);
+		btnDescripcion.setForeground(Color.WHITE);
+		btnDescripcion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Oferta seleccionada = getOfertaSeleccionada();
+				if (seleccionada == null) {
+					JOptionPane.showMessageDialog(null, "Seleccione una oferta de la tabla.", "Aviso", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				DescripcionOferta dialog = new DescripcionOferta(seleccionada);
+				dialog.setVisible(true);
+			}
+		});
+		buttonPane.add(btnDescripcion);
+		
 		btnCerrar.setBackground(colorRojo);
 		btnCerrar.setForeground(Color.WHITE);
 		buttonPane.add(btnCerrar);
 	}
 	
-	private void cargarOfertas() {
+	private void cargarOfertas(boolean filtro) {
 		modelTabla.setRowCount(0);
+		
 
 		ArrayList<Oferta> lista = BolsaEmpleo.getInstancia().getLasOfertas();
+		if (filtro)
+			lista = BolsaEmpleo.getInstancia().misRecomentaciones(auxPersona.getSolicitudes().get(i));
+		listaActual = lista;
 
 		if (lista != null) {
 			for (Oferta s : lista) {
@@ -147,5 +218,12 @@ public class CatalogoOfertas extends JDialog {
 				modelTabla.addRow(fila);
 			}
 		}
+	}
+	private Oferta getOfertaSeleccionada() {
+		int fila = tableOfertas.getSelectedRow();
+		if (fila < 0 || listaActual == null || fila >= listaActual.size()) {
+			return null;
+		}
+		return listaActual.get(fila);
 	}
 }

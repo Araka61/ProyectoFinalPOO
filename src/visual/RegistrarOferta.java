@@ -49,6 +49,7 @@ public class RegistrarOferta extends JDialog {
     private JCheckBox chkMudarse;
     private JCheckBox chkLicencia;
     private JTextPane txtDescripcion;
+    private JComboBox<String> cmbArea;
 
     private Usuario usuario = null;
 
@@ -223,10 +224,10 @@ public class RegistrarOferta extends JDialog {
         lblNewLabel_1.setBounds(15, 149, 46, 14);
         contentPanel.add(lblNewLabel_1);
         
-        JTextField txtArea = new JTextField();
-        txtArea.setBounds(83, 146, 197, 20);
-        contentPanel.add(txtArea);
-        txtArea.setColumns(10);
+        cmbArea = new JComboBox<String>();
+        cmbArea.setBounds(82, 146, 198, 20);
+        llenarAreas();
+        contentPanel.add(cmbArea);
 
         if (idOferta != null) {
             Oferta oferta = BolsaEmpleo.getInstancia().buscarOferta(idOferta);
@@ -288,11 +289,11 @@ public class RegistrarOferta extends JDialog {
                 String tituloSelect = (String) cbxTituloOficio.getSelectedItem();
                 String titulo = "n/a", tecnico = "n/a", habilidad = "n/a";
                 if ("Grado / Ingenieria".equals(tituloSelect)) {
-                    titulo = txtArea.getText();
+                    titulo = cmbArea.getSelectedItem().toString().trim();
                 } else if ("Tecnico".equals(tituloSelect)) {
-                    tecnico = txtArea.getText();
+                    tecnico = cmbArea.getSelectedItem().toString().trim();
                 } else if ("Oficio".equals(tituloSelect)) {
-                    habilidad = txtArea.getText();
+                    habilidad = cmbArea.getSelectedItem().toString().trim();
                 }
                 
                 if (idOferta != null) {
@@ -352,4 +353,12 @@ public class RegistrarOferta extends JDialog {
 		}
 		return salario;
 	}
+ 
+	  private void llenarAreas() {
+			BolsaEmpleo bolsa = BolsaEmpleo.getInstancia();
+			cmbArea.removeAllItems();
+			for (String area : bolsa.getAreas()) {
+				cmbArea.addItem(area);
+			}
+		}
 }
