@@ -175,3 +175,5 @@ Unicode (Para la ñ y tildes)
 
 Yo ya cambie los \u00F1 por ñ que tenia para que sea mas vicible pero bueno no se como poner tildes a si que si ven algo como \u00E1
 sepan que es Unicode
+
+Oferta tiene un arraylist con los id de todas las solicitudes rechazadas, para que no vuelvan a aparecer en la misma oferta.
