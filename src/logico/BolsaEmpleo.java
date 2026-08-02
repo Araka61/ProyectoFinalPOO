@@ -574,20 +574,34 @@ public class BolsaEmpleo {
 	}
 	
 	public ArrayList<Oferta> mejoresOfertas(Usuario usuario){
+		ArrayList<Oferta> mejoresOfertas = new ArrayList<>();
+		if (usuario == null || lasOfertas == null) {
+	        return mejoresOfertas;
+	    }
+		Persona persona = buscarPersona(usuario.getId());
+		if(persona == null || persona.getSolicitudes() == null) {
+			return mejoresOfertas;
+		}
+		Solicitud solicitud = persona.getSolicitudes().get(0);
 		int i = 0;
 		int puntos = 0;
 		boolean solicitudRechazada;
-		Persona persona = buscarPersona(usuario.getId());
-		ArrayList<Oferta> mejoresOfertas = new ArrayList<>();
 		while(i < lasOfertas.size()) {
 			Oferta oferta = lasOfertas.get(i);
+			if(oferta == null || !oferta.isActivo()) {
+				continue;
+			}
+			
 			solicitudRechazada = false;
-			for(String idSolicitud : oferta.getIdSolicitudesRechazadas()) {
-				if(persona.getSolicitudes().get(0).getId().equalsIgnoreCase(idSolicitud)) {
-					solicitudRechazada = true;
+			if(oferta.getIdSolicitudesRechazadas() != null) {
+				for(String idSolicitud : oferta.getIdSolicitudesRechazadas()) {
+					if(persona.getSolicitudes().get(0).getId().equalsIgnoreCase(idSolicitud)) {
+						solicitudRechazada = true;
+						break;
+					}
 				}
 			}
-			if(oferta.isActivo() && persona != null && !persona.isEmpleado()) {
+			if(oferta.isActivo() && persona != null && !persona.isEmpleado() && !solicitudRechazada) {
 				puntos = calcularPuntosCoincidencia(persona.getSolicitudes().get(0), oferta);
 				if(puntos >= 80) {
 					mejoresOfertas.add(oferta);
