@@ -145,7 +145,15 @@ public class MenuPrincipal extends JFrame {
 
 		JMenu menuPerfil = new JMenu("Mi Solicitud");
 		JMenuItem itemEditarDatos = new JMenuItem("Editar Datos Personales");
-		//itemEditarDatos.addActionListener();
+		itemEditarDatos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				EditarPerfilUsuario editar = new EditarPerfilUsuario(BolsaEmpleo.getInstancia().getCookieUsuario().getId());
+				editar.setModal(true);
+				editar.setVisible(true);
+			}
+		});
 		menuPerfil.add(itemEditarDatos);
 		JMenuItem itemCrearSolicitud = new JMenuItem("Crear Solicitud");
 		itemCrearSolicitud.addActionListener(new ActionListener() {
