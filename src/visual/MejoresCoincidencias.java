@@ -269,6 +269,7 @@ public class MejoresCoincidencias extends JDialog {
 						if(candidatos[candidatoSel] != null) {
 							Persona persona = BolsaEmpleo.getInstancia().buscarPersona(candidatos[candidatoSel].getIdUsuario());
 							persona.setEmpleado(true);
+							oferta.contratarSolicitud(candidatos[candidatoSel]);
 							oferta.setCantPuesto(oferta.getCantPuesto()-1);
 							JOptionPane.showMessageDialog(null, "El candidato fue contratado", "Candidato contratado", JOptionPane.INFORMATION_MESSAGE);
 							if(oferta.getCantPuesto() == 0) {

@@ -12,6 +12,7 @@ public class Oferta extends Empleo{
 	private int cantPuesto;
 	private boolean soloespecif;
 	private ArrayList<String>idSolicitudesRechazadas;
+	private ArrayList<String>idContratados;
 
 	public Oferta(String id, String tipoTrabajo, String titulo, String tecnico, String habilidad, String tiempoTrabajo,
 			int experienciaLaboral, char sexo, String provincia, boolean licenciaDeConducir,
@@ -87,5 +88,18 @@ public class Oferta extends Empleo{
 	public void rechazarSolicitud(Solicitud solicitud) {
 		String idSolicitud = solicitud.getId();
 		idSolicitudesRechazadas.add(idSolicitud);
+	}
+	
+	public ArrayList<String> getIdContratados() {
+		return idSolicitudesRechazadas;
+	}
+	
+	public void setIdContratados(ArrayList<String> idContratados) {
+		this.idContratados = idContratados;
+	}
+	
+	public void contratarSolicitud(Solicitud solicitud) {
+		String idSolicitud = solicitud.getId();
+		idContratados.add(idSolicitud);
 	}
 }
