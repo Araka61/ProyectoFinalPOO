@@ -144,7 +144,7 @@ public class CatalogoOfertas extends JDialog {
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				i++;
-				if (i>auxPersona.getSolicitudes().size())
+				if (i>=auxPersona.getSolicitudes().size())
 					i = 0;
 				if (i>0)
 				{btnAnterior.setVisible(true);}

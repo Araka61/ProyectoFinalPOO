@@ -689,7 +689,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 
 			JOptionPane.showMessageDialog(this, "Completa todos los datos.");
 			return false;
-		} else if (comprovarUsuarioYCorreo(txtUsuarioLogin.getText(), txtCorreo.getText()) || correoValido(txtCorreo.getText().trim())) {
+		} else if (comprovarUsuarioYCorreo(txtUsuarioLogin.getText(), txtCorreo.getText()) && correoValido(txtCorreo.getText().trim())) {
 			return true;
 		}else if (!comprovarUsuarioYCorreo(txtUsuarioLogin.getText(), txtCorreo.getText()))
 			JOptionPane.showMessageDialog(this, "Usuario o correo ya registrado");

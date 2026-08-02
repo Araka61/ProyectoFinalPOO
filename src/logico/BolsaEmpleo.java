@@ -584,6 +584,7 @@ public class BolsaEmpleo {
 		while(i < lasOfertas.size()) {
 			Oferta oferta = lasOfertas.get(i);
 			if(oferta == null || !oferta.isActivo()) {
+				i++;
 				continue;
 			}
 			

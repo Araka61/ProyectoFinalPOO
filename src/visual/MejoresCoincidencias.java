@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import logico.BolsaEmpleo;
+import logico.Empresa;
 import logico.GestorFicheros;
 import logico.Grado;
 import logico.Oferta;
@@ -16,6 +17,7 @@ import logico.Persona;
 import logico.Solicitud;
 import logico.Tecnico;
 import logico.Trabajador;
+import logico.Usuario;
 
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
@@ -29,11 +31,14 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
 
 public class MejoresCoincidencias extends JDialog {
 
 	private final JPanel panelCandidatos = new JPanel();
-
+	private Usuario usuario = BolsaEmpleo.getInstancia().getCookieUsuario();
+	private Empresa empresa;
 	
 	// Colores Paleta 
 		private final Color bgPrincipal = new Color(243, 244, 246); // Gris muy claro
@@ -104,7 +109,7 @@ public class MejoresCoincidencias extends JDialog {
 		setBounds(100, 100, 720, 510);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
-		panelCandidatos.setBounds(0, 0, 320, 437);
+		panelCandidatos.setBounds(0, 0, 320, 356);
 		panelCandidatos.setBackground(bgPrincipal);
 		panelCandidatos.setBorder(new EmptyBorder(5, 5, 5, 5));
 		UIManager.put("RadioButton.disabledText", new Color(31, 41, 55));
@@ -557,6 +562,30 @@ public class MejoresCoincidencias extends JDialog {
 		txtOficio.setBackground(Color.WHITE);
 		txtOficio.setBounds(100, 5, 261, 20);
 		panelTrabajador.add(txtOficio);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 356, 320, 81);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Oferta:");
+		lblNewLabel_1.setBounds(10, 11, 46, 14);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(lblNewLabel_1);
+		
+		if(usuario != null) {
+			empresa = BolsaEmpleo.getInstancia().getEmpresaPorEmpleado(usuario);
+		}
+		
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setBounds(66, 8, 244, 20);
+		comboBox.addItem("Seleccione una oferta");
+		if(empresa != null) {
+			for(Oferta o : empresa.getLasOfertas()) {
+				comboBox.addItem(o.getDescripcionTrabajo());
+			}
+		}
+		panel.add(comboBox);
 	}
 	
 	private void cargarPerfil(Solicitud solicitud) {

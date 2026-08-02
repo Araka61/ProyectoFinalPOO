@@ -105,7 +105,13 @@ public class OfertasRecomendadas extends JDialog {
 	        Persona p = BolsaEmpleo.getInstancia().buscarPersona(usuarioActual.getId());
 	        if (p != null && p.getSolicitudes() != null) {
 	            for (Solicitud s : p.getSolicitudes()) {
-	                cbxFiltrar.addItem(s.getId());
+	            	if(s.getTitulo() != null) {
+	            		cbxFiltrar.addItem(s.getTitulo());
+	            	}else if(s.getTecnico() != null) {
+	            		cbxFiltrar.addItem(s.getTecnico());
+	            	}else if(s.getHabilidad() != null) {
+	            		cbxFiltrar.addItem(s.getHabilidad());
+	            	}
 	            }
 	        }
 	    }
@@ -162,7 +168,8 @@ public class OfertasRecomendadas extends JDialog {
 	}
 
 	protected void cargarOfertasRecomendadas() {
-		
+		Solicitud s = BolsaEmpleo.getInstancia().buscarSolicitud((String) cbxFiltrar.getSelectedItem());
+		cargarOfertas(s);
 	}
 
 	private void cargarOfertas(Solicitud s) {

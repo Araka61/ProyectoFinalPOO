@@ -170,7 +170,7 @@ public class ListarOfertas extends JDialog {
         if (lista != null) {
             for (Oferta s : lista) {
                 
-            	if (usuarioActual != null && "Admin".equalsIgnoreCase(usuarioActual.getRol())) {
+            	if (usuarioActual != null && ("Admin".equalsIgnoreCase(usuarioActual.getRol()) || "Reclutador".equalsIgnoreCase(usuarioActual.getRol()))) {
             	    String[] partesId = usuarioActual.getId().split("-");
             	    String idFiltroEmpresa = partesId[0]; 
 
