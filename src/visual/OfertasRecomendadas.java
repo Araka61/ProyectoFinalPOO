@@ -3,28 +3,36 @@ package visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import logico.BolsaEmpleo;
 import logico.GestorFicheros;
 import logico.Oferta;
+import logico.Persona;
+import logico.Solicitud;
 import logico.Usuario;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import javax.swing.JSplitPane;
 
 public class OfertasRecomendadas extends JDialog {
 
@@ -32,6 +40,7 @@ public class OfertasRecomendadas extends JDialog {
 	 private JTable tableOfertas;
 	 private DefaultTableModel modelTabla;
 	 private Usuario usuarioActual = BolsaEmpleo.getInstancia().getCookieUsuario();
+	 private JComboBox<String> cbxFiltrar;
 	    
 	 // Colores Paleta 
 	 private final Color bgPrincipal = new Color(243, 244, 246); // Gris muy claro
@@ -64,81 +73,127 @@ public class OfertasRecomendadas extends JDialog {
 				GestorFicheros.guardarDatosFicheros();
 			}
 		});
-		setTitle("Catalogo de ofertas en el sistema");
-		setBounds(100, 100, 1024, 576);
+		setTitle("Ofertas Recomendadas por solicitud");
+		setBounds(100, 100, 1500, 540);
 		setLocationRelativeTo(null);
-		setModal(true);
-		
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(bgPrincipal);
-		contentPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		contentPanel.setLayout(new BorderLayout(0, 0));
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setLayout(new BorderLayout(10, 10));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
-		String[] columnas = {"Tipo Trabajo", "Título / Habilidad", "Disponibilidad", "Experiencia", "Provincia", "Salario", "Licencia", "Movilidad", "Puestos", "Estado"};
-		modelTabla = new DefaultTableModel(columnas, 0) {
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-		tableOfertas = new JTable(modelTabla);
-		tableOfertas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tableOfertas.setBackground(bgInputs);
-		tableOfertas.setForeground(colorTexto);
-		tableOfertas.getTableHeader().setReorderingAllowed(false);
-		tableOfertas.getTableHeader().setBackground(bgPrincipal);
-		tableOfertas.getTableHeader().setForeground(colorTexto);
-		JScrollPane scrollPane = new JScrollPane(tableOfertas);
-		scrollPane.getViewport().setBackground(bgInputs); 
-		contentPanel.add(scrollPane, BorderLayout.CENTER);
-		cargarOfertas(usuarioActual);
-		JPanel buttonPane = new JPanel();
-		buttonPane.setBackground(bgPrincipal);
-		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			
-		JButton btnCerrar = new JButton("Cerrar");
-		btnCerrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GestorFicheros.guardarDatosFicheros();
-				dispose();
-			}
-		});
-		btnCerrar.setBackground(colorRojo);
-		btnCerrar.setForeground(Color.WHITE);
-		buttonPane.add(btnCerrar);
+		JPanel panelFiltrar = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+		panelFiltrar.setBackground(bgPrincipal);
+		
+		panelFiltrar.setPreferredSize(new Dimension(220, 0));
+		
+		JLabel lblNewLabel = new JLabel("Solicitud");
+		lblNewLabel.setForeground(colorTexto);
+		panelFiltrar.add(lblNewLabel);
+		
+		cbxFiltrar = new JComboBox<String>();
+	    cbxFiltrar.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            cargarOfertasRecomendadas();
+	        }
+	    });
+	    cbxFiltrar.setPreferredSize(new Dimension(140, 25));
+	    cbxFiltrar.addItem("Escoga una solicitud");
+	    panelFiltrar.add(cbxFiltrar);
+
+	    if (usuarioActual != null) {
+	        Persona p = BolsaEmpleo.getInstancia().buscarPersona(usuarioActual.getId());
+	        if (p != null && p.getSolicitudes() != null) {
+	            for (Solicitud s : p.getSolicitudes()) {
+	                cbxFiltrar.addItem(s.getId());
+	            }
+	        }
+	    }
+	    contentPanel.add(panelFiltrar, BorderLayout.WEST);
+
+	    JPanel panelLista = new JPanel(new BorderLayout());
+	    
+	    String[] columnas = {"Tipo Trabajo", "Título / Habilidad", "Disponibilidad", "Experiencia", "Provincia", "Salario", "Licencia", "Movilidad", "Puestos", "Estado"};
+	    modelTabla = new DefaultTableModel(columnas, 0) {
+	        @Override
+	        public boolean isCellEditable(int row, int column) {
+	            return false;
+	        }
+	    };
+	    
+	    tableOfertas = new JTable(modelTabla);
+	    tableOfertas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    tableOfertas.setBackground(bgInputs);
+	    tableOfertas.setForeground(colorTexto);
+	    tableOfertas.getTableHeader().setReorderingAllowed(false);
+	    
+	    JScrollPane scrollPane = new JScrollPane(tableOfertas);
+	    scrollPane.getViewport().setBackground(bgInputs);
+	    
+	    panelLista.add(scrollPane, BorderLayout.CENTER); 
+	    contentPanel.add(panelLista, BorderLayout.CENTER);
+
+	    JPanel buttonPane = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+	    buttonPane.setBackground(bgPrincipal);
+	    getContentPane().add(buttonPane, BorderLayout.SOUTH);
+
+	    JButton cancelButton = new JButton("Atrás");
+	    cancelButton.setBackground(colorRojo);
+	    cancelButton.setForeground(Color.WHITE);
+	    cancelButton.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            GestorFicheros.cargarDatosDesdeFicheros();
+	            GestorFicheros.guardarDatosFicheros();
+	            dispose();
+	        }
+	    });
+	    buttonPane.add(cancelButton);
+
+	    JButton btnCerrar = new JButton("Cerrar");
+	    btnCerrar.setBackground(colorRojo);
+	    btnCerrar.setForeground(Color.WHITE);
+	    btnCerrar.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            GestorFicheros.guardarDatosFicheros();
+	            dispose();
+	        }
+	    });
+	    buttonPane.add(btnCerrar);
 	}
 
-	private void cargarOfertas(Usuario usuario) {
+	protected void cargarOfertasRecomendadas() {
+		
+	}
+
+	private void cargarOfertas(Solicitud s) {
 		modelTabla.setRowCount(0);
 
-		ArrayList<Oferta> lista = BolsaEmpleo.getInstancia().mejoresOfertas(usuario);
+		ArrayList<Oferta> lista = BolsaEmpleo.getInstancia().mejoresOfertas(s);
 
 		if (lista != null) {
-			for (Oferta s : lista) {
+			for (Oferta o : lista) {
 				String tituloOHabilidad = "n/a";
-				if (s.getTitulo() != null && !s.getTitulo().equals("n/a")) {
+				if (o.getTitulo() != null && !o.getTitulo().equals("n/a")) {
 					tituloOHabilidad = s.getTitulo();
-				} else if (s.getTecnico() != null && !s.getTecnico().equals("n/a")) {
+				} else if (o.getTecnico() != null && !o.getTecnico().equals("n/a")) {
 					tituloOHabilidad = s.getTecnico();
-				} else if (s.getHabilidad() != null && !s.getHabilidad().equals("n/a")) {
+				} else if (o.getHabilidad() != null && !o.getHabilidad().equals("n/a")) {
 					tituloOHabilidad = s.getHabilidad();
 				}
 
-				String experiencia = String.format("%d", s.getExperienciaLaboral());
-				String salario = "$" + String.format("%.0f", s.getSalario());
-				String licencia = s.isLicenciaDeConducir() ? "Requerida" : "No Requerida";
-				String movilidad = s.isDispuestoAMudarse() ? "Requerida" : "No Requerida";
-				String puestos = String.format("%d", s.getCantPuesto());
-				String estado = s.isActivo() ? "Activa" : "Inactiva";
+				String experiencia = String.format("%d", o.getExperienciaLaboral());
+				String salario = "$" + String.format("%.0f", o.getSalario());
+				String licencia = o.isLicenciaDeConducir() ? "Requerida" : "No Requerida";
+				String movilidad = o.isDispuestoAMudarse() ? "Requerida" : "No Requerida";
+				String puestos = String.format("%d", o.getCantPuesto());
+				String estado = o.isActivo() ? "Activa" : "Inactiva";
 
 				Object[] fila = {
-					s.getTipoTrabajo(),
+					o.getTipoTrabajo(),
 					tituloOHabilidad,
-					s.getTiempoTrabajo(),
+					o.getTiempoTrabajo(),
 					experiencia,
-					s.getProvincia(),
+					o.getProvincia(),
 					salario,
 					licencia,
 					movilidad,
