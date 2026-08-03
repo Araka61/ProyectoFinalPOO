@@ -41,51 +41,54 @@ public class MejoresCoincidencias extends JDialog {
 	private Empresa empresa;
 	
 	// Colores Paleta 
-		private final Color bgPrincipal = new Color(243, 244, 246); // Gris muy claro
-		private final Color bgInputs = Color.WHITE;                 // Blanco puro
-		private final Color colorTexto = new Color(31, 41, 55);     // Gris carbón oscuro
-		private final Color colorVerde = new Color(16, 185, 129);   // Verde 
-		private final Color colorRojo = new Color(239, 68, 68);  // Rojo
-		private final Color colorAzul = new Color(37, 99, 235); // Azul estándar
+	private final Color bgPrincipal = new Color(243, 244, 246); // Gris muy claro
+	private final Color bgInputs = Color.WHITE;                  // Blanco puro
+	private final Color colorTexto = new Color(31, 41, 55);     // Gris carbón oscuro
+	private final Color colorVerde = new Color(16, 185, 129);   // Verde 
+	private final Color colorRojo = new Color(239, 68, 68);    // Rojo
+	private final Color colorAzul = new Color(37, 99, 235);    // Azul estándar
 
-		private JTextField txtNombreCandidato1;
-		private JTextField txtCorreoCandidato1;
-		private JTextField txtNombreCandidato2;
-		private JTextField txtCorreoCandidato2;
-		private JTextField txtCorreoCandidato3;
-		private JTextField txtNombreCandidato3;
-		private JTextField txtCedula;
-		private JTextField txtNombre;
-		private JTextField txtTelefono;
-		private JTextField txtCorreo;
-		private JTextField txtDisponibilidad;
-		private JTextField txtRangoSalario;
-		private JTextField txtProvincia;
-		private JTextField txtUniversidad;
-		private JTextField txtCarrera;
-		private JTextField txtTitulo;
-		private JTextField txtDiploma;
-		private JTextField txtEspecialidad;
-		private JTextField txtOficio;
-		private JTextField txtInstituto;
-		private JPanel panelUniversitario;
-		private JPanel panelTecnico;
-		private JPanel panelTrabajador;
-		private JCheckBox chkMudarse;
-		private JRadioButton rdbSexo;
-		private JCheckBox chkLicencia;
-		private JTextField txtExperiencia;
-		private Solicitud[] candidatos;
-		private float[] porcCoincCandidatos;
-		private int candidatoSel;
-		private JButton btnContratar;
-		private JButton btnRechazar;
-		private Oferta oferta;
-		private JComboBox<String> cbxOferta;
-	/**
-	 
-	 * Launch the application.
-	 */
+	private JTextField txtNombreCandidato1;
+	private JTextField txtCorreoCandidato1;
+	private JTextField txtNombreCandidato2;
+	private JTextField txtCorreoCandidato2;
+	private JTextField txtCorreoCandidato3;
+	private JTextField txtNombreCandidato3;
+	private JTextField txtCedula;
+	private JTextField txtNombre;
+	private JTextField txtTelefono;
+	private JTextField txtCorreo;
+	private JTextField txtDisponibilidad;
+	private JTextField txtRangoSalario;
+	private JTextField txtProvincia;
+	private JTextField txtUniversidad;
+	private JTextField txtCarrera;
+	private JTextField txtTitulo;
+	private JTextField txtDiploma;
+	private JTextField txtEspecialidad;
+	private JTextField txtOficio;
+	private JTextField txtInstituto;
+	private JPanel panelUniversitario;
+	private JPanel panelTecnico;
+	private JPanel panelTrabajador;
+	private JCheckBox chkMudarse;
+	private JRadioButton rdbSexo;
+	private JCheckBox chkLicencia;
+	private JTextField txtExperiencia;
+	private Solicitud[] candidatos;
+	private float[] porcCoincCandidatos;
+	private int candidatoSel;
+	private JButton btnContratar;
+	private JButton btnRechazar;
+	private Oferta oferta;
+	private JComboBox<String> cbxOferta;
+	private JButton btnSolComplCandidato1;
+	private JButton btnSolComplCandidato2;
+	private JButton btnSolComplCandidato3;
+	private JLabel lblCandidato1;
+	private JLabel lblCandidato2;
+	private JLabel lblCandidato3;
+
 	public static void main(String[] args) {
 		try {
 			MejoresCoincidencias dialog = new MejoresCoincidencias();
@@ -96,9 +99,6 @@ public class MejoresCoincidencias extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public MejoresCoincidencias() {
 		setTitle("Mejores Candidatos");
 		addWindowListener(new WindowAdapter() {
@@ -115,15 +115,17 @@ public class MejoresCoincidencias extends JDialog {
 		panelCandidatos.setBorder(new EmptyBorder(5, 5, 5, 5));
 		UIManager.put("RadioButton.disabledText", new Color(31, 41, 55));
 		UIManager.put("CheckBox.disabledText", new Color(31, 41, 55));
+		
 		candidatos = new Solicitud[3];
 		porcCoincCandidatos = new float[3];
 		candidatoSel = -1;
+		
 		getContentPane().add(panelCandidatos);
 		panelCandidatos.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Candidato 1: "+porcCoincCandidatos[0]+"%");
-		lblNewLabel.setBounds(10, 11, 117, 14);
-		panelCandidatos.add(lblNewLabel);
+		lblCandidato1 = new JLabel("Candidato 1: 0.0%");
+		lblCandidato1.setBounds(10, 11, 150, 14);
+		panelCandidatos.add(lblCandidato1);
 		
 		JLabel nombreCandidato1 = new JLabel("Nombre:");
 		nombreCandidato1.setBounds(20, 36, 60, 14);
@@ -133,18 +135,16 @@ public class MejoresCoincidencias extends JDialog {
 		correoCandidato1.setBounds(20, 61, 60, 14);
 		panelCandidatos.add(correoCandidato1);
 		
-		JButton btnSolComplCandidato1 = new JButton("Ver solicitud completa");
-		if(candidatos[0] != null) {
-			btnSolComplCandidato1.setEnabled(true);
-		}else {
-			btnSolComplCandidato1.setEnabled(false);
-		}
+		btnSolComplCandidato1 = new JButton("Ver solicitud completa");
+		btnSolComplCandidato1.setEnabled(false);
 		btnSolComplCandidato1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cargarPerfil(candidatos[0]);
-				candidatoSel = 0;
-				btnContratar.setEnabled(true);
-				btnRechazar.setEnabled(true);
+				if(candidatos[0] != null) {
+					cargarPerfil(candidatos[0]);
+					candidatoSel = 0;
+					btnContratar.setEnabled(true);
+					btnRechazar.setEnabled(true);
+				}
 			}
 		});
 		btnSolComplCandidato1.setBounds(20, 86, 166, 23);
@@ -152,18 +152,28 @@ public class MejoresCoincidencias extends JDialog {
 		btnSolComplCandidato1.setBackground(colorAzul);
 		panelCandidatos.add(btnSolComplCandidato1);
 		
-		JButton btnSolComplCandidato2 = new JButton("Ver solicitud completa");
-		if(candidatos[1] != null) {
-			btnSolComplCandidato2.setEnabled(true);
-		}else {
-			btnSolComplCandidato2.setEnabled(false);
-		}
+		lblCandidato2 = new JLabel("Candidato 2: 0.0%");
+		lblCandidato2.setBounds(10, 128, 150, 14);
+		panelCandidatos.add(lblCandidato2);
+		
+		JLabel nombreCandidato2 = new JLabel("Nombre:");
+		nombreCandidato2.setBounds(20, 153, 60, 14);
+		panelCandidatos.add(nombreCandidato2);
+		
+		JLabel label_1 = new JLabel("Correo:");
+		label_1.setBounds(20, 178, 60, 14);
+		panelCandidatos.add(label_1);
+		
+		btnSolComplCandidato2 = new JButton("Ver solicitud completa");
+		btnSolComplCandidato2.setEnabled(false);
 		btnSolComplCandidato2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cargarPerfil(candidatos[1]);
-				candidatoSel = 1;
-				btnContratar.setEnabled(true);
-				btnRechazar.setEnabled(true);
+				if(candidatos[1] != null) {
+					cargarPerfil(candidatos[1]);
+					candidatoSel = 1;
+					btnContratar.setEnabled(true);
+					btnRechazar.setEnabled(true);
+				}
 			}
 		});
 		btnSolComplCandidato2.setForeground(Color.WHITE);
@@ -171,21 +181,9 @@ public class MejoresCoincidencias extends JDialog {
 		btnSolComplCandidato2.setBounds(20, 203, 166, 23);
 		panelCandidatos.add(btnSolComplCandidato2);
 		
-		JLabel label_1 = new JLabel("Correo:");
-		label_1.setBounds(20, 178, 60, 14);
-		panelCandidatos.add(label_1);
-		
-		JLabel nombreCandidato2 = new JLabel("Nombre:");
-		nombreCandidato2.setBounds(20, 153, 60, 14);
-		panelCandidatos.add(nombreCandidato2);
-		
-		JLabel lblCandidato = new JLabel("Candidato 2: "+porcCoincCandidatos[1]+"%");
-		lblCandidato.setBounds(10, 128, 117, 14);
-		panelCandidatos.add(lblCandidato);
-		
-		JLabel lblCandidato_1 = new JLabel("Candidato 3: "+porcCoincCandidatos[2]+"%");
-		lblCandidato_1.setBounds(10, 247, 117, 14);
-		panelCandidatos.add(lblCandidato_1);
+		lblCandidato3 = new JLabel("Candidato 3: 0.0%");
+		lblCandidato3.setBounds(10, 247, 150, 14);
+		panelCandidatos.add(lblCandidato3);
 		
 		JLabel nombreCandidato3 = new JLabel("Nombre:");
 		nombreCandidato3.setBounds(20, 272, 60, 14);
@@ -195,18 +193,16 @@ public class MejoresCoincidencias extends JDialog {
 		correoCandidato3.setBounds(20, 297, 60, 14);
 		panelCandidatos.add(correoCandidato3);
 		
-		JButton btnSolComplCandidato3 = new JButton("Ver solicitud completa");
-		if(candidatos[2] != null) {
-			btnSolComplCandidato3.setEnabled(true);
-		}else {
-			btnSolComplCandidato3.setEnabled(false);
-		}
+		btnSolComplCandidato3 = new JButton("Ver solicitud completa");
+		btnSolComplCandidato3.setEnabled(false);
 		btnSolComplCandidato3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cargarPerfil(candidatos[2]);
-				candidatoSel = 2;
-				btnContratar.setEnabled(true);
-				btnRechazar.setEnabled(true);
+				if(candidatos[2] != null) {
+					cargarPerfil(candidatos[2]);
+					candidatoSel = 2;
+					btnContratar.setEnabled(true);
+					btnRechazar.setEnabled(true);
+				}
 			}
 		});
 		btnSolComplCandidato3.setForeground(Color.WHITE);
@@ -219,42 +215,37 @@ public class MejoresCoincidencias extends JDialog {
 		txtNombreCandidato1.setBounds(82, 33, 200, 20);
 		txtNombreCandidato1.setBackground(bgInputs);
 		panelCandidatos.add(txtNombreCandidato1);
-		txtNombreCandidato1.setColumns(10);
 		
 		txtCorreoCandidato1 = new JTextField();
 		txtCorreoCandidato1.setEditable(false);
-		txtCorreoCandidato1.setColumns(10);
 		txtCorreoCandidato1.setBackground(bgInputs);
 		txtCorreoCandidato1.setBounds(82, 58, 200, 20);
 		panelCandidatos.add(txtCorreoCandidato1);
 		
 		txtNombreCandidato2 = new JTextField();
 		txtNombreCandidato2.setEditable(false);
-		txtNombreCandidato2.setColumns(10);
 		txtNombreCandidato2.setBackground(bgInputs);
 		txtNombreCandidato2.setBounds(82, 150, 200, 20);
 		panelCandidatos.add(txtNombreCandidato2);
 		
 		txtCorreoCandidato2 = new JTextField();
 		txtCorreoCandidato2.setEditable(false);
-		txtCorreoCandidato2.setColumns(10);
 		txtCorreoCandidato2.setBackground(bgInputs);
 		txtCorreoCandidato2.setBounds(82, 175, 200, 20);
 		panelCandidatos.add(txtCorreoCandidato2);
 		
-		txtCorreoCandidato3 = new JTextField();
-		txtCorreoCandidato3.setEditable(false);
-		txtCorreoCandidato3.setColumns(10);
-		txtCorreoCandidato3.setBackground(bgInputs);
-		txtCorreoCandidato3.setBounds(82, 294, 200, 20);
-		panelCandidatos.add(txtCorreoCandidato3);
-		
 		txtNombreCandidato3 = new JTextField();
 		txtNombreCandidato3.setEditable(false);
-		txtNombreCandidato3.setColumns(10);
 		txtNombreCandidato3.setBackground(bgInputs);
 		txtNombreCandidato3.setBounds(82, 269, 200, 20);
 		panelCandidatos.add(txtNombreCandidato3);
+		
+		txtCorreoCandidato3 = new JTextField();
+		txtCorreoCandidato3.setEditable(false);
+		txtCorreoCandidato3.setBackground(bgInputs);
+		txtCorreoCandidato3.setBounds(82, 294, 200, 20);
+		panelCandidatos.add(txtCorreoCandidato3);
+
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBounds(0, 436, 704, 32);
@@ -266,18 +257,42 @@ public class MejoresCoincidencias extends JDialog {
 			btnContratar.setEnabled(false);
 			btnContratar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(candidatoSel >= 0) {
-						if(candidatos[candidatoSel] != null) {
-							Persona persona = BolsaEmpleo.getInstancia().buscarPersona(candidatos[candidatoSel].getIdUsuario());
-							persona.setEmpleado(true);
-							oferta.contratarSolicitud(candidatos[candidatoSel]);
-							oferta.setCantPuesto(oferta.getCantPuesto()-1);
-							JOptionPane.showMessageDialog(null, "El candidato fue contratado", "Candidato contratado", JOptionPane.INFORMATION_MESSAGE);
-							if(oferta.getCantPuesto() == 0) {
-								JOptionPane.showMessageDialog(null, "El candidato fue contratado, no quedan mas puestos para esta oferta", "Candidato contratado", JOptionPane.INFORMATION_MESSAGE);
-								dispose();
-							}
+					if(candidatoSel >= 0 && candidatos[candidatoSel] != null && oferta != null) {
+						Persona persona = BolsaEmpleo.getInstancia().buscarPersona(candidatos[candidatoSel].getIdUsuario());
+						persona.setEmpleado(true);
+						oferta.contratarSolicitud(candidatos[candidatoSel]);
+						oferta.setCantPuesto(oferta.getCantPuesto()-1);
+						JOptionPane.showMessageDialog(null, "El candidato fue contratado", "Candidato contratado", JOptionPane.INFORMATION_MESSAGE);
+						
+						if(oferta.getCantPuesto() == 0) {
+							JOptionPane.showMessageDialog(null, "El candidato fue contratado, no quedan mas puestos para esta oferta", "Candidato contratado", JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+							return;
+						}
+						
+						cargarNuevosCandidatos(oferta);
+						actualizarVistaCandidatos();
+						candidatoSel = -1;
+						vaciarPerfil();
+						btnContratar.setEnabled(false);
+						btnRechazar.setEnabled(false);
+					}
+				}
+			});
+			btnContratar.setForeground(Color.WHITE);
+			btnContratar.setBackground(colorVerde);
+			buttonPane.add(btnContratar);
+			
+			btnRechazar = new JButton("Rechazar");
+			btnRechazar.setEnabled(false);
+			btnRechazar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(candidatoSel >= 0 && candidatos[candidatoSel] != null && oferta != null) {
+						int opcionSel = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea rechazar este candidato?", "Rechazar candidato", JOptionPane.WARNING_MESSAGE);
+						if(opcionSel == JOptionPane.OK_OPTION) {
+							oferta.rechazarSolicitud(candidatos[candidatoSel]);
 							cargarNuevosCandidatos(oferta);
+							actualizarVistaCandidatos();
 							candidatoSel = -1;
 							vaciarPerfil();
 							btnContratar.setEnabled(false);
@@ -286,49 +301,20 @@ public class MejoresCoincidencias extends JDialog {
 					}
 				}
 			});
-			btnContratar.setForeground(Color.WHITE);
-			btnContratar.setBackground(colorVerde);
-			btnContratar.setActionCommand("OK");
-			buttonPane.add(btnContratar);
-			{
-				btnRechazar = new JButton("Rechazar");
-				btnRechazar.setEnabled(false);
-				btnRechazar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if(candidatoSel >= 0) {
-							if(candidatos[candidatoSel] != null) {
-								int opcionSel = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea rechazar este candidato?", "Rechazar candidato",JOptionPane.WARNING_MESSAGE);
-								if(opcionSel == JOptionPane.OK_OPTION) {
-									oferta.rechazarSolicitud(candidatos[candidatoSel]);
-									cargarNuevosCandidatos(oferta);
-									candidatoSel = -1;
-									vaciarPerfil();
-									btnContratar.setEnabled(false);
-									btnRechazar.setEnabled(false);
-								}
-							}
-						}
-					}
-				});
-				btnRechazar.setForeground(Color.WHITE);
-				btnRechazar.setBackground(colorRojo);
-				btnRechazar.setActionCommand("OK");
-				buttonPane.add(btnRechazar);
-				getRootPane().setDefaultButton(btnRechazar);
-			}
-			{
-				JButton cancelButton = new JButton("Cancelar");
-				cancelButton.setForeground(Color.WHITE);
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						GestorFicheros.guardarDatosFicheros();
-						dispose();
-					}
-				});
-				cancelButton.setBackground(colorAzul);
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			btnRechazar.setForeground(Color.WHITE);
+			btnRechazar.setBackground(colorRojo);
+			buttonPane.add(btnRechazar);
+
+			JButton cancelButton = new JButton("Cancelar");
+			cancelButton.setForeground(Color.WHITE);
+			cancelButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GestorFicheros.guardarDatosFicheros();
+					dispose();
+				}
+			});
+			cancelButton.setBackground(colorAzul);
+			buttonPane.add(cancelButton);
 		}
 		
 		JPanel panelDatos = new JPanel();
@@ -581,19 +567,26 @@ public class MejoresCoincidencias extends JDialog {
 		cbxOferta = new JComboBox<String>();
 		cbxOferta.setBounds(66, 8, 244, 20);
 		cbxOferta.addItem("Seleccione una oferta");
-		if(empresa != null) {
+		if(empresa != null && empresa.getLasOfertas() != null) {
 			for(Oferta o : empresa.getLasOfertas()) {
 				cbxOferta.addItem(o.getDescripcionTrabajo());
 			}
 		}
 		cbxOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int i = cbxOferta.getSelectedIndex()-1;
-				if(i >= 0 && empresa != null	) {
+				int i = cbxOferta.getSelectedIndex() - 1;
+				if(i >= 0 && empresa != null && empresa.getLasOfertas() != null) {
 					oferta = empresa.getLasOfertas().get(i);
-				}else {
+					cargarNuevosCandidatos(oferta);
+				} else {
 					oferta = null;
+					candidatos = new Solicitud[3];
+					porcCoincCandidatos = new float[3];
 				}
+				actualizarVistaCandidatos();
+				vaciarPerfil();
+				btnContratar.setEnabled(false);
+				btnRechazar.setEnabled(false);
 			}
 		});
 		panel.add(cbxOferta);
@@ -602,60 +595,56 @@ public class MejoresCoincidencias extends JDialog {
 	private void cargarPerfil(Solicitud solicitud) {
 		if(solicitud != null) {
 			Persona persona = BolsaEmpleo.getInstancia().buscarPersona(solicitud.getIdUsuario());
-			txtCedula.setText(persona.getCedula().trim());
-			txtNombre.setText(persona.getNombre().trim());
-			txtCorreo.setText(persona.getCorreo().trim());
-			txtTelefono.setText(persona.getTelefono().trim());
-			txtDisponibilidad.setText(solicitud.getTiempoTrabajo().trim());
-			txtRangoSalario.setText(solicitud.getRangoMinSalario()+"-"+solicitud.getRangoMaxSalario());
-			txtExperiencia.setText(solicitud.getExperienciaLaboral()+" años");
-			txtProvincia.setText(solicitud.getProvincia().trim());
-			chkMudarse.setSelected(solicitud.isDispuestoAMudarse());
-			if(persona.getSexo() == 'F') {
-				rdbSexo.setText("F");
-			}else {
-				rdbSexo.setText("M");
-			}
-			chkLicencia.setSelected(persona.isTieneLicencia());
-			if(persona instanceof Grado) {
-				panelUniversitario.setVisible(true);
-				panelTecnico.setVisible(false);
-				panelTrabajador.setVisible(false);
-				txtUniversidad.setText(((Grado)persona).getUniversidad());
-				txtCarrera.setText(((Grado)persona).getCarrera());
-				txtTitulo.setText(((Grado)persona).getTituloUniversitario());
-			}else if(persona instanceof Tecnico) {
-				panelUniversitario.setVisible(false);
-				panelTecnico.setVisible(true);
-				panelTrabajador.setVisible(false);
-				txtInstituto.setText(((Tecnico)persona).getInstituto());
-				txtDiploma.setText(((Tecnico)persona).getDiplomaTecnico());
-				txtEspecialidad.setText(((Tecnico)persona).getEspecialidad());
-			}else if(persona instanceof Trabajador) {
-				panelUniversitario.setVisible(false);
-				panelTecnico.setVisible(false);
-				panelTrabajador.setVisible(true);
-				txtOficio.setText(((Trabajador)persona).getOficio());
+			if(persona != null) {
+				txtCedula.setText(persona.getCedula() != null ? persona.getCedula().trim() : "");
+				txtNombre.setText(persona.getNombre() != null ? persona.getNombre().trim() : "");
+				txtCorreo.setText(persona.getCorreo() != null ? persona.getCorreo().trim() : "");
+				txtTelefono.setText(persona.getTelefono() != null ? persona.getTelefono().trim() : "");
+				txtDisponibilidad.setText(solicitud.getTiempoTrabajo() != null ? solicitud.getTiempoTrabajo().trim() : "");
+				txtRangoSalario.setText(solicitud.getRangoMinSalario() + "-" + solicitud.getRangoMaxSalario());
+				txtExperiencia.setText(solicitud.getExperienciaLaboral() + " años");
+				txtProvincia.setText(solicitud.getProvincia() != null ? solicitud.getProvincia().trim() : "");
+				chkMudarse.setSelected(solicitud.isDispuestoAMudarse());
+				rdbSexo.setText(persona.getSexo() == 'F' ? "F" : "M");
+				chkLicencia.setSelected(persona.isTieneLicencia());
+
+				if(persona instanceof Grado) {
+					panelUniversitario.setVisible(true);
+					panelTecnico.setVisible(false);
+					panelTrabajador.setVisible(false);
+					txtUniversidad.setText(((Grado)persona).getUniversidad());
+					txtCarrera.setText(((Grado)persona).getCarrera());
+					txtTitulo.setText(((Grado)persona).getTituloUniversitario());
+				} else if(persona instanceof Tecnico) {
+					panelUniversitario.setVisible(false);
+					panelTecnico.setVisible(true);
+					panelTrabajador.setVisible(false);
+					txtInstituto.setText(((Tecnico)persona).getInstituto());
+					txtDiploma.setText(((Tecnico)persona).getDiplomaTecnico());
+					txtEspecialidad.setText(((Tecnico)persona).getEspecialidad());
+				} else if(persona instanceof Trabajador) {
+					panelUniversitario.setVisible(false);
+					panelTecnico.setVisible(false);
+					panelTrabajador.setVisible(true);
+					txtOficio.setText(((Trabajador)persona).getOficio());
+				}
 			}
 		}
 	}
 	
 	private void cargarNuevosCandidatos(Oferta oferta) {
-		candidatos = BolsaEmpleo.getInstancia().top3Candidatos(oferta);
-		if(candidatos[0] != null) {
-			porcCoincCandidatos[0] = BolsaEmpleo.getInstancia().calcularPuntosCoincidencia(candidatos[0], oferta);
-		}else {
-			porcCoincCandidatos[0] = 0;
-		}
-		if(candidatos[1] != null) {
-			porcCoincCandidatos[1] = BolsaEmpleo.getInstancia().calcularPuntosCoincidencia(candidatos[1], oferta);
-		}else {
-			porcCoincCandidatos[1] = 0;
-		}
-		if(candidatos[2] != null) {
-			porcCoincCandidatos[2] = BolsaEmpleo.getInstancia().calcularPuntosCoincidencia(candidatos[2], oferta);
-		}else {
-			porcCoincCandidatos[2] = 0;
+		candidatos = new Solicitud[3];
+		porcCoincCandidatos = new float[3];
+		
+		Solicitud[] recuperados = BolsaEmpleo.getInstancia().top3Candidatos(oferta);
+		
+		if (recuperados != null) {
+			for (int i = 0; i < Math.min(3, recuperados.length); i++) {
+				candidatos[i] = recuperados[i];
+				if (candidatos[i] != null) {
+					porcCoincCandidatos[i] = BolsaEmpleo.getInstancia().calcularPuntosCoincidencia(candidatos[i], oferta);
+				}
+			}
 		}
 	}
 	
@@ -681,5 +670,55 @@ public class MejoresCoincidencias extends JDialog {
 		txtDiploma.setText("");
 		txtEspecialidad.setText("");
 		txtOficio.setText("");
+	}
+	
+	private void actualizarVistaCandidatos() {
+		// Candidato 1
+		if (candidatos != null && candidatos.length > 0 && candidatos[0] != null) {
+			Persona p1 = BolsaEmpleo.getInstancia().buscarPersona(candidatos[0].getIdUsuario());
+			if (p1 != null) {
+				txtNombreCandidato1.setText(p1.getNombre());
+				txtCorreoCandidato1.setText(p1.getCorreo());
+			}
+			lblCandidato1.setText("Candidato 1: " + porcCoincCandidatos[0] + "%");
+			btnSolComplCandidato1.setEnabled(true);
+		} else {
+			txtNombreCandidato1.setText("");
+			txtCorreoCandidato1.setText("");
+			lblCandidato1.setText("Candidato 1: 0.0%");
+			btnSolComplCandidato1.setEnabled(false);
+		}
+
+		// Candidato 2
+		if (candidatos != null && candidatos.length > 1 && candidatos[1] != null) {
+			Persona p2 = BolsaEmpleo.getInstancia().buscarPersona(candidatos[1].getIdUsuario());
+			if (p2 != null) {
+				txtNombreCandidato2.setText(p2.getNombre());
+				txtCorreoCandidato2.setText(p2.getCorreo());
+			}
+			lblCandidato2.setText("Candidato 2: " + porcCoincCandidatos[1] + "%");
+			btnSolComplCandidato2.setEnabled(true);
+		} else {
+			txtNombreCandidato2.setText("");
+			txtCorreoCandidato2.setText("");
+			lblCandidato2.setText("Candidato 2: 0.0%");
+			btnSolComplCandidato2.setEnabled(false);
+		}
+
+		// Candidato 3
+		if (candidatos != null && candidatos.length > 2 && candidatos[2] != null) {
+			Persona p3 = BolsaEmpleo.getInstancia().buscarPersona(candidatos[2].getIdUsuario());
+			if (p3 != null) {
+				txtNombreCandidato3.setText(p3.getNombre());
+				txtCorreoCandidato3.setText(p3.getCorreo());
+			}
+			lblCandidato3.setText("Candidato 3: " + porcCoincCandidatos[2] + "%");
+			btnSolComplCandidato3.setEnabled(true);
+		} else {
+			txtNombreCandidato3.setText("");
+			txtCorreoCandidato3.setText("");
+			lblCandidato3.setText("Candidato 3: 0.0%");
+			btnSolComplCandidato3.setEnabled(false);
+		}
 	}
 }
