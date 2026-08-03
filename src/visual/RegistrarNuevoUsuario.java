@@ -105,6 +105,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 			}
 		});
 		setBounds(100, 100, 747, 531);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(bgPrincipal);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

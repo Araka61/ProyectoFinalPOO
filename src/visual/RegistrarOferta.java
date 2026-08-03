@@ -60,6 +60,7 @@ public class RegistrarOferta extends JDialog {
     private final Color colorVerde = new Color(16, 185, 129);   // Verde 
     private final Color colorRojo = new Color(239, 68, 68);     // Rojo
     private JTextField textField;
+    private JSpinner spnCoincidencia;
 
     public static void main(String[] args) {
         try {
@@ -216,7 +217,7 @@ public class RegistrarOferta extends JDialog {
         lblNewLabel.setBounds(15, 331, 106, 14);
         contentPanel.add(lblNewLabel);
         
-        JSpinner spnCoincidencia = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 100.0, 1.0));
+        spnCoincidencia = new JSpinner(new SpinnerNumberModel(0.0, 0.0, 100.0, 1.0));
         spnCoincidencia.setBounds(131, 328, 149, 20);
         contentPanel.add(spnCoincidencia);
         
@@ -240,6 +241,17 @@ public class RegistrarOferta extends JDialog {
                 chkLicencia.setSelected(oferta.isLicenciaDeConducir());
                 spnSalario.setValue((double) oferta.getSalario());
                 spnPuestos.setValue(oferta.getCantPuesto());
+                spnCoincidencia.setValue(oferta.getCoincidencia());
+                if(!oferta.getTitulo().equals("n/a")) {
+                	cbxTituloOficio.setSelectedItem("Grado / Ingenieria");
+                	cmbArea.setSelectedItem(oferta.getTitulo());
+                }else if(!oferta.getTecnico().equals("n/a")) {
+                	cbxTituloOficio.setSelectedItem("Tecnico");
+                	cmbArea.setSelectedItem(oferta.getTecnico());
+                }else if(!oferta.getHabilidad().equals("n/a")) {
+                	cbxTituloOficio.setSelectedItem("Oficio");
+                	cmbArea.setSelectedItem(oferta.getHabilidad());
+                }
                 if(oferta.getDescripcionTrabajo() != null) txtDescripcion.setText(oferta.getDescripcionTrabajo());
 
                 if (oferta.getSexo() == 'M') rdbMasculino.setSelected(true);
