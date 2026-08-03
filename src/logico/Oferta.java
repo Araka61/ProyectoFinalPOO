@@ -91,7 +91,7 @@ public class Oferta extends Empleo{
 	}
 	
 	public ArrayList<String> getIdContratados() {
-		return idSolicitudesRechazadas;
+		return idContratados;
 	}
 	
 	public void setIdContratados(ArrayList<String> idContratados) {

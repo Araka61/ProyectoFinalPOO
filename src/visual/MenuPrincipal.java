@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import logico.BolsaEmpleo;
 import logico.ClienteBackup;
+import logico.Empresa;
 import logico.GestorFicheros;
 import logico.Usuario;
 
@@ -269,6 +270,21 @@ public class MenuPrincipal extends JFrame {
 		menuBar.add(menuOfertas);
 		menuBar.add(menuReclutamiento);
 		menuBar.add(menuCuenta);
+		
+		if (BolsaEmpleo.getInstancia().getCookieUsuario().getRol().equalsIgnoreCase("admin")) {
+		JMenuItem itemGraficaRecepcion = new JMenuItem("Recepción de Solicitudes");
+		itemGraficaRecepcion.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	Usuario aux= BolsaEmpleo.getInstancia().getCookieUsuario();
+		    	Empresa auxEmpresa = BolsaEmpleo.getInstancia().getEmpresaPorEmpleado(aux);
+		        GraficaRecepcionOfertas grafica = new GraficaRecepcionOfertas(auxEmpresa);
+		        grafica.setModal(true);
+		        grafica.setVisible(true);
+		    }
+		});
+		menuReclutamiento.add(itemGraficaRecepcion);
+		}
+		
 	}
 
 	private void cerrarSesion() {
