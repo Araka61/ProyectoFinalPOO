@@ -63,8 +63,6 @@ public class ListarPersonas extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				GestorFicheros.cargarDatosDesdeFicheros();
-				GestorFicheros.guardarDatosFicheros();
 			}
 		});
 		setBounds(100, 100, 1500, 540);
@@ -121,9 +119,7 @@ public class ListarPersonas extends JDialog {
 				cancelButton.setForeground(bgPrincipal);
 				cancelButton.addActionListener(new ActionListener()
 				{
-					public void actionPerformed(ActionEvent e) {
-						GestorFicheros.cargarDatosDesdeFicheros();
-						GestorFicheros.guardarDatosFicheros();
+					public void actionPerformed(ActionEvent e) {	
 						dispose();
 					}
 				});

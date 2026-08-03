@@ -102,7 +102,6 @@ public class MejoresCoincidencias extends JDialog {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				GestorFicheros.cargarDatosDesdeFicheros();
 				GestorFicheros.guardarDatosFicheros();
 			}
 		});
@@ -320,7 +319,6 @@ public class MejoresCoincidencias extends JDialog {
 				cancelButton.setForeground(Color.WHITE);
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						GestorFicheros.cargarDatosDesdeFicheros();
 						GestorFicheros.guardarDatosFicheros();
 						dispose();
 					}
