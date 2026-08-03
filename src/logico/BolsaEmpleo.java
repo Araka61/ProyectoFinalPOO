@@ -599,7 +599,7 @@ public class BolsaEmpleo {
 			}
 			if(oferta.isActivo() && !solicitudRechazada) {
 				puntos = calcularPuntosCoincidencia(solicitud, oferta);
-				if(puntos >= 80) {
+				if(puntos >= 50) {
 					mejoresOfertas.add(oferta);
 				}
 			}
