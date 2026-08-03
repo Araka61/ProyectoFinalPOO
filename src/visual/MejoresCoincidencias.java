@@ -80,13 +80,15 @@ public class MejoresCoincidencias extends JDialog {
 		private int candidatoSel;
 		private JButton btnContratar;
 		private JButton btnRechazar;
+		private Oferta oferta;
+		private JComboBox<String> cbxOferta;
 	/**
 	 
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			MejoresCoincidencias dialog = new MejoresCoincidencias(null);
+			MejoresCoincidencias dialog = new MejoresCoincidencias();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -97,7 +99,7 @@ public class MejoresCoincidencias extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public MejoresCoincidencias(Oferta oferta) {
+	public MejoresCoincidencias() {
 		setTitle("Mejores Candidatos");
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -576,15 +578,25 @@ public class MejoresCoincidencias extends JDialog {
 			empresa = BolsaEmpleo.getInstancia().getEmpresaPorEmpleado(usuario);
 		}
 		
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setBounds(66, 8, 244, 20);
-		comboBox.addItem("Seleccione una oferta");
+		cbxOferta = new JComboBox<String>();
+		cbxOferta.setBounds(66, 8, 244, 20);
+		cbxOferta.addItem("Seleccione una oferta");
 		if(empresa != null) {
 			for(Oferta o : empresa.getLasOfertas()) {
-				comboBox.addItem(o.getDescripcionTrabajo());
+				cbxOferta.addItem(o.getDescripcionTrabajo());
 			}
 		}
-		panel.add(comboBox);
+		cbxOferta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int i = cbxOferta.getSelectedIndex()-1;
+				if(i >= 0 && empresa != null	) {
+					oferta = empresa.getLasOfertas().get(i);
+				}else {
+					oferta = null;
+				}
+			}
+		});
+		panel.add(cbxOferta);
 	}
 	
 	private void cargarPerfil(Solicitud solicitud) {
