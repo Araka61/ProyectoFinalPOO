@@ -188,9 +188,9 @@ public class MenuPrincipal extends JFrame {
 		JMenuItem itemOfertasRecomendadas = new JMenuItem("Ofertas Recomendadas");
 		itemOfertasRecomendadas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CatalogoOfertas catalogo = new CatalogoOfertas(true);
-				catalogo.setModal(true);
-				catalogo.setVisible(true);
+				OfertasRecomendadas ofertasRecomendadas = new OfertasRecomendadas();
+				ofertasRecomendadas.setModal(true);
+				ofertasRecomendadas.setVisible(true);
 			}
 			
 			

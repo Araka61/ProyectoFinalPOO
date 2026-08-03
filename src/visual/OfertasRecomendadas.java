@@ -92,30 +92,35 @@ public class OfertasRecomendadas extends JDialog {
 		panelFiltrar.add(lblNewLabel);
 		
 		cbxFiltrar = new JComboBox<String>();
-	    cbxFiltrar.addActionListener(new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	            cargarOfertasRecomendadas();
-	        }
-	    });
-	    cbxFiltrar.setPreferredSize(new Dimension(140, 25));
-	    cbxFiltrar.addItem("Escoga una solicitud");
-	    panelFiltrar.add(cbxFiltrar);
+		cbxFiltrar.setPreferredSize(new Dimension(140, 25));
+		
+		cbxFiltrar.addItem("Escoga una solicitud");
 
-	    if (usuarioActual != null) {
-	        Persona p = BolsaEmpleo.getInstancia().buscarPersona(usuarioActual.getId());
-	        if (p != null && p.getSolicitudes() != null) {
-	            for (Solicitud s : p.getSolicitudes()) {
-	            	if(s.getTitulo() != null) {
-	            		cbxFiltrar.addItem(s.getTitulo());
-	            	}else if(s.getTecnico() != null) {
-	            		cbxFiltrar.addItem(s.getTecnico());
-	            	}else if(s.getHabilidad() != null) {
-	            		cbxFiltrar.addItem(s.getHabilidad());
-	            	}
-	            }
-	        }
-	    }
-	    contentPanel.add(panelFiltrar, BorderLayout.WEST);
+		if (usuarioActual != null) {
+			Persona p = BolsaEmpleo.getInstancia().buscarPersona(usuarioActual.getId());
+			if (p != null && p.getSolicitudes() != null) {
+				for (Solicitud s : p.getSolicitudes()) {
+					String desc = s.getId() + " - ";
+					if(s.getTitulo() != null && !s.getTitulo().equalsIgnoreCase("n/a")) {
+						desc += s.getTitulo();
+					} else if(s.getTecnico() != null && !s.getTecnico().equalsIgnoreCase("n/a")) {
+						desc += s.getTecnico();
+					} else if(s.getHabilidad() != null && !s.getHabilidad().equalsIgnoreCase("n/a")) {
+						desc += s.getHabilidad();
+					}
+					cbxFiltrar.addItem(desc);
+				}
+			}
+		}
+
+		cbxFiltrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cargarOfertasRecomendadas();
+			}
+		});
+
+		panelFiltrar.add(cbxFiltrar);
+		contentPanel.add(panelFiltrar, BorderLayout.WEST);
 
 	    JPanel panelLista = new JPanel(new BorderLayout());
 	    
@@ -168,13 +173,30 @@ public class OfertasRecomendadas extends JDialog {
 	}
 
 	protected void cargarOfertasRecomendadas() {
-		Solicitud s = BolsaEmpleo.getInstancia().buscarSolicitud((String) cbxFiltrar.getSelectedItem());
-		cargarOfertas(s);
+		if (cbxFiltrar.getSelectedIndex() <= 0) {
+			modelTabla.setRowCount(0);
+			return;
+		}
+		
+		String itemSel = (String) cbxFiltrar.getSelectedItem();
+		if (itemSel != null && itemSel.contains(" - ")) {
+			String idSolicitud = itemSel.split(" - ")[0].trim();
+			Solicitud s = BolsaEmpleo.getInstancia().buscarSolicitud(idSolicitud);
+			if (s != null) {
+				cargarOfertas(s);
+			} else {
+				modelTabla.setRowCount(0);
+			}
+		}
 	}
 
 	private void cargarOfertas(Solicitud s) {
 		modelTabla.setRowCount(0);
 
+		if (s == null) {
+			return;
+		}
+		
 		ArrayList<Oferta> lista = BolsaEmpleo.getInstancia().mejoresOfertas(s);
 
 		if (lista != null) {

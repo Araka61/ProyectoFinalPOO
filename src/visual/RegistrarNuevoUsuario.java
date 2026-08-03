@@ -55,12 +55,12 @@ public class RegistrarNuevoUsuario extends JDialog {
 	private JPanel panelNivel;
 	private CardLayout cardLayoutNivel;
 	private JTextField txtUniversidad;
-	private JTextField txtCarrera;
-	private JTextField txtTituloUniversitario;
+	private JComboBox<String> cbxCarrera;
+	private JComboBox<String> cbxTituloUniversitario;
 	private JTextField txtInstituto;
 	private JTextField txtDiplomaTecnico;
-	private JTextField txtEspecialidad;
-	private JTextField txtOficio;
+	private JComboBox<String> cbxEspecialidad;
+	private JComboBox<String> cbxOficio;
 	private JTextField txtUsuarioLoginEmpresa;
 	private JPasswordField pfContrasenaEmpresa;
 	private JTextField txtCorreoEmpresa;
@@ -549,21 +549,31 @@ public class RegistrarNuevoUsuario extends JDialog {
 		lblCarrera.setForeground(colorTexto);
 		lblCarrera.setBounds(0, 40, 100, 20);
 		panel.add(lblCarrera);
-		txtCarrera = new JTextField();
-		txtCarrera.setForeground(colorTexto);
-		txtCarrera.setBackground(bgInputs);
-		txtCarrera.setBounds(110, 40, 200, 20);
-		panel.add(txtCarrera);
+		
+		cbxCarrera = new JComboBox<String>();
+		cbxCarrera.setForeground(colorTexto);
+		cbxCarrera.setBackground(bgInputs);
+		cbxCarrera.setBounds(110, 40, 200, 20);
+		cbxCarrera.addItem(" ");
+		for(String s : BolsaEmpleo.getInstancia().getAreas()) {
+			cbxCarrera.addItem(s);
+		}
+		panel.add(cbxCarrera);
 
 		JLabel lblTituloUniversitario = new JLabel("Titulo:");
 		lblTituloUniversitario.setForeground(colorTexto);
 		lblTituloUniversitario.setBounds(0, 70, 100, 20);
 		panel.add(lblTituloUniversitario);
-		txtTituloUniversitario = new JTextField();
-		txtTituloUniversitario.setForeground(colorTexto);
-		txtTituloUniversitario.setBackground(bgInputs);
-		txtTituloUniversitario.setBounds(110, 70, 200, 20);
-		panel.add(txtTituloUniversitario);
+		
+		cbxTituloUniversitario = new JComboBox<String>();
+		cbxTituloUniversitario.setForeground(colorTexto);
+		cbxTituloUniversitario.setBackground(bgInputs);
+		cbxTituloUniversitario.setBounds(110, 70, 200, 20);
+		cbxTituloUniversitario.addItem(" ");
+		for(String s : BolsaEmpleo.getInstancia().getAreas()) {
+			cbxTituloUniversitario.addItem(s);
+		}
+		panel.add(cbxTituloUniversitario);
 
 		return panel;
 	}
@@ -596,11 +606,15 @@ public class RegistrarNuevoUsuario extends JDialog {
 		lblEspecialidad.setBounds(0, 70, 100, 20);
 		lblEspecialidad.setForeground(colorTexto);
 		panel.add(lblEspecialidad);
-		txtEspecialidad = new JTextField();
-		txtEspecialidad.setBounds(110, 70, 200, 20);
-		txtEspecialidad.setForeground(colorTexto);
-		txtEspecialidad.setBackground(bgInputs);
-		panel.add(txtEspecialidad);
+		cbxEspecialidad = new JComboBox<String>();
+		cbxEspecialidad.setBounds(110, 70, 200, 20);
+		cbxEspecialidad.setForeground(colorTexto);
+		cbxEspecialidad.setBackground(bgInputs);
+		cbxEspecialidad.addItem(" ");
+		for(String s : BolsaEmpleo.getInstancia().getAreas()) {
+			cbxEspecialidad.addItem(s);
+		}
+		panel.add(cbxEspecialidad);
 
 		return panel;
 	}
@@ -614,11 +628,15 @@ public class RegistrarNuevoUsuario extends JDialog {
 		lblOficio.setBounds(0, 10, 100, 20);
 		lblOficio.setForeground(colorTexto);
 		panel.add(lblOficio);
-		txtOficio = new JTextField();
-		txtOficio.setBounds(110, 10, 200, 20);
-		txtOficio.setBackground(bgInputs);
-		txtOficio.setForeground(colorTexto);
-		panel.add(txtOficio);
+		cbxOficio = new JComboBox<String>();
+		cbxOficio.setBounds(110, 10, 200, 20);
+		cbxOficio.setBackground(bgInputs);
+		cbxOficio.setForeground(colorTexto);
+		cbxOficio.addItem(" ");
+		for(String s : BolsaEmpleo.getInstancia().getAreas()) {
+			cbxOficio.addItem(s);
+		}
+		panel.add(cbxOficio);
 
 		return panel;
 	}
@@ -712,8 +730,8 @@ public class RegistrarNuevoUsuario extends JDialog {
 	}
 
 	private boolean validarGrado() {
-		if (txtUniversidad.getText().trim().isEmpty() || txtCarrera.getText().trim().isEmpty() || 
-				txtTituloUniversitario.getText().trim().isEmpty()) {
+		if (txtUniversidad.getText().trim().isEmpty() || cbxTituloUniversitario.getSelectedItem().toString().trim().isEmpty() || 
+				cbxTituloUniversitario.getSelectedItem().toString().trim().isEmpty()) {
 			JOptionPane.showMessageDialog(this, "Completa Universidad, Carrera y Titulo.");
 			return false;
 		}
@@ -722,7 +740,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 
 	private boolean validarTecnico() {
 		if (txtInstituto.getText().trim().isEmpty() || txtDiplomaTecnico.getText().trim().isEmpty() || 
-				txtEspecialidad.getText().trim().isEmpty()) {
+				cbxEspecialidad.getSelectedItem().toString().trim().isEmpty()) {
 			JOptionPane.showMessageDialog(this, "Completa Instituto, Diploma y Especialidad.");
 			return false;
 		}
@@ -730,7 +748,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 	}
 
 	private boolean validarTrabajador() {
-		if (txtOficio.getText().trim().isEmpty()) {
+		if (cbxOficio.getSelectedItem().toString().trim().isEmpty()) {
 			JOptionPane.showMessageDialog(this, "Completa el campo de Oficio.");
 			return false;
 		}
@@ -754,19 +772,19 @@ public class RegistrarNuevoUsuario extends JDialog {
 			if (rdbtnGrado.isSelected()) {
 				BolsaEmpleo.getInstancia().registrarPersonaGrado(
 						cedula, nombre, telefono, correo, tiempo, licencia, sexo, ciudad,
-						txtUniversidad.getText().trim(), txtCarrera.getText().trim(), 
-						txtTituloUniversitario.getText().trim(), user, pass, "candidato"
+						txtUniversidad.getText().trim(), cbxCarrera.getSelectedItem().toString().trim(), 
+						cbxTituloUniversitario.getSelectedItem().toString().trim(), user, pass, "candidato"
 						);
 			} else if (rdbtnTecnico.isSelected()) {
 				BolsaEmpleo.getInstancia().registrarPersonaTecnico(
 						cedula, nombre, telefono, correo, tiempo, licencia, sexo, ciudad,
 						txtInstituto.getText().trim(), txtDiplomaTecnico.getText().trim(), 
-						txtEspecialidad.getText().trim(), user, pass, "candidato"
+						cbxEspecialidad.getSelectedItem().toString().trim(), user, pass, "candidato"
 						);
 			} else {
 				BolsaEmpleo.getInstancia().registrarPersonaTrabajador(
 						cedula, nombre, telefono, correo, tiempo, licencia, sexo, ciudad,
-						txtOficio.getText().trim(), user, pass, "candidato"
+						cbxOficio.getSelectedItem().toString().trim(), user, pass, "candidato"
 						);
 			}
 
@@ -800,12 +818,12 @@ public class RegistrarNuevoUsuario extends JDialog {
 		pfContrasenaPersona.setText("");
 		rdMasculino.setSelected(true);
 		txtUniversidad.setText("");
-		txtCarrera.setText("");
-		txtTituloUniversitario.setText("");
+		cbxCarrera.setSelectedIndex(0);
+		cbxTituloUniversitario.setSelectedIndex(0);
 		txtInstituto.setText("");
 		txtDiplomaTecnico.setText("");
-		txtEspecialidad.setText("");
-		txtOficio.setText("");
+		cbxEspecialidad.setSelectedIndex(0);
+		cbxEspecialidad.setSelectedIndex(0);
 		rdbtnGrado.setSelected(true);
 		cardLayoutNivel.show(panelNivel, "GRADO");
 		rdbtnUsuario.setSelected(true);
@@ -841,5 +859,4 @@ public class RegistrarNuevoUsuario extends JDialog {
 		JOptionPane.showMessageDialog(this, "Correo no valido.");
 		return false;
 	}
-	//quite los imports que dan warning 
 }
