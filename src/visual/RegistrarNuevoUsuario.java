@@ -681,7 +681,7 @@ public class RegistrarNuevoUsuario extends JDialog {
 
 	private boolean validarClaveEmpresa () {
 		Empresa aux = obtenerEmpresaSel();
-		String clave = new String(pfContrasenaEmpresa.getPassword());
+		String clave = new String(pfClave.getPassword());
 		if (!BolsaEmpleo.getInstancia().claveCorrecta(clave.trim(),aux)) {
 			JOptionPane.showMessageDialog(this, "Clave incorrecta");
 			return false;

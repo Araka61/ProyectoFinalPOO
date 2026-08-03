@@ -91,6 +91,9 @@ public class Oferta extends Empleo{
 	}
 	
 	public ArrayList<String> getIdContratados() {
+		if (idContratados == null) {
+			idContratados = new ArrayList<>();
+		}
 		return idContratados;
 	}
 	
@@ -99,6 +102,9 @@ public class Oferta extends Empleo{
 	}
 	
 	public void contratarSolicitud(Solicitud solicitud) {
+		if (idContratados == null) {
+			idContratados = new ArrayList<>();
+		}
 		String idSolicitud = solicitud.getId();
 		idContratados.add(idSolicitud);
 	}
