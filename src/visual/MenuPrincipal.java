@@ -34,11 +34,13 @@ public class MenuPrincipal extends JFrame {
 
 	private PanelUsuario panelUsuario;
 	private PanelEmpresa panelEmpresa;
+	private PanelAdmin panelAdmin;
 
 	private JMenuBar menuBar;
 
 	private static final String CARD_USUARIO = "USUARIO";
 	private static final String CARD_EMPRESA = "EMPRESA";
+	private static final String CARD_ADMIN = "ADMIN";
 
 	// Colores Paleta 
 	private final Color bgPrincipal = new Color(243, 244, 246); // Gris muy claro
@@ -54,7 +56,12 @@ public class MenuPrincipal extends JFrame {
 				try {
 					GestorFicheros.cargarDatosDesdeFicheros();
 					MenuPrincipal frame = new MenuPrincipal();
-
+					
+					Usuario admin = BolsaEmpleo.getInstancia().getUsuarioPorUserName("Admin");
+					if(admin == null) {
+						BolsaEmpleo.getInstancia().registrarAdmin();
+					}
+					
 					Usuario cookie = BolsaEmpleo.getInstancia().getCookieUsuario();
 					if (cookie != null && BolsaEmpleo.getInstancia().getUsuarioPorUserName(cookie.getUserName()) != null) {
 						frame.cargarInterfazSegunUsuario(cookie);
@@ -96,9 +103,21 @@ public class MenuPrincipal extends JFrame {
 
 		JMenu menuBase = new JMenu("Menú Principal");
 		JMenuItem menuItem = new JMenuItem("Cerrar Sesión");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cerrarSesion();
+			}
+		});
 		menuItem.setBackground(bgInputs);
 		menuBase.add(menuItem);
 		JMenuItem menuItem_1 = new JMenuItem("Respaldar En Servidor");
+		menuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ClienteBackup cb = new ClienteBackup();
+				String[] losArchivos = {"IdGenerador.dat","Usuraio.dat","Personas.dat","Empresa.dat","Ofertas.dat","Solicitudes.dat"};
+				cb.enviarRespaldo(losArchivos);
+			}
+		});
 		menuItem_1.setBackground(bgInputs);
 		menuBase.add(menuItem_1);
 		menuBar.add(menuBase);
@@ -117,9 +136,12 @@ public class MenuPrincipal extends JFrame {
 		panelUsuario.setBackground(bgPrincipal);
 		panelEmpresa = new PanelEmpresa();
 		panelEmpresa.setBackground(bgPrincipal);
+		panelAdmin = new PanelAdmin();
+		panelAdmin.setBackground(bgPrincipal);
 
 		panelCuenta.add(panelUsuario, CARD_USUARIO);
 		panelCuenta.add(panelEmpresa, CARD_EMPRESA);
+		panelCuenta.add(panelAdmin, CARD_ADMIN);
 	}
 
 	public void cargarInterfazSegunUsuario(Usuario usuario) {
@@ -131,7 +153,10 @@ public class MenuPrincipal extends JFrame {
 			configurarMenuEmpresa();
 			panelEmpresa.actualizarDatos(usuario);
 			cardLayoutCuenta.show(panelCuenta, CARD_EMPRESA);
-		} else {
+		} else if(rol.equalsIgnoreCase("Administrador")) {
+			
+			cardLayoutCuenta.show(panelCuenta, CARD_ADMIN);
+		}else {
 			configurarMenuCandidato();
 			panelUsuario.actualizarDatos(usuario);
 			cardLayoutCuenta.show(panelCuenta, CARD_USUARIO);

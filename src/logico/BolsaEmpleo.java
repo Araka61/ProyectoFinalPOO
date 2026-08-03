@@ -765,5 +765,10 @@ public class BolsaEmpleo {
 		}
 		return misResultados;
 	}
+	
+	public void registrarAdmin() {
+		Usuario u = new Usuario("ADMIN","Admin@mail.com","Admin","123","Administrador");
+		losUsuarios.add(u);
+	}
 }
 

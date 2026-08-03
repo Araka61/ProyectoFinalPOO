@@ -26,6 +26,7 @@ public class ServidorBackup extends Thread {
 		ServerSocket sckServer = null;
 		try {
 			sckServer = new ServerSocket(7000);
+			System.out.println("Comunicación aceptada.");
 		}catch(IOException e) {
 			System.out.println("Comunicación rechazada.");
 			System.exit(1);
@@ -39,6 +40,7 @@ public class ServidorBackup extends Thread {
 					public void run() {
 						try	(Socket sckActual = sckCliente;
 							DataInputStream entrada = new DataInputStream(sckActual.getInputStream())){
+							System.out.println("Conexión exitosa");
 							
 							boolean pasandoArchivos = true;
 							
